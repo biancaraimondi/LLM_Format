@@ -1,3 +1,4 @@
 bitsandbytes
 transformers
 captum
+accelerate
