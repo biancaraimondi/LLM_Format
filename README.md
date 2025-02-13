@@ -2,7 +2,7 @@
 
 run with the following command:
 ```
-python main.py
+python src/main.py
 ```
 
 or run using script with the following command:
@@ -10,4 +10,4 @@ or run using script with the following command:
 ./main.sh
 ```
 
-or use the Jupyter Notebook `main.ipynb`.
+or use the Jupyter Notebook `src/main.ipynb`.
