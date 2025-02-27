@@ -185,14 +185,14 @@ def parse_kb(prolog_code, query, answer):
                 return reward + 1
             except:
               print("Matching error!")
-              return reward - 0.5
+              return reward
         #print(result)
         # Ensure that the comparison makes sense:
         # This assumes you expect a non-empty result when the answer is correct.
-        return reward - 0.5
+        return reward + 0.25
     except Exception as e:
         print(f"Error encountered: {e}")
-        return reward - 1
+        return reward
 
 
 def worker(q, prolog_code, query, answer):
@@ -291,7 +291,7 @@ def count_xml(text) -> float:
         count += 0.125
     if text.count("\n<query>\n") == 1:
         count += 0.125
-        count -= len(text.split("\n</query>\n")[-1])*0.001
+        #count -= len(text.split("\n</query>\n")[-1])*0.001
     if text.count("\n</query>") == 1:
         count += 0.125
         count -= (len(text.split("\n</query>")[-1]) - 1)*0.001
@@ -321,16 +321,16 @@ training_args = GRPOConfig(
     bf16 = is_bfloat16_supported(),
     fp16 = not is_bfloat16_supported(),
     per_device_train_batch_size = 1,
-    gradient_accumulation_steps = 4, # Increase to 4 for smoother training
-    num_generations = 8, # Decrease if out of memory
+    gradient_accumulation_steps = 1, # Increase to 4 for smoother training
+    num_generations = 4, # Decrease if out of memory
     max_prompt_length = 256,
     max_completion_length = 1024,
     # num_train_epochs = 1, # Set to 1 for a full training run
     max_steps = 1000,
-    save_steps = 100,
+    save_steps = 10,
     max_grad_norm = 0.1,
     report_to = "wandb", # Can use Weights & Biases
-    output_dir="runpods"
+    output_dir="cineca"
 )
 
 """And let's run the trainer! If you scroll up, you'll see a table of rewards. The goal is to see the `reward` column increase!
