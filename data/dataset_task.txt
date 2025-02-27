@@ -1,0 +1,1918 @@
+SELECTED PROLOG TASKS FOR ALGORITHM COMPARISON
+==================================================
+
+TASK: Towers of Hanoi
+--------------------------------------------------
+DESCRIPTION: Task
+
+Solve the   Towers of Hanoi   problem with recursion.
+==================================================
+
+TASK: Sudoku
+--------------------------------------------------
+DESCRIPTION: Task
+
+Solve a partially filled-in normal   9x9   Sudoku grid   and display the result in a human-readable format.
+
+references
+
+ Algorithmics of Sudoku   may help implement this.
+ Python Sudoku Solver Computerphile video.
+==================================================
+
+TASK: Sorting algorithms/Merge sort
+--------------------------------------------------
+DESCRIPTION: 
+Sorting Algorithm
+
+This is a sorting algorithm.   It may be applied to a set of data in order to sort it.    
+For comparing various sorts, see compare sorts.  
+For other sorting algorithms,   see sorting algorithms,   or:
+
+O(n logn) sorts
+Heap sort |
+Merge sort |
+Patience sort |
+Quick sort
+O(n log2n) sorts
+Shell Sort
+O(n2) sorts
+Bubble sort |
+Cocktail sort |
+Cocktail sort with shifting bounds |
+Comb sort |
+Cycle sort |
+Gnome sort |
+Insertion sort |
+Selection sort |
+Strand sort
+other sorts
+Bead sort |
+Bogo sort |
+Common sorted list |
+Composite structures sort |
+Custom comparator sort |
+Counting sort |
+Disjoint sublist sort |
+External sort |
+Jort sort |
+Lexicographical sort |
+Natural sorting |
+Order by pair comparisons |
+Order disjoint list items |
+Order two numerical lists |
+Object identifier (OID) sort |
+Pancake sort |
+Quickselect |
+Permutation sort |
+Radix sort |
+Ranking methods |
+Remove duplicate elements |
+Sleep sort |
+Stooge sort |
+[Sort letters of a string] |
+Three variable sort |
+Topological sort |
+Tree sort
+
+
+The merge sort is a recursive sort of order  n*log(n). 
+It is notable for having a worst case and average complexity of    O(n*log(n)),    and a best case complexity of    O(n)    (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements   (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its   divide and conquer   description.
+
+Task
+
+Write a function to sort a collection of integers using the merge sort.
+The merge sort algorithm comes in two parts:
+
+   a sort function     and 
+   a merge function 
+
+The functions in pseudocode look like this:
+
+function mergesort(m)
+   var list left, right, result
+   if length(m) ≤ 1
+       return m
+   else
+       var middle = length(m) / 2
+       for each x in m up to middle - 1
+           add x to left
+       for each x in m at and after middle
+           add x to right
+       left = mergesort(left)
+       right = mergesort(right)
+       if last(left) ≤ first(right) 
+          append right to left
+          return left
+       result = merge(left, right)
+       return result
+
+function merge(left,right)
+   var list result
+   while length(left) > 0 and length(right) > 0
+       if first(left) ≤ first(right)
+           append first(left) to result
+           left = rest(left)
+       else
+           append first(right) to result
+           right = rest(right)
+   if length(left) > 0 
+       append rest(left) to result
+   if length(right) > 0 
+       append rest(right) to result
+   return result
+
+
+
+See also
+
+   the Wikipedia entry:    merge sort
+
+
+Note:   better performance can be expected if, rather than recursing until    length(m) ≤ 1,    an insertion sort is used for    length(m)    smaller than some threshold larger than   1.   However, this complicates the example code, so it is not shown here.
+
+==================================================
+
+TASK: Sorting algorithms/Quicksort
+--------------------------------------------------
+DESCRIPTION: 
+Sorting Algorithm
+
+This is a sorting algorithm.   It may be applied to a set of data in order to sort it.    
+For comparing various sorts, see compare sorts.  
+For other sorting algorithms,   see sorting algorithms,   or:
+
+O(n logn) sorts
+Heap sort |
+Merge sort |
+Patience sort |
+Quick sort
+O(n log2n) sorts
+Shell Sort
+O(n2) sorts
+Bubble sort |
+Cocktail sort |
+Cocktail sort with shifting bounds |
+Comb sort |
+Cycle sort |
+Gnome sort |
+Insertion sort |
+Selection sort |
+Strand sort
+other sorts
+Bead sort |
+Bogo sort |
+Common sorted list |
+Composite structures sort |
+Custom comparator sort |
+Counting sort |
+Disjoint sublist sort |
+External sort |
+Jort sort |
+Lexicographical sort |
+Natural sorting |
+Order by pair comparisons |
+Order disjoint list items |
+Order two numerical lists |
+Object identifier (OID) sort |
+Pancake sort |
+Quickselect |
+Permutation sort |
+Radix sort |
+Ranking methods |
+Remove duplicate elements |
+Sleep sort |
+Stooge sort |
+[Sort letters of a string] |
+Three variable sort |
+Topological sort |
+Tree sort
+
+This page uses content from Wikipedia. The original article was at Quicksort. The list of authors can be seen in the page history. As with Rosetta Code, the text of Wikipedia is available under the GNU FDL. (See links for details on variance)
+
+Task
+
+Sort an array (or list) elements using the   quicksort   algorithm.
+The elements must have a   strict weak order   and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+
+Quicksort, also known as   partition-exchange sort,   uses these steps.
+
+   Choose any element of the array to be the pivot.
+   Divide all other elements (except the pivot) into two partitions.
+   All elements less than the pivot must be in the first partition.
+   All elements greater than the pivot must be in the second partition.
+   Use recursion to sort both partitions.
+   Join the first sorted partition, the pivot, and the second sorted partition.
+
+
+The best pivot creates partitions of equal length (or lengths differing by   1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+This is a simple quicksort algorithm, adapted from Wikipedia.
+
+function quicksort(array)
+    less, equal, greater := three empty arrays
+    if length(array) > 1  
+        pivot := select any element of array
+        for each x in array
+            if x < pivot then add x to less
+            if x = pivot then add x to equal
+            if x > pivot then add x to greater
+        quicksort(less)
+        quicksort(greater)
+        array := concatenate(less, equal, greater)
+
+A better quicksort algorithm works in place, by swapping elements within the array, to avoid the memory allocation of more arrays.
+
+function quicksort(array)
+    if length(array) > 1
+        pivot := select any element of array
+        left := first index of array
+        right := last index of array
+        while left ≤ right
+            while array[left] < pivot
+                left := left + 1
+            while array[right] > pivot
+                right := right - 1
+            if left ≤ right
+                swap array[left] with array[right]
+                left := left + 1
+                right := right - 1
+        quicksort(array from first index to right)
+        quicksort(array from left to last index)
+
+Quicksort has a reputation as the fastest sort. Optimized variants of quicksort are common features of many languages and libraries. One often contrasts quicksort with   merge sort,   because both sorts have an average time of    O(n log n). 
+
+ "On average, mergesort does fewer comparisons than quicksort, so it may be better when complicated comparison routines are used. Mergesort also takes advantage of pre-existing order, so it would be favored for using sort() to merge several sorted arrays. On the other hand, quicksort is often faster for small arrays, and on arrays of a few distinct values, repeated many times." — http://perldoc.perl.org/sort.html
+Quicksort is at one end of the spectrum of divide-and-conquer algorithms, with merge sort at the opposite end.
+
+ Quicksort is a conquer-then-divide algorithm, which does most of the work during the partitioning and the recursive calls. The subsequent reassembly of the sorted partitions involves trivial effort.
+ Merge sort is a divide-then-conquer algorithm. The partioning happens in a trivial way, by splitting the input array in half. Most of the work happens during the recursive calls and the merge phase.
+
+
+With quicksort, every element in the first partition is less than or equal to every element in the second partition. Therefore, the merge phase of quicksort is so trivial that it needs no mention!
+
+This task has not specified whether to allocate new arrays, or sort in place. This task also has not specified how to choose the pivot element. (Common ways to are to choose the first element, the middle element, or the median of three elements.) Thus there is a variety among the following implementations.
+
+
+
+
+==================================================
+
+TASK: Sieve of Eratosthenes
+--------------------------------------------------
+DESCRIPTION: This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
+
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
+
+Task
+
+Implement the   Sieve of Eratosthenes   algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
+That means especially that you shouldn't optimize by using pre-computed wheels, i.e. don't assume you need only to cross out odd numbers (wheel based on 2), numbers equal to 1 or 5 modulo 6 (wheel based on 2 and 3), or similar wheels based on low primes.
+If there's an easy way to add such a wheel based optimization, implement it as an alternative version.
+
+Note
+It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.
+
+Related tasks
+
+   Emirp primes
+   count in factors
+   prime decomposition
+   factors of an integer
+   extensible prime generator
+   primality by trial division
+   factors of a Mersenne number
+   trial factoring of a Mersenne number
+   partition an integer X into N primes
+   sequence of primes by Trial Division
+
+==================================================
+
+TASK: Roman numerals/Decode
+--------------------------------------------------
+DESCRIPTION: Task
+
+Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer.
+You don't need to validate the form of the Roman numeral.
+Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately,
+starting with the leftmost decimal digit and skipping any 0s   (zeroes).
+
+1990 is rendered as   MCMXC     (1000 = M,   900 = CM,   90 = XC)     and
+
+2008 is rendered as   MMVIII       (2000 = MM,   8 = VIII).
+
+The Roman numeral for 1666,   MDCLXVI,   uses each letter in descending order.
+
+==================================================
+
+TASK: Roman numerals/Encode
+--------------------------------------------------
+DESCRIPTION: Task
+
+Create a function taking a positive integer as its parameter and returning a string containing the Roman numeral representation of that integer. Modern Roman numerals are written by expressing each digit separately, starting with the left most digit and skipping any digit with a value of zero.
+
+In Roman numerals:
+
+ 1990 is rendered: 1000=M, 900=CM, 90=XC; resulting in MCMXC
+ 2008 is written as 2000=MM, 8=VIII; or MMVIII
+ 1666 uses each Roman symbol in descending order: MDCLXVI
+
+==================================================
+
+TASK: Pythagorean triples
+--------------------------------------------------
+DESCRIPTION: A Pythagorean triple is defined as three positive integers 
+
+{\displaystyle (a,b,c)}
+
+where
+
+{\displaystyle a<b<c}, and a^2 + b^2 = c^2
+{\displaystyle a^{2}+b^{2}=c^{2}.}
+
+They are called primitive triples if 
+
+{\displaystyle a,b,c}
+
+ are co-prime, that is, if their pairwise greatest common divisors 
+
+{\displaystyle {\rm {gcd}}(a,b)={\rm {gcd}}(a,c)={\rm {gcd}}(b,c)=1}
+
+Because of their relationship through the Pythagorean theorem, a, b, and c are co-prime if a and b are co-prime (
+
+{\displaystyle {\rm {gcd}}(a,b)=1}
+ 
+
+Each triple forms the length of the sides of a right triangle, whose perimeter is 
+
+{\displaystyle P=a+b+c}
+
+Task
+
+The task is to determine how many Pythagorean triples there are with a perimeter no larger than 100 and the number of these that are primitive.
+
+Extra credit
+ 
+Deal with large values.   Can your program handle a maximum perimeter of 1,000,000?   What about 10,000,000?   100,000,000?
+
+Note: the extra credit is not for you to demonstrate how fast your language is compared to others;   you need a proper algorithm to solve them in a timely manner.
+
+Related tasks
+
+   Euler's sum of powers conjecture 
+   List comprehensions
+   Pythagorean quadruples 
+
+
+==================================================
+
+TASK: Prime decomposition
+--------------------------------------------------
+DESCRIPTION: The prime decomposition of a number is defined as a list of prime numbers
+which when all multiplied together, are equal to that number.
+
+
+
+Example
+
+ 12 = 2 × 2 × 3,  so its prime decomposition is  {2, 2, 3}
+
+
+
+Task
+
+Write a function which returns an array or collection which contains the prime decomposition of a given number   
+
+
+
+n
+
+
+{\displaystyle n}
+
+   greater than   1.
+
+If your language does not have an isPrime-like function available,
+you may assume that you have a function which determines
+whether a number is prime (note its name before your code).
+
+If you would like to test code from this task, you may use code from trial division or the Sieve of Eratosthenes.
+
+Note: The program must not be limited by the word size of your computer or some other artificial limit; it should work for any number regardless of size (ignoring the physical limits of RAM etc).
+
+
+
+Related tasks
+
+   count in factors
+   factors of an integer
+   Sieve of Eratosthenes
+   primality by trial division
+   factors of a Mersenne number
+   trial factoring of a Mersenne number
+   partition an integer X into N primes
+   sequence of primes by Trial Division
+
+
+==================================================
+
+TASK: Palindrome detection
+--------------------------------------------------
+DESCRIPTION: A palindrome is a phrase which reads the same backward and forward.
+
+Task[edit]
+Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes)
+is a palindrome.
+
+For extra credit:
+
+ Support Unicode characters.
+ Write a second function (possibly as a wrapper to the first) which detects inexact palindromes, i.e. phrases that are palindromes if white-space and punctuation is ignored and case-insensitive comparison is used.
+Hints
+ It might be useful for this task to know how to reverse a string.
+ This task's entries might also form the subjects of the task Test a function.
+Related tasks
+Word plays
+
+Ordered words
+Palindrome detection
+Semordnilap
+Anagrams
+Anagrams/Deranged anagrams
+
+
+
+
+
+Other tasks related to string operations:
+
+Metrics
+ Array length
+ String length
+ Copy a string
+ Empty string  (assignment)
+Counting
+ Word frequency
+ Letter frequency
+ Jewels and stones
+ I before E except after C
+ Bioinformatics/base count
+ Count occurrences of a substring
+ Count how many vowels and consonants occur in a string
+Remove/replace
+ XXXX redacted
+ Conjugate a Latin verb
+ Remove vowels from a string
+ String interpolation (included)
+ Strip block comments
+ Strip comments from a string
+ Strip a set of characters from a string
+ Strip whitespace from a string -- top and tail
+ Strip control codes and extended characters from a string
+Anagrams/Derangements/shuffling
+ Word wheel
+ ABC problem
+ Sattolo cycle
+ Knuth shuffle
+ Ordered words
+ Superpermutation minimisation
+ Textonyms (using a phone text pad)
+ Anagrams
+ Anagrams/Deranged anagrams
+ Permutations/Derangements
+Find/Search/Determine
+ ABC words
+ Odd words
+ Word ladder
+ Semordnilap
+ Word search
+ Wordiff  (game)
+ String matching
+ Tea cup rim text
+ Alternade words
+ Changeable words
+ State name puzzle
+ String comparison
+ Unique characters
+ Unique characters in each string
+ Extract file extension
+ Levenshtein distance
+ Palindrome detection
+ Common list elements
+ Longest common suffix
+ Longest common prefix
+ Compare a list of strings 
+ Longest common substring
+ Find common directory path
+ Words from neighbour ones
+ Change e letters to i in words
+ Non-continuous subsequences
+ Longest common subsequence
+ Longest palindromic substrings
+ Longest increasing subsequence
+ Words containing "the" substring
+ Sum of the digits of n is substring of n
+ Determine if a string is numeric
+ Determine if a string is collapsible
+ Determine if a string is squeezable
+ Determine if a string has all unique characters
+ Determine if a string has all the same characters
+ Longest substrings without repeating characters
+ Find words which contains all the vowels
+ Find words which contains most consonants
+ Find words which contains more than 3 vowels
+ Find words which first and last three letters are equals
+ Find words which odd letters are consonants and even letters are vowels or vice_versa
+Formatting
+ Substring
+ Rep-string
+ Word wrap
+ String case
+ Align columns
+ Literals/String
+ Repeat a string
+ Brace expansion
+ Brace expansion using ranges
+ Reverse a string
+ Phrase reversals
+ Comma quibbling
+ Special characters
+ String concatenation
+ Substring/Top and tail
+ Commatizing numbers
+ Reverse words in a string
+ Suffixation of decimal numbers
+ Long literals, with continuations 
+ Numerical and alphabetical suffixes
+ Abbreviations, easy
+ Abbreviations, simple
+ Abbreviations, automatic
+Song lyrics/poems/Mad Libs/phrases
+ Mad Libs
+ Magic 8-ball
+ 99 Bottles of Beer
+ The Name Game (a song)
+ The Old lady swallowed a fly
+ The Twelve Days of Christmas
+Tokenize
+ Text between
+ Tokenize a string
+ Word break problem
+ Tokenize a string with escaping
+ Split a character string based on change of character
+Sequences
+ Show ASCII table
+ De Bruijn sequences
+ Self-referential sequences
+ Generate lower case ASCII alphabet
+
+
+
+
+==================================================
+
+TASK: N-queens problem
+--------------------------------------------------
+DESCRIPTION: 
+
+Solve the eight queens puzzle.
+
+
+
+You can extend the problem to solve the puzzle with a board of size   NxN.
+
+For the number of solutions for small values of   N,   see   OEIS: A000170.
+
+
+
+Related tasks
+
+ A* search algorithm
+ Solve a Hidato puzzle
+ Solve a Holy Knight's tour
+ Knight's tour
+ Peaceful chess queen armies
+ Solve a Hopido puzzle
+ Solve a Numbrix puzzle
+ Solve the no connection puzzle
+
+
+==================================================
+
+TASK: Longest common subsequence
+--------------------------------------------------
+DESCRIPTION: Introduction
+
+Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
+
+The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
+
+Let A ≡ A[0]… A[m - 1] and B ≡ B[0]… B[n - 1], m < n be strings drawn from an alphabet Σ of size s, containing every distinct symbol in A + B.
+
+An ordered pair (i, j) will be referred to as a match if A[i] = B[j], where 0 < i ≤ m and 0 < j ≤ n.
+
+Define a non-strict product-order (≤) over ordered pairs, such that (i1, j1) ≤ (i2, j2) ⇔ i1 ≤ i2 and j1 ≤ j2. We define (≥) similarly.
+
+We say m1, m2 are comparable if either m1 ≤ m2 or m1 ≥ m2 holds. If i1 < i2 and j2 < j1 (or i2 < i1 and j1 < j2) then neither m1 ≤ m2 nor m1 ≥ m2 are possible; and we say m1, m2 are incomparable.
+
+We also define the strict product-order (<) over ordered pairs, such that (i1, j1) < (i2, j2) ⇔ i1 < i2 and j1 < j2. We define (>) similarly.
+
+Given a set of matches M, a chain C is a subset of M consisting of at least one element m; and where either m1 < m2 or m1 > m2 for every pair of distinct elements m1 and m2. An antichain D is any subset of M in which every pair of distinct elements m1 and m2 are incomparable.
+
+The set M represents a relation over match pairs: M[i, j] ⇔ (i, j) ∈ M. A chain C can be visualized as a curve which strictly increases as it passes through each match pair in the m*n coordinate space.
+
+Finding an LCS can be restated as the problem of finding a chain of maximum cardinality p over the set of matches M.
+
+According to [Dilworth 1950], this cardinality p equals the minimum number of disjoint antichains into which M can be decomposed. Note that such a decomposition into the minimal number p of disjoint antichains may not be unique.
+
+Contours
+
+Forward Contours FC[k] of class k are defined inductively, as follows:
+
+FC[0] consists of those elements m1 for which there exists no element m2 such that m2 < m1.
+
+FC[k] consists of those elements m1 for which there exists no element m2 such that m2 < m1; and where neither m1 nor m2 are contained in FC[l] for any class l < k.
+
+Reverse Contours RC[k] of class k are defined similarly.
+
+Members of the Meet (∧), or Infimum of a Forward Contour are referred to as its Dominant Matches: those m1 for which there exists no m2 such that m2 < m1.
+
+Members of the Join (∨), or Supremum of a Reverse Contour are referred to as its Dominant Matches: those m1 for which there exists no m2 such that m2 > m1.
+
+Where multiple Dominant Matches exist within a Meet (or within a Join, respectively) the Dominant Matches will be incomparable to each other.
+
+Background
+
+Where the number of symbols appearing in matches is small relative to the length of the input strings, reuse of the symbols increases; and the number of matches will tend towards quadratic, O(m*n) growth. This occurs, for example, in the Bioinformatics application of nucleotide and protein sequencing.
+
+The divide-and-conquer approach of [Hirschberg 1975] limits the space required to O(n). However, this approach requires O(m*n) time even in the best case.
+
+This quadratic time dependency may become prohibitive, given very long input strings. Thus, heuristics are often favored over optimal Dynamic Programming solutions.
+
+In the application of comparing file revisions, records from the input files form a large symbol space; and the number of symbols approaches the length of the LCS. In this case the number of matches reduces to linear, O(n) growth.
+
+A binary search optimization due to [Hunt and Szymanski 1977] can be applied to the basic Dynamic Programming approach, resulting in an expected performance of O(n log m). Performance can degrade to O(m*n log m) time in the worst case, as the number of matches grows to O(m*n).
+
+Note
+
+[Rick 2000] describes a linear-space algorithm with a time bound of O(n*s + p*min(m, n - p)).
+
+Legend
+
+A, B are input strings of lengths m, n respectively
+p is the length of the LCS
+M is the set of match pairs (i, j) such that A[i] = B[j]
+r is the magnitude of M
+s is the magnitude of the alphabet Σ of distinct symbols in A + B
+
+References
+
+[Dilworth 1950] "A decomposition theorem for partially ordered sets"
+by Robert P. Dilworth, published January 1950,
+Annals of Mathematics [Volume 51, Number 1, pp. 161-166]
+
+[Goeman and Clausen 2002] "A New Practical Linear Space Algorithm for the Longest Common
+Subsequence Problem" by Heiko Goeman and Michael Clausen,
+published 2002, Kybernetika [Volume 38, Issue 1, pp. 45-66]
+
+[Hirschberg 1975] "A linear space algorithm for computing maximal common subsequences"
+by Daniel S. Hirschberg, published June 1975
+Communications of the ACM [Volume 18, Number 6, pp. 341-343]
+
+[Hunt and McIlroy 1976] "An Algorithm for Differential File Comparison"
+by James W. Hunt and M. Douglas McIlroy, June 1976
+Computing Science Technical Report, Bell Laboratories 41
+
+[Hunt and Szymanski 1977] "A Fast Algorithm for Computing Longest Common Subsequences"
+by James W. Hunt and Thomas G. Szymanski, published May 1977
+Communications of the ACM [Volume 20, Number 5, pp. 350-353]
+
+[Rick 2000] "Simple and fast linear space computation of longest common subsequences"
+by Claus Rick, received 17 March 2000, Information Processing Letters,
+Elsevier Science [Volume 75, pp. 275–281]
+
+
+
+Examples
+
+The sequences "1234" and "1224533324" have an LCS of "1234":
+
+1234
+1224533324
+
+For a string example, consider the sequences "thisisatest" and "testing123testing". An LCS would be "tsitest":
+
+thisisatest
+testing123testing
+
+In this puzzle, your code only needs to deal with strings. Write a function which returns an LCS of two strings (case-sensitive). You don't need to show multiple LCS's.
+
+For more information on this problem please see Wikipedia.
+
+
+Other tasks related to string operations:
+
+Metrics
+ Array length
+ String length
+ Copy a string
+ Empty string  (assignment)
+Counting
+ Word frequency
+ Letter frequency
+ Jewels and stones
+ I before E except after C
+ Bioinformatics/base count
+ Count occurrences of a substring
+ Count how many vowels and consonants occur in a string
+Remove/replace
+ XXXX redacted
+ Conjugate a Latin verb
+ Remove vowels from a string
+ String interpolation (included)
+ Strip block comments
+ Strip comments from a string
+ Strip a set of characters from a string
+ Strip whitespace from a string -- top and tail
+ Strip control codes and extended characters from a string
+Anagrams/Derangements/shuffling
+ Word wheel
+ ABC problem
+ Sattolo cycle
+ Knuth shuffle
+ Ordered words
+ Superpermutation minimisation
+ Textonyms (using a phone text pad)
+ Anagrams
+ Anagrams/Deranged anagrams
+ Permutations/Derangements
+Find/Search/Determine
+ ABC words
+ Odd words
+ Word ladder
+ Semordnilap
+ Word search
+ Wordiff  (game)
+ String matching
+ Tea cup rim text
+ Alternade words
+ Changeable words
+ State name puzzle
+ String comparison
+ Unique characters
+ Unique characters in each string
+ Extract file extension
+ Levenshtein distance
+ Palindrome detection
+ Common list elements
+ Longest common suffix
+ Longest common prefix
+ Compare a list of strings 
+ Longest common substring
+ Find common directory path
+ Words from neighbour ones
+ Change e letters to i in words
+ Non-continuous subsequences
+ Longest common subsequence
+ Longest palindromic substrings
+ Longest increasing subsequence
+ Words containing "the" substring
+ Sum of the digits of n is substring of n
+ Determine if a string is numeric
+ Determine if a string is collapsible
+ Determine if a string is squeezable
+ Determine if a string has all unique characters
+ Determine if a string has all the same characters
+ Longest substrings without repeating characters
+ Find words which contains all the vowels
+ Find words which contains most consonants
+ Find words which contains more than 3 vowels
+ Find words which first and last three letters are equals
+ Find words which odd letters are consonants and even letters are vowels or vice_versa
+Formatting
+ Substring
+ Rep-string
+ Word wrap
+ String case
+ Align columns
+ Literals/String
+ Repeat a string
+ Brace expansion
+ Brace expansion using ranges
+ Reverse a string
+ Phrase reversals
+ Comma quibbling
+ Special characters
+ String concatenation
+ Substring/Top and tail
+ Commatizing numbers
+ Reverse words in a string
+ Suffixation of decimal numbers
+ Long literals, with continuations 
+ Numerical and alphabetical suffixes
+ Abbreviations, easy
+ Abbreviations, simple
+ Abbreviations, automatic
+Song lyrics/poems/Mad Libs/phrases
+ Mad Libs
+ Magic 8-ball
+ 99 Bottles of Beer
+ The Name Game (a song)
+ The Old lady swallowed a fly
+ The Twelve Days of Christmas
+Tokenize
+ Text between
+ Tokenize a string
+ Word break problem
+ Tokenize a string with escaping
+ Split a character string based on change of character
+Sequences
+ Show ASCII table
+ De Bruijn sequences
+ Self-referential sequences
+ Generate lower case ASCII alphabet
+
+
+
+
+==================================================
+
+TASK: Levenshtein distance
+--------------------------------------------------
+DESCRIPTION: 
+
+ This page uses content from Wikipedia. The original article was at Levenshtein distance. The list of authors can be seen in the page history. As with Rosetta Code, the text of Wikipedia is available under the GNU FDL. (See links for details on variance)
+
+
+
+In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+
+
+
+Example
+
+The Levenshtein distance between "kitten" and "sitting" is 3, since the following three edits change one into the other, and there isn't a way to do it with fewer than three edits:
+
+   kitten   sitten   (substitution of 'k' with 's')
+   sitten   sittin   (substitution of 'e' with 'i')
+   sittin   sitting   (insert 'g' at the end).
+
+The Levenshtein distance between   "rosettacode",   "raisethysword"   is   8.
+
+The distance between two strings is same as that when both strings are reversed.
+
+
+
+Task
+
+Implements a Levenshtein distance function, or uses a library function, to show the Levenshtein distance between   "kitten"   and   "sitting".
+
+
+
+Related task
+
+   Longest common subsequence
+
+
+
+Other tasks related to string operations:
+
+Metrics
+ Array length
+ String length
+ Copy a string
+ Empty string  (assignment)
+Counting
+ Word frequency
+ Letter frequency
+ Jewels and stones
+ I before E except after C
+ Bioinformatics/base count
+ Count occurrences of a substring
+ Count how many vowels and consonants occur in a string
+Remove/replace
+ XXXX redacted
+ Conjugate a Latin verb
+ Remove vowels from a string
+ String interpolation (included)
+ Strip block comments
+ Strip comments from a string
+ Strip a set of characters from a string
+ Strip whitespace from a string -- top and tail
+ Strip control codes and extended characters from a string
+Anagrams/Derangements/shuffling
+ Word wheel
+ ABC problem
+ Sattolo cycle
+ Knuth shuffle
+ Ordered words
+ Superpermutation minimisation
+ Textonyms (using a phone text pad)
+ Anagrams
+ Anagrams/Deranged anagrams
+ Permutations/Derangements
+Find/Search/Determine
+ ABC words
+ Odd words
+ Word ladder
+ Semordnilap
+ Word search
+ Wordiff  (game)
+ String matching
+ Tea cup rim text
+ Alternade words
+ Changeable words
+ State name puzzle
+ String comparison
+ Unique characters
+ Unique characters in each string
+ Extract file extension
+ Levenshtein distance
+ Palindrome detection
+ Common list elements
+ Longest common suffix
+ Longest common prefix
+ Compare a list of strings 
+ Longest common substring
+ Find common directory path
+ Words from neighbour ones
+ Change e letters to i in words
+ Non-continuous subsequences
+ Longest common subsequence
+ Longest palindromic substrings
+ Longest increasing subsequence
+ Words containing "the" substring
+ Sum of the digits of n is substring of n
+ Determine if a string is numeric
+ Determine if a string is collapsible
+ Determine if a string is squeezable
+ Determine if a string has all unique characters
+ Determine if a string has all the same characters
+ Longest substrings without repeating characters
+ Find words which contains all the vowels
+ Find words which contains most consonants
+ Find words which contains more than 3 vowels
+ Find words which first and last three letters are equals
+ Find words which odd letters are consonants and even letters are vowels or vice_versa
+Formatting
+ Substring
+ Rep-string
+ Word wrap
+ String case
+ Align columns
+ Literals/String
+ Repeat a string
+ Brace expansion
+ Brace expansion using ranges
+ Reverse a string
+ Phrase reversals
+ Comma quibbling
+ Special characters
+ String concatenation
+ Substring/Top and tail
+ Commatizing numbers
+ Reverse words in a string
+ Suffixation of decimal numbers
+ Long literals, with continuations 
+ Numerical and alphabetical suffixes
+ Abbreviations, easy
+ Abbreviations, simple
+ Abbreviations, automatic
+Song lyrics/poems/Mad Libs/phrases
+ Mad Libs
+ Magic 8-ball
+ 99 Bottles of Beer
+ The Name Game (a song)
+ The Old lady swallowed a fly
+ The Twelve Days of Christmas
+Tokenize
+ Text between
+ Tokenize a string
+ Word break problem
+ Tokenize a string with escaping
+ Split a character string based on change of character
+Sequences
+ Show ASCII table
+ De Bruijn sequences
+ Self-referential sequences
+ Generate lower case ASCII alphabet
+
+
+
+
+==================================================
+
+TASK: Knight's tour
+--------------------------------------------------
+DESCRIPTION: 
+Task
+Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be "closed"; that is, the knight need not end within a single move of its start position.
+
+Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
+
+Input: starting square
+
+Output: move sequence
+
+
+
+Related tasks
+ A* search algorithm
+ N-queens problem
+ Solve a Hidato puzzle
+ Solve a Holy Knight's tour
+ Solve a Hopido puzzle
+ Solve a Numbrix puzzle
+ Solve the no connection puzzle
+
+
+==================================================
+
+TASK: Knapsack problem/0-1
+--------------------------------------------------
+DESCRIPTION: A tourist wants to make a good trip at the weekend with his friends.
+
+They will go to the mountains to see the wonders of nature, so he needs to pack well for the trip.
+
+He has a good knapsack for carrying things, but knows that he can carry a maximum of only 4kg in it,   and it will have to last the whole day.
+
+He creates a list of what he wants to bring for the trip but the total weight of all items is too much.
+
+He then decides to add columns to his initial list detailing their weights and a numerical value representing how important the item is for the trip.
+
+
+
+Here is the list:
+
+
+ Table of potential knapsack items
+
+
+ item 
+ weight (dag) 
+ value
+
+
+ map 
+ 9 
+ 150
+
+
+ compass 
+ 13 
+ 35
+
+
+ water 
+ 153 
+ 200
+
+
+ sandwich 
+ 50 
+ 160
+
+
+ glucose 
+ 15 
+ 60
+
+
+ tin 
+ 68 
+ 45
+
+
+ banana 
+ 27 
+ 60
+
+
+ apple 
+ 39 
+ 40
+
+
+ cheese 
+ 23 
+ 30
+
+
+ beer 
+ 52 
+ 10
+
+
+ suntan cream 
+ 11 
+ 70
+
+
+ camera 
+ 32 
+ 30
+
+
+ T-shirt 
+ 24 
+ 15
+
+
+ trousers 
+ 48 
+ 10
+
+
+ umbrella 
+ 73 
+ 40
+
+
+ waterproof trousers 
+ 42 
+ 70
+
+
+ waterproof overclothes 
+ 43 
+ 75
+
+
+ note-case 
+ 22 
+ 80
+
+
+ sunglasses 
+ 7 
+ 20
+
+
+ towel 
+ 18 
+ 12
+
+
+ socks 
+ 4 
+ 50
+
+
+ book 
+ 30 
+ 10
+
+
+ knapsack 
+ ≤400 dag 
+ ?
+
+
+
+The tourist can choose to take any combination of items from the list,
+but only one of each item is available.
+
+He may not cut or diminish the items, so he can only take whole units of any item.
+
+
+
+Task
+
+Show which items the tourist can carry in his knapsack so that their total weight does not
+exceed 400 dag [4 kg],   and their total value is maximized.
+
+[dag = decagram = 10 grams]
+
+
+
+Related tasks
+
+   Knapsack problem/Bounded
+   Knapsack problem/Unbounded
+   Knapsack problem/Continuous
+   A* search algorithm
+
+
+==================================================
+
+TASK: Huffman coding
+--------------------------------------------------
+DESCRIPTION: Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
+
+For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
+
+Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
+
+If you were to assign a code 01 for 'e' and code 011 for 'x', then if the bits to decode started as 011... then you would not know if you should decode an 'e' or an 'x'.
+The Huffman coding scheme takes each symbol and its weight (or frequency of occurrence), and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding. (See the WP article for more information).
+
+A Huffman encoding can be computed by first creating a tree of nodes:
+
+
+ Create a leaf node for each symbol and add it to the priority queue.
+ While there is more than one node in the queue:
+ Remove the node of highest priority (lowest probability) twice to get two nodes.
+ Create a new internal node with these two nodes as children and with probability equal to the sum of the two nodes' probabilities.
+ Add the new node to the queue.
+ The remaining node is the root node and the tree is complete.
+
+
+Traverse the constructed binary tree from root to leaves assigning and accumulating a '0' for one branch and a '1' for the other at each node. The accumulated zeros and ones at each leaf constitute a Huffman encoding for those symbols and weights:
+
+
+
+Task
+
+Using the characters and their frequency from the string:
+
+     this is an example for huffman encoding  
+create a program to generate a Huffman encoding for each character as a table.
+
+
+
+
+==================================================
+
+TASK: Greatest common divisor
+--------------------------------------------------
+DESCRIPTION: Greatest common divisor
+
+You are encouraged to solve this task according to the task description, using any language you may know.
+Task
+
+Find the greatest common divisor   (GCD)   of two integers.
+
+
+Greatest common divisor   is also known as   greatest common factor (gcf)   and   greatest common measure.
+
+
+
+Related task
+
+   least common multiple.
+
+
+See also
+
+   MathWorld entry:   greatest common divisor.
+   Wikipedia entry:     greatest common divisor.
+
+
+==================================================
+
+TASK: Floyd-Warshall algorithm
+--------------------------------------------------
+DESCRIPTION: The Floyd–Warshall algorithm is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights.
+
+
+
+
+Task
+Find the lengths of the shortest paths between all pairs of vertices of the given directed graph. Your code may assume that the input has already been checked for loops, parallel edges and negative cycles.
+
+
+Print the pair, the distance and (optionally) the path.
+
+
+
+
+Example
+pair     dist    path
+1 -> 2    -1     1 -> 3 -> 4 -> 2
+1 -> 3    -2     1 -> 3
+1 -> 4     0     1 -> 3 -> 4
+2 -> 1     4     2 -> 1
+2 -> 3     2     2 -> 1 -> 3
+2 -> 4     4     2 -> 1 -> 3 -> 4
+3 -> 1     5     3 -> 4 -> 2 -> 1
+3 -> 2     1     3 -> 4 -> 2
+3 -> 4     2     3 -> 4
+4 -> 1     3     4 -> 2 -> 1
+4 -> 2    -1     4 -> 2
+4 -> 3     1     4 -> 2 -> 1 -> 3
+
+
+See also
+ Floyd-Warshall Algorithm - step by step guide (youtube)
+
+
+==================================================
+
+TASK: Fibonacci sequence
+--------------------------------------------------
+DESCRIPTION: The Fibonacci sequence is a sequence    Fn    of natural numbers defined recursively:
+
+      F0 = 0 
+      F1 = 1 
+      Fn = Fn-1 + Fn-2, if n>1 
+
+
+
+Task
+
+Write a function to generate the    nth    Fibonacci number.
+
+Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
+
+The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
+
+      Fn = Fn+2 - Fn+1, if n<0   
+
+support for negative      n      in the solution is optional.
+
+
+
+Related tasks
+
+   Fibonacci n-step number sequences
+   Leonardo numbers
+
+
+References
+
+   Wikipedia, Fibonacci number
+   Wikipedia, Lucas number
+   MathWorld, Fibonacci Number
+   Some identities for r-Fibonacci numbers
+   OEIS Fibonacci numbers
+   OEIS Lucas numbers
+
+
+==================================================
+
+TASK: Factorial
+--------------------------------------------------
+DESCRIPTION: Definitions
+
+   The factorial of   0   (zero)   is defined as being   1   (unity).
+   The   Factorial Function   of a positive integer,    n,    is defined as the product of the sequence:
+                 n,   n-1,   n-2,   ...   1 
+
+
+
+Task
+
+Write a function to return the factorial of a number.
+
+Solutions can be iterative or recursive.
+
+Support for trapping negative    n    errors is optional.
+
+
+
+Related task
+
+   Primorial numbers
+
+
+==================================================
+
+TASK: Dijkstra's algorithm
+--------------------------------------------------
+DESCRIPTION: This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
+
+Dijkstra's algorithm, conceived by Dutch computer scientist Edsger Dijkstra in 1956 and published in 1959, is a graph search algorithm that solves the single-source shortest path problem for a graph with non-negative edge path costs, producing a shortest path tree.
+
+This algorithm is often used in routing and as a subroutine in other graph algorithms.
+
+
+
+For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+
+
+
+For instance
+
+If the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road,   Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+
+As a result, the shortest path first is widely used in network routing protocols, most notably:
+
+   IS-IS   (Intermediate System to Intermediate System)   and 
+   OSPF   (Open Shortest Path First).
+
+
+Important note
+ 
+The inputs to Dijkstra's algorithm are a directed and weighted graph consisting of 2 or more nodes, generally represented by:
+
+   an adjacency matrix or list,   and
+   a start node. 
+
+
+A destination node is not specified.
+
+The output is a set of edges depicting the shortest path to each destination node.
+
+
+
+An example, starting with
+
+                                         a──►b,  cost=7,   lastNode=a  
+                                         a──►c,  cost=9,   lastNode=a 
+                                         a──►d,  cost=NA,  lastNode=a
+                                         a──►e,  cost=NA,  lastNode=a 
+                                         a──►f,  cost=14,  lastNode=a
+ 
+    The lowest cost is    a──►b    so    a──►b    is added to the output. 
+ 
+    There is a connection from   b──►d   so the input is updated to: 
+                                         a──►c,  cost=9,   lastNode=a 
+                                         a──►d,  cost=22,  lastNode=b 
+                                         a──►e,  cost=NA,  lastNode=a 
+                                         a──►f,  cost=14,  lastNode=a
+ 
+    The lowest cost is    a──►c    so    a──►c    is added to the output. 
+ 
+    Paths to    d    and    f    are cheaper via    c    so the input is updated to:
+                                         a──►d,  cost=20,  lastNode=c 
+                                         a──►e,  cost=NA,  lastNode=a 
+                                         a──►f,  cost=11,  lastNode=c
+ 
+    The lowest cost is    a──►f    so    c──►f    is added to the output. 
+ 
+    The input is updated to:
+                                         a──►d,  cost=20,  lastNode=c 
+                                         a──►e,  cost=NA,  lastNode=a
+ 
+    The lowest cost is    a──►d    so    c──►d    is added to the output. 
+ 
+    There is a connection from    d──►e    so the input is updated to:
+                                         a──►e,  cost=26,  lastNode=d
+ 
+    Which just leaves adding    d──►e    to the output.
+ 
+    The output should now be:
+                                       [ d──►e
+                                         c──►d
+                                         c──►f
+                                         a──►c
+                                         a──►b ]   
+
+
+Task
+
+ Implement a version of Dijkstra's algorithm that outputs a set of edges depicting the shortest path to each reachable node from an origin.
+ Run your program with the following directed graph starting at node    a.
+ Write a program which interprets the output from the above and use it to output the shortest path from node    a    to nodes    e    and  f. 
+
+ Vertices
+
+
+ Number 
+ Name
+
+
+ 1 
+ a
+
+
+ 2 
+ b
+
+
+ 3 
+ c
+
+
+ 4 
+ d
+
+
+ 5 
+ e
+
+
+ 6 
+ f
+
+
+ Edges
+
+
+ Start 
+ End 
+ Cost
+
+
+ a 
+ b 
+ 7
+
+
+ a 
+ c 
+ 9
+
+
+ a 
+ f 
+ 14
+
+
+ b 
+ c 
+ 10
+
+
+ b 
+ d 
+ 15
+
+
+ c 
+ d 
+ 11
+
+
+ c 
+ f 
+ 2
+
+
+ d 
+ e 
+ 6
+
+
+ e 
+ f 
+ 9
+
+
+
+You can use numbers or names to identify vertices in your program.
+
+
+
+See also
+ Dijkstra's Algorithm vs. A* Search vs. Concurrent Dijkstra's Algorithm (youtube)
+
+
+==================================================
+
+TASK: Caesar cipher
+--------------------------------------------------
+DESCRIPTION: 
+
+Task
+
+Implement a Caesar cipher, both encoding and decoding. 
+
+The key is an integer from 1 to 25.
+
+This cipher rotates (either towards left or right) the letters of the alphabet (A to Z).
+
+The encoding replaces each letter with the 1st to 25th next letter in the alphabet (wrapping Z to A).
+
+So key 2 encrypts "HI" to "JK", but key 20 encrypts "HI" to "BC".
+
+This simple "mono-alphabetic substitution cipher" provides almost no security, because an attacker who has the encoded message can either use frequency analysis to guess the key, or just try all 25 keys.
+
+Caesar cipher is identical to Vigenère cipher with a key of length 1. 
+
+Also, Rot-13 is identical to Caesar cipher with key 13.
+
+
+
+Related tasks
+
+ Rot-13
+ Substitution Cipher
+ Vigenère Cipher/Cryptanalysis
+
+
+==================================================
+
+TASK: Binary search
+--------------------------------------------------
+DESCRIPTION: A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a "divide and conquer" algorithm.
+
+As an analogy, consider the children's game "guess a number." The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
+
+As the player, an optimal strategy for the general case is to start by choosing the range's midpoint as the guess, and then asking whether the guess was higher, lower, or equal to the secret number. If the guess was too high, one would select the point exactly between the range midpoint and the beginning of the range. If the original guess was too low, one would ask about the point exactly between the range midpoint and the end of the range. This process repeats until one has reached the secret number.
+
+
+
+Task
+
+Given the starting point of a range, the ending point of a range, and the "secret value", implement a binary search through a sorted integer array for a certain number. Implementations can be recursive or iterative (both if you can). Print out whether or not the number was in the array afterwards. If it was, print the index also.
+
+There are several binary search algorithms commonly seen. They differ by how they treat multiple values equal to the given value, and whether they indicate whether the element was found or not. For completeness we will present pseudocode for all of them.
+
+All of the following code examples use an "inclusive" upper bound (i.e. high = N-1 initially). Any of the examples can be converted into an equivalent example using "exclusive" upper bound (i.e. high = N initially) by making the following simple changes (which simply increase high by 1):
+
+ change high = N-1 to high = N
+ change high = mid-1 to high = mid
+ (for recursive algorithm) change if (high < low) to if (high <= low)
+ (for iterative algorithm) change while (low <= high) to while (low < high)
+Traditional algorithm
+The algorithms are as follows (from Wikipedia). The algorithms return the index of some element that equals the given value (if there are multiple such elements, it returns some arbitrary one). It is also possible, when the element is not found, to return the "insertion point" for it (the index that the value would have if it were inserted into the array).
+
+Recursive Pseudocode:
+
+  // initially called with low = 0, high = N-1
+  BinarySearch(A[0..N-1], value, low, high) {
+      // invariants: value > A[i] for all i < low
+                     value < A[i] for all i > high
+      if (high < low)
+          return not_found // value would be inserted at index "low"
+      mid = (low + high) / 2
+      if (A[mid] > value)
+          return BinarySearch(A, value, low, mid-1)
+      else if (A[mid] < value)
+          return BinarySearch(A, value, mid+1, high)
+      else
+          return mid
+  }
+
+Iterative Pseudocode:
+
+  BinarySearch(A[0..N-1], value) {
+      low = 0
+      high = N - 1
+      while (low <= high) {
+          // invariants: value > A[i] for all i < low
+                         value < A[i] for all i > high
+          mid = (low + high) / 2
+          if (A[mid] > value)
+              high = mid - 1
+          else if (A[mid] < value)
+              low = mid + 1
+          else
+              return mid
+      }
+      return not_found // value would be inserted at index "low"
+  }
+
+Leftmost insertion point
+The following algorithms return the leftmost place where the given element can be correctly inserted (and still maintain the sorted order). This is the lower (inclusive) bound of the range of elements that are equal to the given value (if any). Equivalently, this is the lowest index where the element is greater than or equal to the given value (since if it were any lower, it would violate the ordering), or 1 past the last index if such an element does not exist. This algorithm does not determine if the element is actually found. This algorithm only requires one comparison per level.
+
+Recursive Pseudocode:
+
+  // initially called with low = 0, high = N - 1
+  BinarySearch_Left(A[0..N-1], value, low, high) {
+      // invariants: value > A[i] for all i < low
+                     value <= A[i] for all i > high
+      if (high < low)
+          return low
+      mid = (low + high) / 2
+      if (A[mid] >= value)
+          return BinarySearch_Left(A, value, low, mid-1)
+      else
+          return BinarySearch_Left(A, value, mid+1, high)
+  }
+
+Iterative Pseudocode:
+
+  BinarySearch_Left(A[0..N-1], value) {
+      low = 0
+      high = N - 1
+      while (low <= high) {
+          // invariants: value > A[i] for all i < low
+                         value <= A[i] for all i > high
+          mid = (low + high) / 2
+          if (A[mid] >= value)
+              high = mid - 1
+          else
+              low = mid + 1
+      }
+      return low
+  }
+
+Rightmost insertion point
+The following algorithms return the rightmost place where the given element can be correctly inserted (and still maintain the sorted order). This is the upper (exclusive) bound of the range of elements that are equal to the given value (if any). Equivalently, this is the lowest index where the element is greater than the given value, or 1 past the last index if such an element does not exist. This algorithm does not determine if the element is actually found. This algorithm only requires one comparison per level. Note that these algorithms are almost exactly the same as the leftmost-insertion-point algorithms, except for how the inequality treats equal values.
+
+Recursive Pseudocode:
+
+  // initially called with low = 0, high = N - 1
+  BinarySearch_Right(A[0..N-1], value, low, high) {
+      // invariants: value >= A[i] for all i < low
+                     value < A[i] for all i > high
+      if (high < low)
+          return low
+      mid = (low + high) / 2
+      if (A[mid] > value)
+          return BinarySearch_Right(A, value, low, mid-1)
+      else
+          return BinarySearch_Right(A, value, mid+1, high)
+  }
+
+Iterative Pseudocode:
+
+  BinarySearch_Right(A[0..N-1], value) {
+      low = 0
+      high = N - 1
+      while (low <= high) {
+          // invariants: value >= A[i] for all i < low
+                         value < A[i] for all i > high
+          mid = (low + high) / 2
+          if (A[mid] > value)
+              high = mid - 1
+          else
+              low = mid + 1
+      }
+      return low
+  }
+
+Extra credit
+Make sure it does not have overflow bugs.
+
+The line in the pseudo-code above to calculate the mean of two integers:
+
+mid = (low + high) / 2
+could produce the wrong result in some programming languages when used with a bounded integer type, if the addition causes an overflow. (This can occur if the array size is greater than half the maximum integer value.) If signed integers are used, and low + high overflows, it becomes a negative number, and dividing by 2 will still result in a negative number. Indexing an array with a negative number could produce an out-of-bounds exception, or other undefined behavior. If unsigned integers are used, an overflow will result in losing the largest bit, which will produce the wrong result.
+
+One way to fix it is to manually add half the range to the low number:
+
+mid = low + (high - low) / 2
+Even though this is mathematically equivalent to the above, it is not susceptible to overflow.
+
+Another way for signed integers, possibly faster, is the following:
+
+mid = (low + high) >>> 1
+where  >>>  is the logical right shift operator. The reason why this works is that, for signed integers, even though it overflows, when viewed as an unsigned number, the value is still the correct sum. To divide an unsigned number by 2, simply do a logical right shift.
+
+
+
+Related task
+
+ Guess the number/With Feedback (Player)
+
+
+See also
+
+ wp:Binary search algorithm
+ Extra, Extra - Read All About It: Nearly All Binary Searches and Mergesorts are Broken.
+
+
+==================================================
+
+TASK: Balanced brackets
+--------------------------------------------------
+DESCRIPTION: Task:
+
+ Generate a string with   N   opening brackets   [   and with   N   closing brackets   ],   in some arbitrary order. 
+ Determine whether the generated string is balanced; that is, whether it consists entirely of pairs of opening/closing brackets (in that order), none of which mis-nest.
+
+
+Examples
+
+   (empty)      OK
+   []           OK   
+   [][]         OK   
+   [[][]]       OK 
+   ][         NOT OK
+   ][][       NOT OK
+   []][[]     NOT OK
+
+
+
+==================================================
+
+TASK: Ackermann function
+--------------------------------------------------
+DESCRIPTION: The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+
+
+
+The Ackermann function is usually defined as follows:
+
+
+
+
+
+
+
+A
+(
+m
+,
+n
+)
+=
+
+
+{
+
+
+
+n
++
+1
+
+
+
+if 
+
+m
+=
+0
+
+
+
+
+A
+(
+m
+−
+1
+,
+1
+)
+
+
+
+if 
+
+m
+>
+0
+
+ and 
+
+n
+=
+0
+
+
+
+
+A
+(
+m
+−
+1
+,
+A
+(
+m
+,
+n
+−
+1
+)
+)
+
+
+
+if 
+
+m
+>
+0
+
+ and 
+
+n
+>
+0.
+
+
+
+
+
+
+
+
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+
+
+
+
+
+
+Its arguments are never negative and it always terminates.
+
+
+
+Task
+
+Write a function which returns the value of 
+
+
+
+A
+(
+m
+,
+n
+)
+
+
+{\displaystyle A(m,n)}
+
+. Arbitrary precision is preferred (since the function grows so quickly), but not required.
+
+
+
+See also
+
+ Conway chained arrow notation for the Ackermann function.
+
+
+==================================================
+
