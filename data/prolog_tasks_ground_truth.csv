@@ -1,4 +1,4 @@
-,task_name,task_description,code,test_input_1,test_input_2
+Unnamed: 0,task_name,task_description,code,test_input_1,test_input_2,ground_truth_1,ground_truth_2
 0,Fibonacci sequence,"The Fibonacci sequence is a sequence    Fn    of natural numbers defined recursively:
 
       F0 = 0 
@@ -42,7 +42,7 @@ fib(N, Value) :-
   A is N - 1, fib(A, A1),
   B is N - 2, fib(B, B1),
   Value is A1 + B1.
- ","fib(20, F).","fib(10, F)."
+ ","fib(20, F).","fib(10, F).",[{'F': 6765}],[{'F': 55}]
 1,Sieve of Eratosthenes,"This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
 
 
@@ -91,7 +91,7 @@ filter(H, H2, [H1|T], R) :-
     (   H1 < H2 -> R = [H1|R1], filter(H, H2, T, R1)
     ;   H3 is H2 + H,
         (   H1 =:= H2  ->       filter(H, H3, T, R)
-        ;                       filter(H, H3, [H1|T], R) ) ).","primes(10, Primes).","primes(30, Primes)."
+        ;                       filter(H, H3, [H1|T], R) ) ).","primes(10, Primes).","primes(30, Primes).","[{'Primes': [2, 3, 5, 7]}]","[{'Primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]}]"
 2,Sorting algorithms/Quicksort,"
 Sorting Algorithm
 
@@ -236,7 +236,7 @@ qsort( [H|U], S ) :- splitBy(H, U, L, R), qsort(L, SL), qsort(R, SR), append(SL,
 splitBy( _, [], [], []).
 splitBy( H, [U|T], [U|LS], RS ) :- U =< H, splitBy(H, T, LS, RS).
 splitBy( H, [U|T], LS, [U|RS] ) :- U  > H, splitBy(H, T, LS, RS).
- ","qsort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).","qsort([9, 8, 7, 6, 5, 4, 3, 2, 1], Sorted)."
+ ","qsort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).","qsort([9, 8, 7, 6, 5, 4, 3, 2, 1], Sorted).","[{'Sorted': [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]}]","[{'Sorted': [1, 2, 3, 4, 5, 6, 7, 8, 9]}]"
 3,Binary search,"A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
 
 As an analogy, consider the children's game ""guess a number."" The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
@@ -420,8 +420,7 @@ bin_search_inner(Elt, List, Begin, End, Result):-
   nth1(Mid, List, MidElt),
   MidElt > Elt,
   NewEnd is Mid-1,
-  bin_search_inner(Elt, List, Begin, NewEnd, Result).","bin_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7, Position).","bin_search([10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 55, Position)."
-
+  bin_search_inner(Elt, List, Begin, NewEnd, Result).","bin_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7, Position).","bin_search([10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 55, Position).",[{'Position': 7}],[]
 4,Greatest common divisor,"Greatest common divisor
 
 You are encouraged to solve this task according to the task description, using any language you may know.
@@ -447,7 +446,7 @@ See also
 ","gcd(X, 0, X):- !.
 gcd(0, X, X):- !.
 gcd(X, Y, D):- X > Y, !, Z is X mod Y, gcd(Y, Z, D).
-gcd(X, Y, D):- Z is Y mod X, gcd(X, Z, D).","gcd(1071, 462, GCD).","gcd(35, 49, GCD)."
+gcd(X, Y, D):- Z is Y mod X, gcd(X, Z, D).","gcd(1071, 462, GCD).","gcd(35, 49, GCD).",[{'GCD': 21}],[{'GCD': 7}]
 5,Factorial,"Definitions
 
    The factorial of   0   (zero)   is defined as being   1   (unity).
@@ -471,7 +470,7 @@ Related task
    Primorial numbers
 
 ","fact(X, 1) :- X < 2.
-fact(X, F) :- X >= 2, Y is X-1, fact(Y, Z), F is Z*X.","fact(10, F).","fact(5, F)."
+fact(X, F) :- X >= 2, Y is X-1, fact(Y, Z), F is Z*X.","fact(10, F).","fact(5, F).",[{'F': 3628800}],[{'F': 120}]
 6,Towers of Hanoi,"Task
 
 Solve the   Towers of Hanoi   problem with recursion.
@@ -487,7 +486,7 @@ move(N,A,B,C) :-
     inform(A,B),
     move(M,C,B,A).
  
-inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.","hanoi(4).","hanoi(3)."
+inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.",hanoi(4).,hanoi(3).,[{}],[{}]
 7,Palindrome detection,"A palindrome is a phrase which reads the same backward and forward.
 
 Task[edit]
@@ -638,7 +637,7 @@ Sequences
 
 
 
-","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"")."
+","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"").",[{}],[]
 8,Prime decomposition,"The prime decomposition of a number is defined as a list of prime numbers
 which when all multiplied together, are equal to that number.
 
@@ -720,7 +719,7 @@ prime_decomp_2(N, SN, D, L, LF) :-
         ;
             prime_decomp_2(N, SN, D1, L, LF)
         )
-    ).","prime_decomp(60, Factors).","prime_decomp(123456, Factors)."
+    ).","prime_decomp(60, Factors).","prime_decomp(123456, Factors).","[{'Factors': [5, 3, 2, 2]}]","[{'Factors': [643, 3, 2, 2, 2, 2, 2, 2]}]"
 9,Dijkstra's algorithm,"This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
 
 Dijkstra's algorithm, conceived by Dutch computer scientist Edsger Dijkstra in 1956 and published in 1959, is a graph search algorithm that solves the single-source shortest path problem for a graph with non-negative edge path costs, producing a shortest path tree.
@@ -899,7 +898,7 @@ You can use numbers or names to identify vertices in your program.
 See also
  Dijkstra's Algorithm vs. A* Search vs. Concurrent Dijkstra's Algorithm (youtube)
 
-","rpath([target|reversed_path], distance)","rpath([e,d,c,b,a], 10).","rpath([goal,node3,node2,node1,start], 15)."
+","rpath([target|reversed_path], distance)","rpath([e,d,c,b,a], 10).","rpath([goal,node3,node2,node1,start], 15).",[],[]
 10,Levenshtein distance,"
 
  This page uses content from Wikipedia. The original article was at Levenshtein distance. The list of authors can be seen in the page history. As with Rosetta Code, the text of Wikipedia is available under the GNU FDL. (See links for details on variance)
@@ -1120,7 +1119,7 @@ init(Len, C) :-
 	length(C, Len).
  
 init_n(N, L) :-
-	nth0(0, L, N).","levenshtein(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], Distance).","levenshtein(['b', 'o', 'o', 'k'], ['b', 'a', 'c', 'k'], Distance)."
+	nth0(0, L, N).","levenshtein(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], Distance).","levenshtein(['b', 'o', 'o', 'k'], ['b', 'a', 'c', 'k'], Distance).",[{'Distance': 3}],[{'Distance': 2}]
 11,N-queens problem,"
 
 Solve the eight queens puzzle.
@@ -1164,7 +1163,7 @@ member(Item,[Item|Rest]).
 member(Item,[First|Rest]) :-
  member(Item,Rest).
  
-template([1/Y1,2/Y2,3/Y3,4/Y4,5/Y5,6/Y6,7/Y7,8/Y8]).","template(Queens), solution(Queens).","solution([1/4, 2/2, 3/7, 4/3, 5/6, 6/8, 7/5, 8/1])."
+template([1/Y1,2/Y2,3/Y3,4/Y4,5/Y5,6/Y6,7/Y7,8/Y8]).","template(Queens), solution(Queens).","solution([1/4, 2/2, 3/7, 4/3, 5/6, 6/8, 7/5, 8/1]).","[{'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 7)', '/(4, 3)', '/(5, 6)', '/(6, 8)', '/(7, 5)', '/(8, 1)']}, {'Queens': ['/(1, 5)', '/(2, 2)', '/(3, 4)', '/(4, 7)', '/(5, 3)', '/(6, 8)', '/(7, 6)', '/(8, 1)']}, {'Queens': ['/(1, 3)', '/(2, 5)', '/(3, 2)', '/(4, 8)', '/(5, 6)', '/(6, 4)', '/(7, 7)', '/(8, 1)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 4)', '/(4, 2)', '/(5, 8)', '/(6, 5)', '/(7, 7)', '/(8, 1)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 1)', '/(4, 3)', '/(5, 8)', '/(6, 6)', '/(7, 4)', '/(8, 2)']}, {'Queens': ['/(1, 4)', '/(2, 6)', '/(3, 8)', '/(4, 3)', '/(5, 1)', '/(6, 7)', '/(7, 5)', '/(8, 2)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 8)', '/(4, 1)', '/(5, 4)', '/(6, 7)', '/(7, 5)', '/(8, 2)']}, {'Queens': ['/(1, 5)', '/(2, 3)', '/(3, 8)', '/(4, 4)', '/(5, 7)', '/(6, 1)', '/(7, 6)', '/(8, 2)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 4)', '/(4, 1)', '/(5, 3)', '/(6, 8)', '/(7, 6)', '/(8, 2)']}, {'Queens': ['/(1, 4)', '/(2, 1)', '/(3, 5)', '/(4, 8)', '/(5, 6)', '/(6, 3)', '/(7, 7)', '/(8, 2)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 4)', '/(4, 1)', '/(5, 8)', '/(6, 5)', '/(7, 7)', '/(8, 2)']}, {'Queens': ['/(1, 4)', '/(2, 7)', '/(3, 5)', '/(4, 3)', '/(5, 1)', '/(6, 6)', '/(7, 8)', '/(8, 2)']}, {'Queens': ['/(1, 6)', '/(2, 4)', '/(3, 2)', '/(4, 8)', '/(5, 5)', '/(6, 7)', '/(7, 1)', '/(8, 3)']}, {'Queens': ['/(1, 6)', '/(2, 4)', '/(3, 7)', '/(4, 1)', '/(5, 8)', '/(6, 2)', '/(7, 5)', '/(8, 3)']}, {'Queens': ['/(1, 1)', '/(2, 7)', '/(3, 4)', '/(4, 6)', '/(5, 8)', '/(6, 2)', '/(7, 5)', '/(8, 3)']}, {'Queens': ['/(1, 6)', '/(2, 8)', '/(3, 2)', '/(4, 4)', '/(5, 1)', '/(6, 7)', '/(7, 5)', '/(8, 3)']}, {'Queens': ['/(1, 6)', '/(2, 2)', '/(3, 7)', '/(4, 1)', '/(5, 4)', '/(6, 8)', '/(7, 5)', '/(8, 3)']}, {'Queens': ['/(1, 4)', '/(2, 7)', '/(3, 1)', '/(4, 8)', '/(5, 5)', '/(6, 2)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 5)', '/(2, 8)', '/(3, 4)', '/(4, 1)', '/(5, 7)', '/(6, 2)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 4)', '/(2, 8)', '/(3, 1)', '/(4, 5)', '/(5, 7)', '/(6, 2)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 2)', '/(2, 7)', '/(3, 5)', '/(4, 8)', '/(5, 1)', '/(6, 4)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 1)', '/(2, 7)', '/(3, 5)', '/(4, 8)', '/(5, 2)', '/(6, 4)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 2)', '/(2, 5)', '/(3, 7)', '/(4, 4)', '/(5, 1)', '/(6, 8)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 7)', '/(4, 5)', '/(5, 1)', '/(6, 8)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 1)', '/(4, 4)', '/(5, 2)', '/(6, 8)', '/(7, 6)', '/(8, 3)']}, {'Queens': ['/(1, 6)', '/(2, 4)', '/(3, 1)', '/(4, 5)', '/(5, 8)', '/(6, 2)', '/(7, 7)', '/(8, 3)']}, {'Queens': ['/(1, 5)', '/(2, 1)', '/(3, 4)', '/(4, 6)', '/(5, 8)', '/(6, 2)', '/(7, 7)', '/(8, 3)']}, {'Queens': ['/(1, 5)', '/(2, 2)', '/(3, 6)', '/(4, 1)', '/(5, 7)', '/(6, 4)', '/(7, 8)', '/(8, 3)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 7)', '/(4, 2)', '/(5, 8)', '/(6, 5)', '/(7, 1)', '/(8, 4)']}, {'Queens': ['/(1, 2)', '/(2, 7)', '/(3, 3)', '/(4, 6)', '/(5, 8)', '/(6, 5)', '/(7, 1)', '/(8, 4)']}, {'Queens': ['/(1, 7)', '/(2, 3)', '/(3, 1)', '/(4, 6)', '/(5, 8)', '/(6, 5)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 5)', '/(2, 1)', '/(3, 8)', '/(4, 6)', '/(5, 3)', '/(6, 7)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 1)', '/(2, 5)', '/(3, 8)', '/(4, 6)', '/(5, 3)', '/(6, 7)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 8)', '/(4, 1)', '/(5, 5)', '/(6, 7)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 1)', '/(4, 7)', '/(5, 5)', '/(6, 8)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 7)', '/(2, 5)', '/(3, 3)', '/(4, 1)', '/(5, 6)', '/(6, 8)', '/(7, 2)', '/(8, 4)']}, {'Queens': ['/(1, 7)', '/(2, 3)', '/(3, 8)', '/(4, 2)', '/(5, 5)', '/(6, 1)', '/(7, 6)', '/(8, 4)']}, {'Queens': ['/(1, 5)', '/(2, 3)', '/(3, 1)', '/(4, 7)', '/(5, 2)', '/(6, 8)', '/(7, 6)', '/(8, 4)']}, {'Queens': ['/(1, 2)', '/(2, 5)', '/(3, 7)', '/(4, 1)', '/(5, 3)', '/(6, 8)', '/(7, 6)', '/(8, 4)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 2)', '/(4, 5)', '/(5, 8)', '/(6, 1)', '/(7, 7)', '/(8, 4)']}, {'Queens': ['/(1, 6)', '/(2, 1)', '/(3, 5)', '/(4, 2)', '/(5, 8)', '/(6, 3)', '/(7, 7)', '/(8, 4)']}, {'Queens': ['/(1, 8)', '/(2, 3)', '/(3, 1)', '/(4, 6)', '/(5, 2)', '/(6, 5)', '/(7, 7)', '/(8, 4)']}, {'Queens': ['/(1, 2)', '/(2, 8)', '/(3, 6)', '/(4, 1)', '/(5, 3)', '/(6, 5)', '/(7, 7)', '/(8, 4)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 2)', '/(4, 6)', '/(5, 3)', '/(6, 1)', '/(7, 8)', '/(8, 4)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 2)', '/(4, 7)', '/(5, 5)', '/(6, 1)', '/(7, 8)', '/(8, 4)']}, {'Queens': ['/(1, 6)', '/(2, 2)', '/(3, 7)', '/(4, 1)', '/(5, 3)', '/(6, 5)', '/(7, 8)', '/(8, 4)']}, {'Queens': ['/(1, 3)', '/(2, 7)', '/(3, 2)', '/(4, 8)', '/(5, 6)', '/(6, 4)', '/(7, 1)', '/(8, 5)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 7)', '/(4, 2)', '/(5, 4)', '/(6, 8)', '/(7, 1)', '/(8, 5)']}, {'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 7)', '/(4, 3)', '/(5, 6)', '/(6, 8)', '/(7, 1)', '/(8, 5)']}, {'Queens': ['/(1, 7)', '/(2, 1)', '/(3, 3)', '/(4, 8)', '/(5, 6)', '/(6, 4)', '/(7, 2)', '/(8, 5)']}, {'Queens': ['/(1, 1)', '/(2, 6)', '/(3, 8)', '/(4, 3)', '/(5, 7)', '/(6, 4)', '/(7, 2)', '/(8, 5)']}, {'Queens': ['/(1, 3)', '/(2, 8)', '/(3, 4)', '/(4, 7)', '/(5, 1)', '/(6, 6)', '/(7, 2)', '/(8, 5)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 7)', '/(4, 4)', '/(5, 1)', '/(6, 8)', '/(7, 2)', '/(8, 5)']}, {'Queens': ['/(1, 7)', '/(2, 4)', '/(3, 2)', '/(4, 8)', '/(5, 6)', '/(6, 1)', '/(7, 3)', '/(8, 5)']}, {'Queens': ['/(1, 4)', '/(2, 6)', '/(3, 8)', '/(4, 2)', '/(5, 7)', '/(6, 1)', '/(7, 3)', '/(8, 5)']}, {'Queens': ['/(1, 2)', '/(2, 6)', '/(3, 1)', '/(4, 7)', '/(5, 4)', '/(6, 8)', '/(7, 3)', '/(8, 5)']}, {'Queens': ['/(1, 2)', '/(2, 4)', '/(3, 6)', '/(4, 8)', '/(5, 3)', '/(6, 1)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 8)', '/(4, 2)', '/(5, 4)', '/(6, 1)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 1)', '/(4, 8)', '/(5, 4)', '/(6, 2)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 8)', '/(2, 4)', '/(3, 1)', '/(4, 3)', '/(5, 6)', '/(6, 2)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 4)', '/(2, 8)', '/(3, 1)', '/(4, 3)', '/(5, 6)', '/(6, 2)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 2)', '/(2, 6)', '/(3, 8)', '/(4, 3)', '/(5, 1)', '/(6, 4)', '/(7, 7)', '/(8, 5)']}, {'Queens': ['/(1, 7)', '/(2, 2)', '/(3, 6)', '/(4, 3)', '/(5, 1)', '/(6, 4)', '/(7, 8)', '/(8, 5)']}, {'Queens': ['/(1, 3)', '/(2, 6)', '/(3, 2)', '/(4, 7)', '/(5, 1)', '/(6, 4)', '/(7, 8)', '/(8, 5)']}, {'Queens': ['/(1, 4)', '/(2, 7)', '/(3, 3)', '/(4, 8)', '/(5, 2)', '/(6, 5)', '/(7, 1)', '/(8, 6)']}, {'Queens': ['/(1, 4)', '/(2, 8)', '/(3, 5)', '/(4, 3)', '/(5, 1)', '/(6, 7)', '/(7, 2)', '/(8, 6)']}, {'Queens': ['/(1, 3)', '/(2, 5)', '/(3, 8)', '/(4, 4)', '/(5, 1)', '/(6, 7)', '/(7, 2)', '/(8, 6)']}, {'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 8)', '/(4, 5)', '/(5, 7)', '/(6, 1)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 2)', '/(4, 4)', '/(5, 8)', '/(6, 1)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 7)', '/(2, 4)', '/(3, 2)', '/(4, 5)', '/(5, 8)', '/(6, 1)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 8)', '/(2, 2)', '/(3, 4)', '/(4, 1)', '/(5, 7)', '/(6, 5)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 7)', '/(2, 2)', '/(3, 4)', '/(4, 1)', '/(5, 8)', '/(6, 5)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 5)', '/(2, 1)', '/(3, 8)', '/(4, 4)', '/(5, 2)', '/(6, 7)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 4)', '/(2, 1)', '/(3, 5)', '/(4, 8)', '/(5, 2)', '/(6, 7)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 5)', '/(2, 2)', '/(3, 8)', '/(4, 1)', '/(5, 4)', '/(6, 7)', '/(7, 3)', '/(8, 6)']}, {'Queens': ['/(1, 3)', '/(2, 7)', '/(3, 2)', '/(4, 8)', '/(5, 5)', '/(6, 1)', '/(7, 4)', '/(8, 6)']}, {'Queens': ['/(1, 3)', '/(2, 1)', '/(3, 7)', '/(4, 5)', '/(5, 8)', '/(6, 2)', '/(7, 4)', '/(8, 6)']}, {'Queens': ['/(1, 8)', '/(2, 2)', '/(3, 5)', '/(4, 3)', '/(5, 1)', '/(6, 7)', '/(7, 4)', '/(8, 6)']}, {'Queens': ['/(1, 3)', '/(2, 5)', '/(3, 2)', '/(4, 8)', '/(5, 1)', '/(6, 7)', '/(7, 4)', '/(8, 6)']}, {'Queens': ['/(1, 3)', '/(2, 5)', '/(3, 7)', '/(4, 1)', '/(5, 4)', '/(6, 2)', '/(7, 8)', '/(8, 6)']}, {'Queens': ['/(1, 5)', '/(2, 2)', '/(3, 4)', '/(4, 6)', '/(5, 8)', '/(6, 3)', '/(7, 1)', '/(8, 7)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 5)', '/(4, 8)', '/(5, 1)', '/(6, 4)', '/(7, 2)', '/(8, 7)']}, {'Queens': ['/(1, 5)', '/(2, 8)', '/(3, 4)', '/(4, 1)', '/(5, 3)', '/(6, 6)', '/(7, 2)', '/(8, 7)']}, {'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 5)', '/(4, 8)', '/(5, 6)', '/(6, 1)', '/(7, 3)', '/(8, 7)']}, {'Queens': ['/(1, 4)', '/(2, 6)', '/(3, 1)', '/(4, 5)', '/(5, 2)', '/(6, 8)', '/(7, 3)', '/(8, 7)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 1)', '/(4, 8)', '/(5, 5)', '/(6, 2)', '/(7, 4)', '/(8, 7)']}, {'Queens': ['/(1, 5)', '/(2, 3)', '/(3, 1)', '/(4, 6)', '/(5, 8)', '/(6, 2)', '/(7, 4)', '/(8, 7)']}, {'Queens': ['/(1, 4)', '/(2, 2)', '/(3, 8)', '/(4, 6)', '/(5, 1)', '/(6, 3)', '/(7, 5)', '/(8, 7)']}, {'Queens': ['/(1, 6)', '/(2, 3)', '/(3, 5)', '/(4, 7)', '/(5, 1)', '/(6, 4)', '/(7, 2)', '/(8, 8)']}, {'Queens': ['/(1, 6)', '/(2, 4)', '/(3, 7)', '/(4, 1)', '/(5, 3)', '/(6, 5)', '/(7, 2)', '/(8, 8)']}, {'Queens': ['/(1, 4)', '/(2, 7)', '/(3, 5)', '/(4, 2)', '/(5, 6)', '/(6, 1)', '/(7, 3)', '/(8, 8)']}, {'Queens': ['/(1, 5)', '/(2, 7)', '/(3, 2)', '/(4, 6)', '/(5, 3)', '/(6, 1)', '/(7, 4)', '/(8, 8)']}]",[{}]
 13,Ackermann function,"The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
 
 The Ackermann function is usually defined as follows:
@@ -1304,7 +1303,7 @@ See also
 ",":- table ack/3. 
 ack(0, N, Ans) :- Ans is N+1.
 ack(M, 0, Ans) :- M>0, X is M-1, ack(X, 1, Ans).
-ack(M, N, Ans) :- M>0, N>0, X is M-1, Y is N-1, ack(M, Y, Ans2), ack(X, Ans2, Ans).","ack(3, 1, Result).","ack(2, 3, Result)."
+ack(M, N, Ans) :- M>0, N>0, X is M-1, Y is N-1, ack(M, Y, Ans2), ack(X, Ans2, Ans).","ack(3, 1, Result).","ack(2, 3, Result).",[{'Result': 13}],[{'Result': 9}]
 14,Balanced brackets,"Task:
 
  Generate a string with   N   opening brackets   [   and with   N   closing brackets   ],   in some arbitrary order. 
@@ -1374,7 +1373,7 @@ gen_bracket(N) -->
  
 bracket(0) --> ['['].
 bracket(1) --> [']'].
- ","test_brackets(""({[]})"").","test_brackets(""([)])"")."
+ ","test_brackets(""({[]})"").","test_brackets(""([)])"").",[],[]
 15,Knight's tour,"
 Task
 Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
@@ -1476,7 +1475,7 @@ display(N, M, [H | T]) :-
 	writef('%3r', [H]),
 	M1 is M + 1,
 	display(N, M1, T).
- ","knight(1).","knight(3)."
+ ",knight(1).,knight(3).,"[{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]",[]
 16,Sorting algorithms/Merge sort,"
 Sorting Algorithm
 
@@ -1625,7 +1624,7 @@ merge([L | LS], [R | RS], [L | T]) :-
     merge(LS, [R | RS], T).
 merge([L | LS], [R | RS], [R | T]) :-
     L > R,  
-    merge([L | LS], RS, T).","msort([3, 1, 4, 1, 5, 9, 2, 6, 5], Sorted).","msort([3, 1, 4, 1, 5, 9, 2, 6, 5], Sorted)."
+    merge([L | LS], RS, T).","msort([3, 1, 4, 1, 5, 9, 2, 6, 5], Sorted).","msort([3, 1, 4, 1, 5, 9, 2, 6, 5], Sorted).",,
 19,Roman numerals/Decode,"Task
 
 Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer.
@@ -1675,7 +1674,7 @@ decode_string(Atom, Value) :-
 test :-
    decode_string(mcmxc, 1990),
    decode_string(mmviii, 2008),
-   decode_string(mdclxvi, 1666).","decode_digit(""MCMXCIX"", Number).","decode_digit(""XLII"", Number)."
+   decode_string(mdclxvi, 1666).","decode_digit(""MCMXCIX"", Number).","decode_digit(""XLII"", Number).",[],[]
 20,Longest common subsequence,"Introduction
 
 Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
@@ -1928,8 +1927,7 @@ lcs(_,_,[]).
 longest(L1,L2,Longest) :-
     length(L1,Length1),
     length(L2,Length2),
-    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs(""ABCDGH"", ""AEDFHR"", LCS).","lcs(""AGGTAB"", ""GXTXAYB"", LCS)."
-
+    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs(""ABCDGH"", ""AEDFHR"", LCS).","lcs(""AGGTAB"", ""GXTXAYB"", LCS).",[{'LCS': []}],[{'LCS': []}]
 24,Huffman coding,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
 
 For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
@@ -2010,7 +2008,7 @@ run(V, [V|LRest], [N1,V], RRest):-
     N1 is N + 1.
 run(V, [Other|RRest], [1,V], [Other|RRest]):-
     dif(V, Other).
-","huffman_coding(""abracadabra"", Codes).","huffman_coding(""hello world"", Codes)."
+","huffman_coding(""abracadabra"", Codes).","huffman_coding(""hello world"", Codes).",,
 25,24 game,"The 24 Game tests one's mental arithmetic.
 
 
@@ -2070,4 +2068,4 @@ parse(Ns,Stack)   --> { select(N,Ns,Ns1), number_codes(N,[Code]) }
 get_line(Xs) :- get_code(X)
               , ( X == 10 -> Xs = [] ; Xs = [X|Ys], get_line(Ys) )
               .
-main :- randomize, play, halt.","Digits: [9,4,6,9] 46*9-9+","Digits: [7,4,7,8] 8 4 7 7 / - *"
+main :- randomize, play, halt.","Digits: [9,4,6,9] 46*9-9+","Digits: [7,4,7,8] 8 4 7 7 / - *",,

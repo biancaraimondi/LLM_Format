@@ -2,3 +2,4 @@ bitsandbytes
 transformers
 captum
 accelerate
+pyswip
