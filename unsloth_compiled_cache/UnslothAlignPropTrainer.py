@@ -120,7 +120,7 @@ class UnslothAlignPropConfig(AlignPropConfig):
     )
     def __init__(
         self,
-        exp_name = 'Qwen_Prolog_GRPO',
+        exp_name = 'qwen_prolog_grpo',
         run_name = '',
         seed = 3407,
         log_with = None,
