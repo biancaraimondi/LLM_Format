@@ -330,7 +330,7 @@ training_args = GRPOConfig(
     save_steps = 100,
     max_grad_norm = 0.1,
     report_to = "wandb", # Can use Weights & Biases
-    output_dir="runpods"
+    output_dir="cineca"
 )
 
 """And let's run the trainer! If you scroll up, you'll see a table of rewards. The goal is to see the `reward` column increase!
