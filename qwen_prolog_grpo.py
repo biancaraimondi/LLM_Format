@@ -174,7 +174,6 @@ def parse_kb(prolog_code, query, answer):
         print("-"*20)
         for rule in rules:
             prolog_interpreter.assertz(rule)
-            reward += 0.125
         # Use the instance's query method
         result = list(prolog_interpreter.query(query))
         for inference in result:
@@ -182,17 +181,17 @@ def parse_kb(prolog_code, query, answer):
             print("Infered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
             try:
               if float(result_inference) == float(answer):
-                return reward + 1
+                return 1
             except:
               print("Matching error!")
-              return reward - 0.5
+              return -0.5
         #print(result)
         # Ensure that the comparison makes sense:
         # This assumes you expect a non-empty result when the answer is correct.
-        return reward - 0.5
+        return -1
     except Exception as e:
         print(f"Error encountered: {e}")
-        return reward - 1
+        return -1
 
 
 def worker(q, prolog_code, query, answer):
@@ -287,6 +286,14 @@ def count_xml(text) -> float:
         count += 0.125
     if text.count("<code>\n") == 1:
         count += 0.125
+        # if "?-" in text between <code> and </code> then reward -0.5
+        code_text = text.split("<code>\n")[-1]
+        code_text = code_text.split("\n</code>")[0]
+        query_text = text.split("<query>\n")[-1]
+        query_text = query_text.split("\n</query>")[0]
+        if "?-" in code_text or query_text.replace("\n", "") in code_text:
+            print("\nFOUND QUERY IN CODE: ", query_text.replace("\n", ""))
+            count -= 0.5
     if text.count("\n</code>\n") == 1:
         count += 0.125
     if text.count("\n<query>\n") == 1:
@@ -326,8 +333,8 @@ training_args = GRPOConfig(
     max_prompt_length = 256,
     max_completion_length = 1024,
     # num_train_epochs = 1, # Set to 1 for a full training run
-    max_steps = 1000,
-    save_steps = 100,
+    max_steps = 3000,
+    save_steps = 500,
     max_grad_norm = 0.1,
     report_to = "wandb", # Can use Weights & Biases
     output_dir="cineca"

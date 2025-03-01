@@ -3,3 +3,6 @@ transformers
 captum
 accelerate
 pyswip
+unsloth
+vllm
+wandb
