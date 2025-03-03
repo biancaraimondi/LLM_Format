@@ -61,7 +61,7 @@ max_seq_length = 2048 # Can increase for longer reasoning traces
 lora_rank = 32 # Larger rank = smarter, but slower
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name = "Qwen/Qwen2.5-Coder-3B-Instruct",
+    model_name = "Qwen/Qwen2.5-Coder-1.5B-Instruct",
     max_seq_length = max_seq_length,
     load_in_4bit = True, # False for LoRA 16bit
     fast_inference = True, # Enable vLLM fast inference
@@ -333,7 +333,7 @@ training_args = GRPOConfig(
     max_prompt_length = 256,
     max_completion_length = 1024,
     # num_train_epochs = 1, # Set to 1 for a full training run
-    max_steps = 3000,
+    max_steps = 1500,
     save_steps = 500,
     max_grad_norm = 0.1,
     report_to = "wandb", # Can use Weights & Biases

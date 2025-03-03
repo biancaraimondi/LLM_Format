@@ -1,265 +1,77 @@
 Unnamed: 0,task_name,task_description,code,test_input_1,test_input_2,ground_truth_1,ground_truth_2
-0,Fibonacci sequence,"The Fibonacci sequence is a sequence    Fn    of natural numbers defined recursively:
-
-      F0 = 0 
-      F1 = 1 
-      Fn = Fn-1 + Fn-2, if n>1 
-
-
-
+0,Fibonacci sequence,"The Fibonacci sequence is a sequence Fn of natural numbers defined recursively:
+    F0 = 0 
+    F1 = 1 
+    Fn = Fn-1 + Fn-2, if n>1 
 Task
-
-Write a function to generate the    nth    Fibonacci number.
+Write a function to generate the nth Fibonacci number.
 Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
-
 The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
-
-      Fn = Fn+2 - Fn+1, if n<0   
-
-support for negative      n      in the solution is optional.
-
-
-
-Related tasks
-
-   Fibonacci n-step number sequences
-   Leonardo numbers
-
-
-References
-
-   Wikipedia, Fibonacci number
-   Wikipedia, Lucas number
-   MathWorld, Fibonacci Number
-   Some identities for r-Fibonacci numbers
-   OEIS Fibonacci numbers
-   OEIS Lucas numbers
-
-"," 
+    Fn = Fn+2 - Fn+1, if n<0   
+support for negative n in the solution is optional.
+","
 fib(1, 1) :- !.
 fib(0, 0) :- !.
 fib(N, Value) :-
   A is N - 1, fib(A, A1),
   B is N - 2, fib(B, B1),
   Value is A1 + B1.
- ","fib(20, F).","fib(10, F).",[{'F': 6765}],[{'F': 55}]
+","fib(20, F).","fib(10, F).",[{'F': 6765}],[{'F': 55}]
 1,Sieve of Eratosthenes,"This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
-
-
 The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
-
-
-
 Task
-
-Implement the   Sieve of Eratosthenes   algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
-
+Implement the Sieve of Eratosthenes algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
 That means especially that you shouldn't optimize by using pre-computed wheels, i.e. don't assume you need only to cross out odd numbers (wheel based on 2), numbers equal to 1 or 5 modulo 6 (wheel based on 2 and 3), or similar wheels based on low primes.
-
 If there's an easy way to add such a wheel based optimization, implement it as an alternative version.
-
-
-
 Note
-
- It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.
-
-
-Related tasks
-
-   Emirp primes
-   count in factors
-   prime decomposition
-   factors of an integer
-   extensible prime generator
-   primality by trial division
-   factors of a Mersenne number
-   trial factoring of a Mersenne number
-   partition an integer X into N primes
-   sequence of primes by Trial Division
-
-","primes(N, L) :- numlist(2, N, Xs),
-	        sieve(Xs, L).
- 
+It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.","primes(N, L) :- numlist(2, N, Xs),
+sieve(Xs, L).
 sieve([H|T], [H|X]) :- H2 is H + H, 
-                       filter(H, H2, T, R),
-                       sieve(R, X).
+filter(H, H2, T, R),
+sieve(R, X).
 sieve([], []).
- 
 filter(_, _, [], []).
 filter(H, H2, [H1|T], R) :- 
-    (   H1 < H2 -> R = [H1|R1], filter(H, H2, T, R1)
-    ;   H3 is H2 + H,
-        (   H1 =:= H2  ->       filter(H, H3, T, R)
-        ;                       filter(H, H3, [H1|T], R) ) ).","primes(10, Primes).","primes(30, Primes).","[{'Primes': [2, 3, 5, 7]}]","[{'Primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]}]"
+( H1 < H2 -> R = [H1|R1], filter(H, H2, T, R1);
+H3 is H2 + H,
+( H1 =:= H2  -> filter(H, H3, T, R);filter(H, H3, [H1|T], R) ) ).","primes(10, Primes).","primes(30, Primes).","[{'Primes': [2, 3, 5, 7]}]","[{'Primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]}]"
 2,Sorting algorithms/Quicksort,"
 Sorting Algorithm
-
-This is a sorting algorithm.   It may be applied to a set of data in order to sort it.    
-For comparing various sorts, see compare sorts.  
-For other sorting algorithms,   see sorting algorithms,   or:
-
-O(n logn) sorts
-Heap sort |
-Merge sort |
-Patience sort |
-Quick sort
-O(n log2n) sorts
-Shell Sort
-O(n2) sorts
-Bubble sort |
-Cocktail sort |
-Cocktail sort with shifting bounds |
-Comb sort |
-Cycle sort |
-Gnome sort |
-Insertion sort |
-Selection sort |
-Strand sort
-other sorts
-Bead sort |
-Bogo sort |
-Common sorted list |
-Composite structures sort |
-Custom comparator sort |
-Counting sort |
-Disjoint sublist sort |
-External sort |
-Jort sort |
-Lexicographical sort |
-Natural sorting |
-Order by pair comparisons |
-Order disjoint list items |
-Order two numerical lists |
-Object identifier (OID) sort |
-Pancake sort |
-Quickselect |
-Permutation sort |
-Radix sort |
-Ranking methods |
-Remove duplicate elements |
-Sleep sort |
-Stooge sort |
-[Sort letters of a string] |
-Three variable sort |
-Topological sort |
-Tree sort
-
-
-
-
- This page uses content from Wikipedia. The original article was at Quicksort. The list of authors can be seen in the page history. As with Rosetta Code, the text of Wikipedia is available under the GNU FDL. (See links for details on variance)
-
-
-
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
 Task
-
-Sort an array (or list) elements using the   quicksort   algorithm.
-
-The elements must have a   strict weak order   and the index of the array can be of any discrete type.
-
+Sort an array (or list) elements using the quicksort algorithm.
+The elements must have a strict weak order and the index of the array can be of any discrete type.
 For languages where this is not possible, sort an array of integers.
-
-
-
-Quicksort, also known as   partition-exchange sort,   uses these steps.
-
-   Choose any element of the array to be the pivot.
-   Divide all other elements (except the pivot) into two partitions.
-   All elements less than the pivot must be in the first partition.
-   All elements greater than the pivot must be in the second partition.
-   Use recursion to sort both partitions.
-   Join the first sorted partition, the pivot, and the second sorted partition.
-
-
-The best pivot creates partitions of equal length (or lengths differing by   1).
-
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
 The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
-
-The run-time of Quicksort ranges from    O(n log n)    with the best pivots, to    O(n2)    with the worst pivots, where    n    is the number of elements in the array.
-
-
-
-This is a simple quicksort algorithm, adapted from Wikipedia.
-
-function quicksort(array)
-    less, equal, greater := three empty arrays
-    if length(array) > 1  
-        pivot := select any element of array
-        for each x in array
-            if x < pivot then add x to less
-            if x = pivot then add x to equal
-            if x > pivot then add x to greater
-        quicksort(less)
-        quicksort(greater)
-        array := concatenate(less, equal, greater)
-
-A better quicksort algorithm works in place, by swapping elements within the array, to avoid the memory allocation of more arrays.
-
-function quicksort(array)
-    if length(array) > 1
-        pivot := select any element of array
-        left := first index of array
-        right := last index of array
-        while left ≤ right
-            while array[left] < pivot
-                left := left + 1
-            while array[right] > pivot
-                right := right - 1
-            if left ≤ right
-                swap array[left] with array[right]
-                left := left + 1
-                right := right - 1
-        quicksort(array from first index to right)
-        quicksort(array from left to last index)
-
-Quicksort has a reputation as the fastest sort. Optimized variants of quicksort are common features of many languages and libraries. One often contrasts quicksort with   merge sort,   because both sorts have an average time of    O(n log n). 
-
- ""On average, mergesort does fewer comparisons than quicksort, so it may be better when complicated comparison routines are used. Mergesort also takes advantage of pre-existing order, so it would be favored for using sort() to merge several sorted arrays. On the other hand, quicksort is often faster for small arrays, and on arrays of a few distinct values, repeated many times."" — http://perldoc.perl.org/sort.html
-Quicksort is at one end of the spectrum of divide-and-conquer algorithms, with merge sort at the opposite end.
-
- Quicksort is a conquer-then-divide algorithm, which does most of the work during the partitioning and the recursive calls. The subsequent reassembly of the sorted partitions involves trivial effort.
- Merge sort is a divide-then-conquer algorithm. The partioning happens in a trivial way, by splitting the input array in half. Most of the work happens during the recursive calls and the merge phase.
-
-
-With quicksort, every element in the first partition is less than or equal to every element in the second partition. Therefore, the merge phase of quicksort is so trivial that it needs no mention!
-
-This task has not specified whether to allocate new arrays, or sort in place. This task also has not specified how to choose the pivot element. (Common ways to are to choose the first element, the middle element, or the median of three elements.) Thus there is a variety among the following implementations.
-
-
-
-","qsort( [], [] ).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.","qsort( [], [] ).
 qsort( [H|U], S ) :- splitBy(H, U, L, R), qsort(L, SL), qsort(R, SR), append(SL, [H|SR], S).
- 
 % splitBy( H, U, LS, RS )
 % True if LS = { L in U | L <= H }; RS = { R in U | R > H }
 splitBy( _, [], [], []).
 splitBy( H, [U|T], [U|LS], RS ) :- U =< H, splitBy(H, T, LS, RS).
 splitBy( H, [U|T], LS, [U|RS] ) :- U  > H, splitBy(H, T, LS, RS).
- ","qsort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).","qsort([9, 8, 7, 6, 5, 4, 3, 2, 1], Sorted).","[{'Sorted': [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]}]","[{'Sorted': [1, 2, 3, 4, 5, 6, 7, 8, 9]}]"
+","qsort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).","qsort([9, 8, 7, 6, 5, 4, 3, 2, 1], Sorted).","[{'Sorted': [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]}]","[{'Sorted': [1, 2, 3, 4, 5, 6, 7, 8, 9]}]"
 3,Binary search,"A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
-
 As an analogy, consider the children's game ""guess a number."" The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
-
 As the player, an optimal strategy for the general case is to start by choosing the range's midpoint as the guess, and then asking whether the guess was higher, lower, or equal to the secret number. If the guess was too high, one would select the point exactly between the range midpoint and the beginning of the range. If the original guess was too low, one would ask about the point exactly between the range midpoint and the end of the range. This process repeats until one has reached the secret number.
-
-
-
 Task
-
 Given the starting point of a range, the ending point of a range, and the ""secret value"", implement a binary search through a sorted integer array for a certain number. Implementations can be recursive or iterative (both if you can). Print out whether or not the number was in the array afterwards. If it was, print the index also.
-
 There are several binary search algorithms commonly seen. They differ by how they treat multiple values equal to the given value, and whether they indicate whether the element was found or not. For completeness we will present pseudocode for all of them.
-
 All of the following code examples use an ""inclusive"" upper bound (i.e. high = N-1 initially). Any of the examples can be converted into an equivalent example using ""exclusive"" upper bound (i.e. high = N initially) by making the following simple changes (which simply increase high by 1):
-
- change high = N-1 to high = N
- change high = mid-1 to high = mid
- (for recursive algorithm) change if (high < low) to if (high <= low)
- (for iterative algorithm) change while (low <= high) to while (low < high)
+change high = N-1 to high = N
+change high = mid-1 to high = mid
+(for recursive algorithm) change if (high < low) to if (high <= low)
+(for iterative algorithm) change while (low <= high) to while (low < high)
 Traditional algorithm
 The algorithms are as follows (from Wikipedia). The algorithms return the index of some element that equals the given value (if there are multiple such elements, it returns some arbitrary one). It is also possible, when the element is not found, to return the ""insertion point"" for it (the index that the value would have if it were inserted into the array).
-
 Recursive Pseudocode:
 
   // initially called with low = 0, high = N-1
