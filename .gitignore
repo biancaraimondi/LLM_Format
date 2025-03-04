@@ -3,7 +3,8 @@ todo
 wandb
 unsloth_compiled_cache
 grpo_trainer_lora_model
-cineca
 grpo_saved_lora
 grpo_saved_lora_model
-cineca_3000
+cineca_1.5b
+cineca_3b
+cineca_0.5b
