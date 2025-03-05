@@ -116,6 +116,28 @@ Output in the following format:
 </query>
 
 Write the query just inside <query></query> not in <code></code>.
+ 
+## Example
+ 
+Question:
+James decides to make a bathtub full of jello.  For every pound of water, you need 1.5 tablespoons of jello mix.  The bathtub can hold 6 cubic feet of water.  Each cubic foot of water is 7.5 gallons.  A gallon of water weighs 8 pounds.  A tablespoon of jello mix costs $0.50.  How much did he spend to fill his tub?
+ 
+<reasoning>
+Here you are reasoning
+</reasoning>
+ 
+<code>
+cost_to_fill_tub(X) :-
+    TotalWater is 6 * 7.5,  % Total volume in gallons
+    TotalWeight is TotalWater * 8, % Total weight in pounds
+    TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
+    TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
+    X is TotalCost.
+</code>
+ 
+<query>
+cost_to_fill_tub(X).
+</query>
 """
 
 def extract_xml_knowledge(text: str) -> str:
@@ -330,14 +352,14 @@ training_args = GRPOConfig(
     per_device_train_batch_size = 1,
     gradient_accumulation_steps = 4, # Increase to 4 for smoother training
     num_generations = 8, # Decrease if out of memory
-    max_prompt_length = 256,
+    max_prompt_length = 512,
     max_completion_length = 1024,
     # num_train_epochs = 1, # Set to 1 for a full training run
     max_steps = 1500,
     save_steps = 500,
     max_grad_norm = 0.1,
     report_to = "wandb", # Can use Weights & Biases
-    output_dir="cineca_0.5b"
+    output_dir="Qwen-0.5B_one_shot"
 )
 
 """And let's run the trainer! If you scroll up, you'll see a table of rewards. The goal is to see the `reward` column increase!
