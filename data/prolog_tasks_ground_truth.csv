@@ -129,10 +129,15 @@ move(N,A,B,C) :-
     move(M,A,C,B),
     inform(A,B),
     move(M,C,B,A).
-inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.",hanoi(4).,hanoi(3).,[{}],[{}]
+inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.",hanoi(4).,hanoi(3).,
+[{[move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole],[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole],
+[move,a,disk,from,the,center,pole,to,left,pole], [move,a,disk,from,the,center,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole],
+[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,left,pole],[move,a,disk,from,the,center,pole,to,left,pole], [move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,center,pole]}], 
+[{[move, a, disk, from, the, left, pole, to, center, pole], [move, a, disk, from, the, left, pole, to, right, pole], [move, a, disk, from, the, center, pole, to, right, pole], [move, a, disk, from, the, left, pole, to, center, pole],
+[move, a, disk, from, the, right, pole, to, left, pole], [move, a, disk, from, the, right, pole, to, center, pole],[move, a, disk, from, the, left, pole, to, center, pole]}]
 7,Palindrome detection,"A palindrome is a phrase which reads the same backward and forward.
 Task
-Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"").",[{}],[]
+Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"").",[{True}],[{False}]
 8,Prime decomposition,"The prime decomposition of a number is defined as a list of prime numbers
 which when all multiplied together, are equal to that number.
 Example
@@ -190,7 +195,7 @@ Task
 Implement a version of Dijkstra's algorithm that outputs a set of edges depicting the shortest path to each reachable node from an origin.
 Run your program with the following directed graph starting at node a.
 Write a program which interprets the output from the above and use it to output the shortest path from node a to nodes e and  f. 
-","rpath([target|reversed_path], distance)","rpath([e,d,c,b,a], 10).","rpath([goal,node3,node2,node1,start], 15).",[],[]
+","rpath([target|reversed_path], distance)","rpath([e,d,c,b,a], 10).","rpath([goal,node3,node2,node1,start], 15).",[{False}],[{False}]
 10,Levenshtein distance,"
 In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
 Example
@@ -362,39 +367,38 @@ gen_bracket(N) -->
  
 bracket(0) --> ['['].
 bracket(1) --> [']'].
- ","test_brackets(""({[]})"").","test_brackets(""([)])"").",[],[]
+ ","test_brackets(""({[]})"").","test_brackets(""([)])"").",[{False}],[{False}]
 15,Knight's tour,"
 Task
 Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
 Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
 Input: starting square
-Output: move sequence
-","% N is the number of lines of the chessboard
+Output: move sequence","% N is the number of lines of the chessboard
 knight(N) :-
 	Max is N * N,
 	length(L, Max),
 	knight(N, 0, Max, 0, 0, L),
 	display(N, 0, L).
- 
+
 % knight(NbCol, Coup, Max, Lig, Col, L),
-% NbCol : number of columns per line
-% Coup  : number of the current move
-% Max   : maximum number of moves
-% Lig/ Col : current position of the knight
-% L : the ""chessboard""
- 
+% NbCol : number of columns per line
+% Coup  : number of the current move
+% Max   : maximum number of moves
+% Lig/ Col : current position of the knight
+% L : the "chessboard"
+
 % the game is over
 knight(_, Max, Max, _, _, _) :- !.
- 
+
 knight(NbCol, N, MaxN, Lg, Cl, L) :-
 	% Is the move legal
 	Lg >= 0, Cl >= 0, Lg < NbCol, Cl < NbCol,
- 
+
 	Pos is Lg * NbCol + Cl,
 	N1 is N+1,
 	% is the place free
 	nth0(Pos, L, N1),
- 
+
 	LgM1 is Lg - 1, LgM2 is Lg - 2, LgP1 is Lg + 1, LgP2 is Lg + 2,
 	ClM1 is Cl - 1, ClM2 is Cl - 2, ClP1 is Cl + 1, ClP2 is Cl + 2,
 	maplist(best_move(NbCol, L),
@@ -403,22 +407,22 @@ knight(NbCol, N, MaxN, Lg, Cl, L) :-
 		R),
 	sort(R, RS),
 	pairs_values(RS, Moves),
- 
+
 	move(NbCol, N1, MaxN, Moves, L).
- 
+
 move(NbCol, N1, MaxN, [(Lg, Cl) | R], L) :-
 	knight(NbCol, N1, MaxN, Lg, Cl, L);
 	move(NbCol, N1, MaxN,  R, L).
- 
+
 %% An illegal move is scored 1000
 best_move(NbCol, _L, (Lg, Cl), 1000-(Lg, Cl)) :-
 	(   Lg < 0 ; Cl < 0; Lg >= NbCol; Cl >= NbCol), !.
- 
+
 best_move(NbCol, L, (Lg, Cl), 1000-(Lg, Cl)) :-
 	Pos is Lg*NbCol+Cl,
 	nth0(Pos, L, V),
 	\+var(V), !.
- 
+
 %% a legal move is scored with the number of moves a knight can make
 best_move(NbCol, L, (Lg, Cl), R-(Lg, Cl)) :-
 	LgM1 is Lg - 1, LgM2 is Lg - 2, LgP1 is Lg + 1, LgP2 is Lg + 2,
@@ -429,7 +433,7 @@ best_move(NbCol, L, (Lg, Cl), R-(Lg, Cl)) :-
 		Res),
 	length(Res, Len),
 	(   Len = 0 -> R = 1000; R = Len).
- 
+
 % test if a place is enabled
 possible_move(NbCol, L, (Lg, Cl)) :-
 	% move must be legal
@@ -438,18 +442,42 @@ possible_move(NbCol, L, (Lg, Cl)) :-
 	% place must be free
 	nth0(Pos, L, V),
 	var(V).
- 
- 
 display(_, _, []).
 display(N, N, L) :-
 	nl,
 	display(N, 0, L).
- 
+
 display(N, M, [H | T]) :-
 	writef('%3r', [H]),
 	M1 is M + 1,
-	display(N, M1, T).
- ",knight(1).,knight(3).,"[{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}]",[]
+	display(N, M1, T).",knight(8).,knight(20).,"[{1  16  31  40   3  18  21  56
+  30  39   2  17  42  55   4  19
+  15  32  41  46  53  20  57  22
+  38  29  48  43  58  45  54   5
+  33  14  37  52  47  60  23  62
+  28  49  34  59  44  63   6   9
+  13  36  51  26  11   8  61  24
+  50  27  12  35  64  25  10   7}, True .]",[{1  40  81  90   3  42  77  94   5  44  73 102   7  46  69  62   9  48  51  60
+  82  89   2  41  92  95   4  43  76 101   6  45  72 103   8  47  68  61  10  49
+  39  80  91  96 153  78  93 100 129  74 109 104 123  70 111 120  63  50  59  52
+  88  83 154  79  98 159 152  75 108 105 128  71 110 121 124  67 112 119  64  11
+ 155  38  97 160 157 200  99 162 151 130 107 122 127 132 141 118 125  66  53  58
+  84  87 156 199 176 161 158 201 106 163 150 131 142 145 126 133 140 113  12  65
+  37 182  85 178 207 198 175 164 173 216 143 166 149 222 139 146 117 134  57  54
+  86 179 206 197 204 177 208 217 202 165 172 221 144 167 148 223 138  55 114  13
+ 183  36 181 212 209 218 203 174 215 220 227 170 281 224 303 168 147 116 135  56
+ 180 211 196 205 230 213 238 219 228 171 280 225 302 169 282 343 304 137  14 115
+  35 184 231 210 237 246 229 214 279 226 301 298 283 342 367 308 347 344 305 136
+ 232 195 236 245 234 239 278 247 300 297 284 359 366 309 348 345 368 307 350  15
+ 185  34 233 240 261 248 287 296 285 358 299 310 341 378 365 384 349 346 369 306
+ 194 241 250 235 244 277 260 313 294 311 360 373 364 383 354 379 370 385  16 351
+  33 186 243 262 249 288 295 286 361 316 357 340 377 372 395 386 353 380 333 388
+ 242 193 254 251 276 259 314 293 312 321 374 363 398 355 382 371 394 387 352  17
+ 187  32 263 258 267 252 289 322 315 362 317 356 339 376 399 396 381 334 389 332
+ 192 255 190 253 264 275 268 271 292 323 320 375 326 397 338 335 390 393  18  21
+  31 188 257 266  29 270 273 290  27 318 327 324  25 336 329 400  23  20 331 392
+ 256 191  30 189 274 265  28 269 272 291  26 319 328 325  24 337 330 391  22  19},
+True .]
 16,Sorting algorithms/Merge sort,"
 Sorting Algorithm
 This is a sorting algorithm. It may be applied to a set of data in order to sort it.
@@ -528,7 +556,7 @@ decode_string(Atom, Value) :-
 test :-
    decode_string(mcmxc, 1990),
    decode_string(mmviii, 2008),
-   decode_string(mdclxvi, 1666).","decode_digit(""MCMXCIX"", Number).","decode_digit(""XLII"", Number).",[],[]
+   decode_string(mdclxvi, 1666).","decode_string(mcmxc, 1990)","decode_string(mmviii, 2008)",[{True}],[{True}]
 20,Longest common subsequence,"
 Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
 The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
@@ -554,12 +582,7 @@ thisisatest
 testing123testing
 
 In this puzzle, your code only needs to deal with strings. Write a function which returns an LCS of two strings (case-sensitive). You don't need to show multiple LCS's.
-","test :-
-    time(lcs(""thisisatest"", ""testing123testing"", Lcs)),
-    writef('%s',[Lcs]).
- 
- 
-lcs([ H|L1],[ H|L2],[H|Lcs]) :- !,
+","lcs([ H|L1],[ H|L2],[H|Lcs]) :- !,
     lcs(L1,L2,Lcs).
  
 lcs([H1|L1],[H2|L2],Lcs):-
@@ -573,7 +596,7 @@ lcs(_,_,[]).
 longest(L1,L2,Longest) :-
     length(L1,Length1),
     length(L2,Length2),
-    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs(""ABCDGH"", ""AEDFHR"", LCS).","lcs(""AGGTAB"", ""GXTXAYB"", LCS).",[{'LCS': []}],[{'LCS': []}]
+    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs([a,b,c,d,e], [a,c,e], LCS).","lcs([1,2,3,4,5,6,7,8], [2,3,5,7,9], LCS).",[{'LCS': [a,c,e]}],[{'LCS': [2,3,5,7,9]}]
 24,Huffman coding,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
 For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
 Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
