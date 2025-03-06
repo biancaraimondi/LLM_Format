@@ -1,11 +1,9 @@
-Unnamed: 0,task_name,task_description,code,test_input_1,test_input_2,ground_truth_1,ground_truth_2
+id,task_name,task_description,code,test_input_1,test_input_2,ground_truth_1,ground_truth_2
 0,Fibonacci sequence,"The Fibonacci sequence is a sequence Fn of natural numbers defined recursively:
     F0 = 0 
     F1 = 1 
     Fn = Fn-1 + Fn-2, if n>1 
-
 Task
-
 Write a function to generate the nth Fibonacci number.
 Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
 The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
@@ -18,7 +16,7 @@ fib(N, Value) :-
   A is N - 1, fib(A, A1),
   B is N - 2, fib(B, B1),
   Value is A1 + B1.
-","fib(20, F).","fib(10, F).",[{'F': 6765}],[{'F': 55}]
+","fib(20, F).","fib(10, F).","[{'F': 6765}]","[{'F': 55}]"
 1,Sieve of Eratosthenes,"This task has been clarified. Its programming examples are in need of review to ensure that they still fit the requirements of the task.
 The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
 
@@ -129,12 +127,10 @@ move(N,A,B,C) :-
     move(M,A,C,B),
     inform(A,B),
     move(M,C,B,A).
-inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.",hanoi(4).,hanoi(3).,
-[{[move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole],[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole],
+inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.","hanoi(4).","hanoi(3).","[{[move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole],[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole],
 [move,a,disk,from,the,center,pole,to,left,pole], [move,a,disk,from,the,center,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole],
-[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,left,pole],[move,a,disk,from,the,center,pole,to,left,pole], [move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,center,pole]}], 
-[{[move, a, disk, from, the, left, pole, to, center, pole], [move, a, disk, from, the, left, pole, to, right, pole], [move, a, disk, from, the, center, pole, to, right, pole], [move, a, disk, from, the, left, pole, to, center, pole],
-[move, a, disk, from, the, right, pole, to, left, pole], [move, a, disk, from, the, right, pole, to, center, pole],[move, a, disk, from, the, left, pole, to, center, pole]}]
+[move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,left,pole],[move,a,disk,from,the,center,pole,to,left,pole], [move,a,disk,from,the,right,pole,to,center,pole], [move,a,disk,from,the,left,pole,to,right,pole], [move,a,disk,from,the,left,pole,to,center,pole], [move,a,disk,from,the,right,pole,to,center,pole]}]","[{[move, a, disk, from, the, left, pole, to, center, pole], [move, a, disk, from, the, left, pole, to, right, pole], [move, a, disk, from, the, center, pole, to, right, pole], [move, a, disk, from, the, left, pole, to, center, pole],
+[move, a, disk, from, the, right, pole, to, left, pole], [move, a, disk, from, the, right, pole, to, center, pole],[move, a, disk, from, the, left, pole, to, center, pole]}]"
 7,Palindrome detection,"A palindrome is a phrase which reads the same backward and forward.
 Task
 Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"").",[{True}],[{False}]
@@ -368,7 +364,7 @@ gen_bracket(N) -->
 bracket(0) --> ['['].
 bracket(1) --> [']'].
  ","test_brackets(""({[]})"").","test_brackets(""([)])"").",[{False}],[{False}]
-15,Knight's tour,"
+15,"Knight's tour","
 Task
 Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
 Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
@@ -385,7 +381,7 @@ knight(N) :-
 % Coup  : number of the current move
 % Max   : maximum number of moves
 % Lig/ Col : current position of the knight
-% L : the "chessboard"
+% L : the ""chessboard""
 
 % the game is over
 knight(_, Max, Max, _, _, _) :- !.
@@ -450,14 +446,14 @@ display(N, N, L) :-
 display(N, M, [H | T]) :-
 	writef('%3r', [H]),
 	M1 is M + 1,
-	display(N, M1, T).",knight(8).,knight(20).,"[{1  16  31  40   3  18  21  56
+	display(N, M1, T).","knight(8).","knight(20).","[{1  16  31  40   3  18  21  56
   30  39   2  17  42  55   4  19
   15  32  41  46  53  20  57  22
   38  29  48  43  58  45  54   5
   33  14  37  52  47  60  23  62
   28  49  34  59  44  63   6   9
   13  36  51  26  11   8  61  24
-  50  27  12  35  64  25  10   7}, True .]",[{1  40  81  90   3  42  77  94   5  44  73 102   7  46  69  62   9  48  51  60
+  50  27  12  35  64  25  10   7}, True .]","[{1  40  81  90   3  42  77  94   5  44  73 102   7  46  69  62   9  48  51  60
   82  89   2  41  92  95   4  43  76 101   6  45  72 103   8  47  68  61  10  49
   39  80  91  96 153  78  93 100 129  74 109 104 123  70 111 120  63  50  59  52
   88  83 154  79  98 159 152  75 108 105 128  71 110 121 124  67 112 119  64  11
@@ -477,7 +473,7 @@ display(N, M, [H | T]) :-
  192 255 190 253 264 275 268 271 292 323 320 375 326 397 338 335 390 393  18  21
   31 188 257 266  29 270 273 290  27 318 327 324  25 336 329 400  23  20 331 392
  256 191  30 189 274 265  28 269 272 291  26 319 328 325  24 337 330 391  22  19},
-True .]
+True .]"
 16,Sorting algorithms/Merge sort,"
 Sorting Algorithm
 This is a sorting algorithm. It may be applied to a set of data in order to sort it.
@@ -556,7 +552,7 @@ decode_string(Atom, Value) :-
 test :-
    decode_string(mcmxc, 1990),
    decode_string(mmviii, 2008),
-   decode_string(mdclxvi, 1666).","decode_string(mcmxc, 1990)","decode_string(mmviii, 2008)",[{True}],[{True}]
+   decode_string(mdclxvi, 1666).","decode_string(mcmxc, 1990)","decode_string(mmviii, 2008)","[{True}]","[{True}]"
 20,Longest common subsequence,"
 Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
 The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
@@ -596,7 +592,7 @@ lcs(_,_,[]).
 longest(L1,L2,Longest) :-
     length(L1,Length1),
     length(L2,Length2),
-    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs([a,b,c,d,e], [a,c,e], LCS).","lcs([1,2,3,4,5,6,7,8], [2,3,5,7,9], LCS).",[{'LCS': [a,c,e]}],[{'LCS': [2,3,5,7,9]}]
+    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs([a,b,c,d,e], [a,c,e], LCS).","lcs([1,2,3,4,5,6,7,8], [2,3,5,7,9], LCS).","[{'LCS': [a,c,e]}]","[{'LCS': [2,3,5,7,9]}]"
 24,Huffman coding,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
 For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
 Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
