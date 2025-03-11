@@ -5,4 +5,5 @@ unsloth_compiled_cache
 grpo_trainer_lora_model
 grpo_saved_lora
 grpo_saved_lora_model
-Qwen-*
+/Qwen-*
+merged_models

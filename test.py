@@ -73,7 +73,7 @@ def extract_hash_answer(text: str) -> str | None:
     return text.split("####")[1].strip()
 
 # uncomment middle messages for 1-shot prompting
-def get_gsm8k_questions(split = "train") -> Dataset:
+def get_gsm8k_questions(SYSTEM_PROMPT, split = "train") -> Dataset:
     data = load_dataset('openai/gsm8k', 'main')[split] # type: ignore
     data = data.map(lambda x: { # type: ignore
         'prompt': [
@@ -285,13 +285,28 @@ def main(model_B, checkpoint, one_shot):
         model_dir = "Qwen/Qwen2.5-Coder-" + model_B + "B-Instruct"
         merged_model_dir = model_dir
 
+    if "/check" in model_dir:
+        results_dir = "results/"+model_dir.split("/check")[0]
+    else:
+        results_dir = "results/Base"
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
+    if "/check" in model_dir:
+        results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
+    else:
+        results_dir = results_dir + "/" + model_B + ".csv"
+
+    if os.path.exists(results_dir):
+        print(f"Results for {model_dir} already exists.")
+        return
+
     print(f"Generating response for {model_dir}...")
     tokenizer = AutoTokenizer.from_pretrained(merged_model_dir)
     vllm_model = LLM(model=merged_model_dir, gpu_memory_utilization = 0.4)
 
 
 
-    dataset = get_gsm8k_questions("test")
+    dataset = get_gsm8k_questions(SYSTEM_PROMPT, "test")
     list_of_reward = []
     list_of_responses = []
 
@@ -345,17 +360,6 @@ def main(model_B, checkpoint, one_shot):
     df["sum"] = df["match_1"] + df["match_2"] + df["match_3"] + df["match_4"]
     df["mean"] = df["sum"] / 4
     df["match"] = df["sum"] > 0
-
-    if "/check" in model_dir:
-        results_dir = "results/"+model_dir.split("/check")[0]
-    else:
-        results_dir = "results/Base"
-    if not os.path.exists(results_dir):
-        os.makedirs(results_dir)
-    if "/check" in model_dir:
-        results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
-    else:
-        results_dir = results_dir + "/" + model_B + ".csv"
 
     # sort columns in this order: question, sum, mean, match_1, match_2, match_3, match_4, gen_code_1, gen_code_2, gen_code_3, gen_code_4
     df = df[["match", "question", "sum", "mean", "match_1", "match_2", "match_3", "match_4", "gen_code_1", "gen_code_2", "gen_code_3", "gen_code_4"]]
