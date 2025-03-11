@@ -44,26 +44,6 @@ import multiprocessing
 os.environ["WANDB_PROJECT"] = "prolog-3b"
 os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
-# Load and prep dataset
-SYSTEM_PROMPT = """
-Generate a prolog solution for the asked question.
-Follow these steps to craft your response:
-1. reason about the given instruction
-2. provide a high-quality prolog solution
-3. write a query to verify the solution.
-Output in the following format:
-<reasoning>
-...
-</reasoning>
-<code>
-...
-</code>
-<query>
-...
-</query>
-
-Write the query just inside <query></query> not in <code></code>. Implement the logic in prolog.
-"""
 
 def get_structured_output(output, idx):
   return [
@@ -229,6 +209,69 @@ import pandas as pd
 
 
 def main(model_B, checkpoint, one_shot):
+    SYSTEM_PROMPT = ""
+    if one_shot == 0:
+        SYSTEM_PROMPT = """
+        Generate a prolog solution for the asked question.
+        Follow these steps to craft your response:
+        1. reason about the given instruction
+        2. provide a high-quality prolog solution
+        3. write a query to verify the solution.
+        Output in the following format:
+        <reasoning>
+        ...
+        </reasoning>
+        <code>
+        ...
+        </code>
+        <query>
+        ...
+        </query>
+
+        Write the query just inside <query></query> not in <code></code>. Implement the logic in prolog.
+        """
+    else:
+        SYSTEM_PROMPT = """
+        Generate a prolog solution for the asked question.
+        Follow these steps to craft your response:
+        1. reason about the given instruction
+        2. provide a high-quality prolog solution
+        3. write a query to verify the solution.
+        Output in the following format:
+        <reasoning>
+        ...
+        </reasoning>
+        <code>
+        ...
+        </code>
+        <query>
+        ...
+        </query>
+
+        Write the query just inside <query></query> not in <code></code>.
+        
+        ## Example
+        
+        Question:
+        James decides to make a bathtub full of jello.  For every pound of water, you need 1.5 tablespoons of jello mix.  The bathtub can hold 6 cubic feet of water.  Each cubic foot of water is 7.5 gallons.  A gallon of water weighs 8 pounds.  A tablespoon of jello mix costs $0.50.  How much did he spend to fill his tub?
+        
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+        
+        <code>
+        cost_to_fill_tub(X) :-
+            TotalWater is 6 * 7.5,  % Total volume in gallons
+            TotalWeight is TotalWater * 8, % Total weight in pounds
+            TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
+            TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
+            X is TotalCost.
+        </code>
+        
+        <query>
+        cost_to_fill_tub(X).
+        </query>
+        """
     model_B = str(model_B)
     checkpoint = str(checkpoint)
     one_shot = "" if one_shot == 0 else "_one_shot"
