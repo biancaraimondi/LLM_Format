@@ -1,29 +1,37 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForSequenceClassification, AutoModel
 from peft import PeftModel
 import torch
 import argparse
 import os
 import fire
+from unsloth import FastLanguageModel, is_bfloat16_supported
+import vllm
+import numpy as np
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-def merge_and_save_lora(tokenizer, model, output_dir: str):
-    """Merge LoRA weights and save model"""
-    print("Starting to merge LoRA weights...")
-    # Merge LoRA weights into base model
-    merged_model = model.merge_and_unload()
-    
-    print(f"Saving merged model to: {output_dir}")
-    # Save merged model
-    merged_model.save_pretrained(
-        output_dir,
-        safe_serialization=True
+def get_model(lora_path):
+    max_seq_length = 2048 # Can increase for longer reasoning traces
+    lora_rank = 32 # Larger rank = smarter, but slower
+    # Load base model
+    #lora_path = model_dir
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name = lora_path,
+        max_seq_length = max_seq_length,
+        load_in_4bit = True, # False for LoRA 16bit
+        fast_inference = True, # Enable vLLM fast inference
+        max_lora_rank = lora_rank,
+        gpu_memory_utilization = 0.2, # Reduce if out of memory
     )
-    # Save tokenizer
-    tokenizer.save_pretrained(output_dir)
-    print("Model saving completed!")
+    model.eval()
+    FastLanguageModel.for_inference(model)
+    return model, tokenizer
+
+def merge_and_save_lora(lora_model_path, output_dir):
+    model, tokenizer = get_model(lora_model_path)
+    model.save_pretrained_merged(output_dir, tokenizer)
 
 
 import re
@@ -130,16 +138,16 @@ def parse_kb(prolog_code, query, answer):
         # print("-"*20)
         # print(result)
         # print("-"*20)
+        print("Result: ", result)
         for inference in result:
           for _, result_inference in inference.items():
-            #print("Infered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
+            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
             try:
               if float(result_inference) == float(answer):
                 return 1
             except:
-              #print("Matching error!")
+              print("Matching error!")
               return 0
-        #print(result)
         # Ensure that the comparison makes sense:
         # This assumes you expect a non-empty result when the answer is correct.
         return 0
@@ -159,6 +167,8 @@ def worker(q, prolog_code, query, answer):
     q.put(result)
 
 def run_with_timeout(prolog_code, query, answer, timeout=5):
+    print("\n\nPROLOG CODE", prolog_code)
+    print("\nQUERY", query)
     # Create a queue to share data between processes
     q = multiprocessing.Queue()
     proc = multiprocessing.Process(target=worker, args=(q, prolog_code, query, answer))
@@ -221,21 +231,20 @@ import pandas as pd
 def main(model_B, checkpoint, one_shot):
     model_B = str(model_B)
     checkpoint = str(checkpoint)
-    one_shot = "" if one_shot == "False" else "_one_shot"
-    pretrained_model = "Qwen/Qwen2.5-Coder-" + model_B + "B-Instruct"
-    model_dir = "Qwen-" + model_B + "B" + one_shot + "/checkpoint-" + checkpoint
-    merged_model_dir = "merged_models/" + model_dir
+    one_shot = "" if one_shot == 0 else "_one_shot"
+    if checkpoint != "":
+        model_dir = "Qwen-" + model_B + "B" + one_shot + "/checkpoint-" + checkpoint
+        merged_model_dir = "merged_models/" + model_dir
+        if not os.path.exists(merged_model_dir):
+            print(f"Merging {model_dir}...")
+            merge_and_save_lora(model_dir, merged_model_dir)
+    else:
+        model_dir = "Qwen/Qwen2.5-Coder-" + model_B + "B-Instruct"
+        merged_model_dir = model_dir
 
     print(f"Generating response for {model_dir}...")
-    tokenizer = AutoTokenizer.from_pretrained(
-            pretrained_model,
-            trust_remote_code=True,
-        )
-
-    vllm_model = LLM(model=merged_model_dir)
-
-
-
+    tokenizer = AutoTokenizer.from_pretrained(merged_model_dir)
+    vllm_model = LLM(model=merged_model_dir, gpu_memory_utilization = 0.4)
 
 
 
@@ -246,12 +255,13 @@ def main(model_B, checkpoint, one_shot):
     sampling_params = SamplingParams(
         n = 4,
         best_of=4,
-        temperature = 0.8,
+        temperature = 0.1,
         top_p = 0.95,
         top_k=50,
         max_tokens = 1024,
     )
 
+    current_sum = 0
     for idx, entry in tqdm(enumerate(dataset)):
         different_match = []
         different_responses = []
@@ -261,34 +271,51 @@ def main(model_B, checkpoint, one_shot):
         ]
 
         text = tokenizer.apply_chat_template(prompt, tokenize = False, add_generation_prompt = True)#, return_tensors = "pt",).to("cuda")
-
         sentences = vllm_model.generate(
             [text],
             sampling_params=sampling_params,
         )
 
+        """ sentences = []
+        inputs =  tokenizer.apply_chat_template(prompt, tokenize = True, add_generation_prompt = True, return_tensors = "pt",).to("cuda")
+        outputs = model.generate(
+            input_ids = inputs, max_new_tokens = 1024, temperature =0.85, min_p = 0.1,  do_sample=True,         # Enable sampling
+        )
+        sentences.append(tokenizer.batch_decode(outputs)[-1]) """
+
         for sentence in sentences[0].outputs:
             sentence = sentence.text
-            different_match.append(correctness_reward_func(text, sentence, entry["answer"]))
+            different_match.append(correctness_reward_func(None, sentence, entry["answer"]))
             different_responses.append(sentence)
+        current_sum += sum(different_match) / len(different_match)
         list_of_reward.append(different_match)
         list_of_responses.append(different_responses)
+
+        collection_results = np.array(list_of_reward)
+        print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
 
     # from list_of_reward create a df
     df_reward = pd.DataFrame(list_of_reward, columns=["match_1", "match_2", "match_3", "match_4"])
     df_responses = pd.DataFrame(list_of_responses, columns=["gen_code_1", "gen_code_2", "gen_code_3", "gen_code_4"])
     df = pd.concat([df_reward, df_responses], axis=1)
-    df["question"] = dataset["question"]
+    df["question"] = dataset[0:len(df)]["question"]
     df["sum"] = df["match_1"] + df["match_2"] + df["match_3"] + df["match_4"]
     df["mean"] = df["sum"] / 4
+    df["match"] = df["sum"] > 0
 
-    results_dir = "results/"+model_dir.split("/check")[0]
+    if "/check" in model_dir:
+        results_dir = "results/"+model_dir.split("/check")[0]
+    else:
+        results_dir = "results/Base"
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
-    results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
+    if "/check" in model_dir:
+        results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
+    else:
+        results_dir = results_dir + "/" + model_B + ".csv"
 
     # sort columns in this order: question, sum, mean, match_1, match_2, match_3, match_4, gen_code_1, gen_code_2, gen_code_3, gen_code_4
-    df = df[["question", "sum", "mean", "match_1", "match_2", "match_3", "match_4", "gen_code_1", "gen_code_2", "gen_code_3", "gen_code_4"]]
+    df = df[["match", "question", "sum", "mean", "match_1", "match_2", "match_3", "match_4", "gen_code_1", "gen_code_2", "gen_code_3", "gen_code_4"]]
 
     df.to_csv(results_dir, index=False)
 
