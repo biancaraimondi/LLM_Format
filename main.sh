@@ -4,10 +4,10 @@ one_shots=(0 1)
 
 for model_B in "${models_B[@]}"
 do
-    CUDA_VISIBLE_DEVICES=5 python test.py --model_B $model_B --checkpoint '' --one_shot 0
-    for checkpoint in "${checkpoints[@]}"
+    for one_shot in "${one_shots[@]}"
+    CUDA_VISIBLE_DEVICES=5 python test.py --model_B $model_B --checkpoint '' --one_shot $one_shot
     do
-        for one_shot in "${one_shots[@]}"
+        for checkpoint in "${checkpoints[@]}"
         do
             CUDA_VISIBLE_DEVICES=5 python test.py --model_B $model_B --checkpoint $checkpoint --one_shot $one_shot
         done

@@ -288,7 +288,10 @@ def main(model_B, checkpoint, one_shot):
     if "/check" in model_dir:
         results_dir = "results/"+model_dir.split("/check")[0]
     else:
-        results_dir = "results/Base"
+        if one_shot == "":
+            results_dir = "results/Base/zero_shot"
+        else:
+            results_dir = "results/Base/one_shot"
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     if "/check" in model_dir:
