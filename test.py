@@ -230,7 +230,7 @@ def main(model_B, checkpoint, one_shot):
 
         Write the query just inside <query></query> not in <code></code>. Implement the logic in prolog.
         """
-    else:
+    elif one_shot == 1:
         SYSTEM_PROMPT = """
         Generate a prolog solution for the asked question.
         Follow these steps to craft your response:
@@ -270,6 +270,156 @@ def main(model_B, checkpoint, one_shot):
         
         <query>
         cost_to_fill_tub(X).
+        </query>
+        """
+    elif one_shot == 5:
+        SYSTEM_PROMPT = """
+        Generate a prolog solution for the asked question.
+        Follow these steps to craft your response:
+        1. reason about the given instruction
+        2. provide a high-quality prolog solution
+        3. write a query to verify the solution.
+        Output in the following format:
+        <reasoning>
+        ...
+        </reasoning>
+        <code>
+        ...
+        </code>
+        <query>
+        ...
+        </query>
+
+        Write the query just inside <query></query> not in <code></code>.
+        
+        ## Example 1
+        
+        Question:
+        James decides to make a bathtub full of jello.  For every pound of water, you need 1.5 tablespoons of jello mix.  The bathtub can hold 6 cubic feet of water.  Each cubic foot of water is 7.5 gallons.  A gallon of water weighs 8 pounds.  A tablespoon of jello mix costs $0.50.  How much did he spend to fill his tub?
+        
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+        
+        <code>
+        cost_to_fill_tub(X) :-
+            TotalWater is 6 * 7.5,  % Total volume in gallons
+            TotalWeight is TotalWater * 8, % Total weight in pounds
+            TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
+            TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
+            X is TotalCost.
+        </code>
+        
+        <query>
+        cost_to_fill_tub(X).
+        </query>
+
+
+        ## Example 2
+
+        Question:
+        Alexis is applying for a new job and bought a new set of business clothes to wear to the interview. She went to a department store with a budget of $200 and spent $30 on a button-up shirt, $46 on suit pants, $38 on a suit coat, $11 on socks, and $18 on a belt. She also purchased a pair of shoes, but lost the receipt for them. She has $16 left from her budget. How much did Alexis pay for the shoes?
+
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+
+        <code>
+        budget(alexis, 200).
+        shirt_price(30).
+        suit_pants_price(46).
+        suit_coat_price(38).
+        socks_price(11).
+        belt_price(18).
+        left(16).
+        solve(Shoes_price) :-
+            budget(alexis, Budget),
+            shirt_price(Shirt_price),
+            suit_pants_price(Suit_pants_price),
+            suit_coat_price(Suit_coat_price),
+            socks_price(Socks_price),
+            belt_price(Belt_price),
+            left(Left),
+            {Budget = Shirt_price + Suit_pants_price + Suit_coat_price + Socks_price + Belt_price + Shoes_price + Left}.
+        </code>
+
+        <query>
+        solve(Shoes_price).
+        </query>
+
+
+        ## Example 3
+
+        Question:
+        Randy has 60 mango trees on his farm. He also has 5 less than half as many coconut trees as mango trees. How many trees does Randy have in all on his farm?
+
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+
+        <code>
+        trees(randy, mango, 60).
+        solve(Total_trees) :-
+            trees(randy, mango, Mango_trees),
+            {Half_mango_trees = Mango_trees / 2},
+            {Coconut_trees = Half_mango_trees - 5},
+            {Total_trees = Mango_trees + Coconut_trees}.
+        </code>
+
+        <query>
+        solve(Total_trees).
+        </query>
+
+
+        ## Example 4
+
+        Question:
+        A car is driving through a tunnel with many turns. After a while, the car must travel through a ring that requires a total of 4 right-hand turns. After the 1st turn, it travels 5 meters. After the 2nd turn, it travels 8 meters. After the 3rd turn, it travels a little further and at the 4th turn, it immediately exits the tunnel. If the car has driven a total of 23 meters around the ring, how far did it have to travel after the 3rd turn?
+
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+
+        <code>
+        right_turns(car, 4).
+        turn(car, 1, 5).
+        turn(car, 2, 8).
+        turn(car, 4, 0).
+        total_distance(car, 23).
+        solve(Distance_after_3rd_turn) :-
+            turn(car, 1, Distance_at_1st_turn),
+            turn(car, 2, Distance_at_2nd_turn),
+            turn(car, 4, Distance_at_4th_turn),
+            total_distance(car, Total_distance),
+            {Total_distance = Distance_at_1st_turn + Distance_at_2nd_turn + Distance_after_3rd_turn + Distance_at_4th_turn}.
+        </code>
+
+        <query>
+        solve(Distance_after_3rd_turn).
+        </query>
+
+
+        ## Example 5
+
+        Question:
+        Leo's assignment was divided into three parts. He finished the first part of his assignment in 25 minutes. It took him twice as long to finish the second part. If he was able to finish his assignment in 2 hours, how many minutes did Leo finish the third part of the assignment?
+
+        <reasoning>
+        Here you are reasoning
+        </reasoning>
+
+        <code>
+        assignment_part_time(leo, part1, 25).
+        assignment_total_time(leo, 120).
+        solve(Part3_time) :-
+            assignment_part_time(leo, part1, Part1_time),
+            assignment_total_time(leo, Total_time),
+            {Part1_time + Part2_time + Part3_time = Total_time},
+            {Part2_time = 2 * Part1_time}.
+        </code>
+
+        <query>
+        solve(Part3_time).
         </query>
         """
     model_B = str(model_B)
