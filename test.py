@@ -208,7 +208,7 @@ from vllm import LLM, SamplingParams
 import pandas as pd
 
 
-def main(model_B, checkpoint, one_shot):
+def main(model_B, checkpoint, one_shot, length):
     SYSTEM_PROMPT = ""
     if one_shot == 0:
         SYSTEM_PROMPT = """
@@ -426,7 +426,7 @@ def main(model_B, checkpoint, one_shot):
     checkpoint = str(checkpoint)
     one_shot = "" if one_shot == 0 else "_one_shot"
     if checkpoint != "":
-        model_dir = "Qwen-" + model_B + "B" + one_shot + "/checkpoint-" + checkpoint
+        model_dir = "Qwen-" + model_B + "B" + one_shot + length + "/checkpoint-" + checkpoint
         merged_model_dir = "merged_models/" + model_dir
         if not os.path.exists(merged_model_dir):
             print(f"Merging {model_dir}...")

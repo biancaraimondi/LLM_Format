@@ -264,7 +264,7 @@ def main(model_B, one_shot):
     import os
     import multiprocessing
 
-    os.environ["WANDB_PROJECT"] = "prolog-3b"
+    os.environ["WANDB_PROJECT"] = "prolog_length"
     os.environ["WANDB_LOG_MODEL"] = "checkpoint"
     os.environ["WANDB_ENTITY"] = "halykoss"
 
@@ -277,6 +277,11 @@ def main(model_B, one_shot):
     def extract_xml_query(text: str) -> str:
         answer = text.split("<query>")[-1]
         answer = answer.split("</query>")[0]
+        return answer.strip()
+    
+    def extract_xml_reasoning(text: str) -> str:
+        answer = text.split("<reasoning>")[-1]
+        answer = answer.split("</reasoning>")[0]
         return answer.strip()
 
     def extract_hash_answer(text: str) -> str | None:
@@ -332,10 +337,10 @@ def main(model_B, one_shot):
                     print("Infered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
                     try:
                         if float(result_inference) == float(answer):
-                            return 1
+                            return 2
                     except:
                         print("Matching error!")
-                        return -0.5
+                        return -1
             #print(result)
             # Ensure that the comparison makes sense:
             # This assumes you expect a non-empty result when the answer is correct.
@@ -414,6 +419,50 @@ def main(model_B, one_shot):
             reward.append(reward_achieved)
         print('-'*20, f"Question:\n{q}", f"\nAnswer:\n{answer[-1]}", f"\nResponse:\n{responses[-1]}")
         return reward
+    
+    def count_reasoning(completions, **kwargs) -> list[float]:
+        """Reward function that checks the length of the reasoning section. It assigns a reward for every row in the reasoning section of 0.001."""
+        contents = [completion[0]["content"] for completion in completions]
+        lengths = []
+        for c in contents:
+            reasoning = extract_xml_reasoning(c)
+            length = len(reasoning.split())
+            lengths.append(length*0.0001)
+        return lengths
+    
+    def count_code(completions, **kwargs) -> list[float]:
+        """Reward function that checks the length of the code section. It assigns a reward for every row in the code section of 0.001."""
+        contents = [completion[0]["content"] for completion in completions]
+        lengths = []
+        for c in contents:
+            code = extract_xml_knowledge(c)
+            length = len(code.split())
+            lengths.append(length*0.0001)
+        return lengths
+    
+    def length_correctness_code_reward_func(prompts, completions, answer, **kwargs) -> list[float]:
+        """Reward function that ensure code length is less than x while being correct."""
+        corr = correctness_reward_func(prompts, completions, answer)
+        code = count_code(completions)
+        reward = []
+        for i in range(len(completions)):
+            if code[i] > 0.003 and code[i] < 0.005 and corr[i] == 2:
+                reward.append(1)
+            else:
+                reward.append(0)
+        return reward
+    
+    def length_correctness_reasoning_reward_func(prompts, completions, answer, **kwargs) -> list[float]:
+        """Reward function that ensure code length is less than x while being correct."""
+        corr = correctness_reward_func(prompts, completions, answer)
+        reasoning = count_reasoning(completions)
+        reward = []
+        for i in range(len(completions)):
+            if reasoning[i] > 0.009 and reasoning[i] < 0.013 and corr[i] == 2:
+                reward.append(1)
+            else:
+                reward.append(0)
+        return reward
 
     def strict_format_reward_func(completions, **kwargs) -> list[float]:
         """Reward function that checks if the completion has a specific format."""
@@ -428,6 +477,7 @@ def main(model_B, one_shot):
         responses = [completion[0]["content"] for completion in completions]
         matches = [re.match(pattern, r) for r in responses]
         return [0.5 if match else 0.0 for match in matches]
+
 
     def count_xml(text) -> float:
         count = 0.0
@@ -449,10 +499,10 @@ def main(model_B, one_shot):
             count += 0.125
         if text.count("\n<query>\n") == 1:
             count += 0.125
-            count -= len(text.split("\n</query>\n")[-1])*0.001
+            #count -= len(text.split("\n</query>\n")[-1])*0.001
         if text.count("\n</query>") == 1:
             count += 0.125
-            count -= (len(text.split("\n</query>")[-1]) - 1)*0.001
+            #count -= (len(text.split("\n</query>")[-1]) - 1)*0.001
         return count
 
     def xmlcount_reward_func(completions, **kwargs) -> list[float]:
@@ -488,7 +538,7 @@ def main(model_B, one_shot):
         save_steps = 500,
         max_grad_norm = 0.1,
         report_to = "wandb", # Can use Weights & Biases
-        output_dir="Qwen-"+model_B+"B"+shot_string,
+        output_dir="Qwen-"+model_B+"B"+shot_string+"_length",
     )
 
 
@@ -498,8 +548,11 @@ def main(model_B, one_shot):
         reward_funcs = [
             xmlcount_reward_func,
             correctness_reward_func,
-            strict_format_reward_func,
-            soft_format_reward_func
+            # strict_format_reward_func,
+            soft_format_reward_func,
+            count_reasoning,
+            count_code,
+            length_correctness_reasoning_reward_func,
         ],
         args = training_args,
         train_dataset = dataset,
