@@ -424,7 +424,15 @@ def main(model_B, checkpoint, one_shot, length):
         """
     model_B = str(model_B)
     checkpoint = str(checkpoint)
-    one_shot = "" if one_shot == 0 else "_one_shot"
+    length = length.replace("_", "") if length == "_" else length
+    print("\n\nOne-shot: ", one_shot)
+    print("Length: ", length)
+    if one_shot == 0:
+        one_shot = ""
+    elif one_shot == 1:
+        one_shot = "_one_shot"
+    elif one_shot == 5:
+        one_shot = "_five_shot"
     if checkpoint != "":
         model_dir = "Qwen-" + model_B + "B" + one_shot + length + "/checkpoint-" + checkpoint
         merged_model_dir = "merged_models/" + model_dir
@@ -440,8 +448,10 @@ def main(model_B, checkpoint, one_shot, length):
     else:
         if one_shot == "":
             results_dir = "results/Base/zero_shot"
-        else:
+        elif one_shot == "_one_shot":
             results_dir = "results/Base/one_shot"
+        elif one_shot == "_five_shot":
+            results_dir = "results/Base/five_shot"
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
     if "/check" in model_dir:
@@ -452,8 +462,8 @@ def main(model_B, checkpoint, one_shot, length):
     if os.path.exists(results_dir):
         print(f"Results for {model_dir} already exists.")
         return
-
-    print(f"Generating response for {model_dir}...")
+    else:
+        print(f"Generating response for {model_dir}...")
     tokenizer = AutoTokenizer.from_pretrained(merged_model_dir)
     vllm_model = LLM(model=merged_model_dir, gpu_memory_utilization = 0.4)
 
