@@ -7,6 +7,6 @@ for model_B in "${models_B[@]}"
 do
     for one_shot in "${one_shots[@]}"
     do
-        CUDA_VISIBLE_DEVICES=5 python train_edit.py --model_B $model_B --one_shot $one_shot
+        CUDA_VISIBLE_DEVICES=5 python train.py --model_B $model_B --one_shot $one_shot
     done
 done

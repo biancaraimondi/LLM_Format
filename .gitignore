@@ -7,7 +7,3 @@ grpo_saved_lora
 grpo_saved_lora_model
 /Qwen-*
 merged_models
-trl
-train_edit.py
-Qwen2-0.5B-Instruct
-Qwen2-0.5B-Instruct-Optimized
