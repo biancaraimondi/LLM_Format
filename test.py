@@ -118,12 +118,13 @@ def parse_kb(prolog_code, query, answer):
         # print("-"*20)
         # print(result)
         # print("-"*20)
-        print("Result: ", result)
+        print("Infered: ", result)
+        print("Ground truth: ", answer)
         for inference in result:
           for _, result_inference in inference.items():
-            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
+            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, str(result_inference) == str(answer)))
             try:
-              if float(result_inference) == float(answer):
+              if str(result_inference) == str(answer):
                 return 1
             except:
               print("Matching error!")
@@ -208,7 +209,7 @@ from vllm import LLM, SamplingParams
 import pandas as pd
 
 
-def main(model_B, checkpoint, one_shot, length):
+def main(model_B, checkpoint, one_shot, length, dataset):
     SYSTEM_PROMPT = ""
     if one_shot == 0:
         SYSTEM_PROMPT = """
@@ -424,6 +425,8 @@ def main(model_B, checkpoint, one_shot, length):
         """
     model_B = str(model_B)
     checkpoint = str(checkpoint)
+    dataset = str(dataset).strip()
+    print("Dataset: ", dataset)
     length = length.replace("_", "") if length == "_" else length
     print("\n\nOne-shot: ", one_shot)
     print("Length: ", length)
@@ -458,6 +461,8 @@ def main(model_B, checkpoint, one_shot, length):
         results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
     else:
         results_dir = results_dir + "/" + model_B + ".csv"
+    if dataset == "rosetta":
+        results_dir = results_dir.replace(".csv", "_rosetta.csv")
 
     if os.path.exists(results_dir):
         print(f"Results for {model_dir} already exists.")
@@ -466,7 +471,7 @@ def main(model_B, checkpoint, one_shot, length):
         print(f"Generating response for {model_dir}...")
     tokenizer = AutoTokenizer.from_pretrained(merged_model_dir)
     vllm_model = LLM(model=merged_model_dir, gpu_memory_utilization = 0.4)
-    dataset = get_gsm8k_questions(SYSTEM_PROMPT, "test")
+    
     list_of_reward = []
     list_of_responses = []
 
@@ -482,76 +487,78 @@ def main(model_B, checkpoint, one_shot, length):
     current_sum = 0
     
     ### ----- TESTING ROSETTA CODE DATASET ----- ###
-    rosetta_dataset = pd.read_csv('data/prolog_tasks_ground_truth.csv')
-    print("pre dataset")
-    for index, entry in rosetta_dataset.iterrows():
-        different_match = []
-        different_responses = []
+    questions = []
+    if dataset == "rosetta":
+        rosetta_dataset = pd.read_csv('data/prolog_tasks_ground_truth.csv')
+        for index, entry in rosetta_dataset.iterrows():
+            different_match = []
+            different_responses = []
 
-        question_content = entry["task_description"] + "\nMake a test on:" + " " + entry["test_input_1"]
-        prompt = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": question_content}
-        ]
-        print(question_content)
-        print(entry['ground_truth_1'])
+            question_content = entry["task_description"] + "\nMake a test on:" + " " + entry["test_input_1"]
+            questions.append(question_content)
+            prompt = [
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": question_content}
+            ]
 
-        text = tokenizer.apply_chat_template(prompt,
-                                             tokenize = False,
-                                             add_generation_prompt = True)
-        sentences = vllm_model.generate(
-            [text],
-            sampling_params=sampling_params,
-        )
+            text = tokenizer.apply_chat_template(prompt,
+                                                tokenize = False,
+                                                add_generation_prompt = True)
+            sentences = vllm_model.generate(
+                [text],
+                sampling_params=sampling_params,
+            )
 
-        for sentence in sentences[0].outputs:
-            sentence = sentence.text
-            different_match.append(correctness_reward_func(None, sentence, entry["ground_truth_1"]))
-            different_responses.append(sentence)
-        current_sum += sum(different_match) / len(different_match)
-        list_of_reward.append(different_match)
-        list_of_responses.append(different_responses)
-        collection_results = np.array(list_of_reward)
-        print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
+            for sentence in sentences[0].outputs:
+                sentence = sentence.text
+                different_match.append(correctness_reward_func(None, sentence, entry["ground_truth_1"]))
+                different_responses.append(sentence)
+            current_sum += sum(different_match) / len(different_match)
+            list_of_reward.append(different_match)
+            list_of_responses.append(different_responses)
+            collection_results = np.array(list_of_reward)
+            print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
+    else:
+        ### ----- TESTING GSM8K DATASET ----- ###
+        dataset = get_gsm8k_questions(SYSTEM_PROMPT, "test")
+        for idx, entry in tqdm(enumerate(dataset)):
+            different_match = []
+            different_responses = []
+            prompt = [
+                {"role" : "system", "content" : SYSTEM_PROMPT},
+                {"role" : "user", "content" : entry["question"]},
+            ]
+            questions.append(entry["question"])
 
-    ### ----- TESTING GSM8K DATASET ----- ###
-    for idx, entry in tqdm(enumerate(dataset)):
-        different_match = []
-        different_responses = []
-        prompt = [
-            {"role" : "system", "content" : SYSTEM_PROMPT},
-            {"role" : "user", "content" : entry["question"]},
-        ]
+            text = tokenizer.apply_chat_template(prompt, tokenize = False, add_generation_prompt = True)#, return_tensors = "pt",).to("cuda")
+            sentences = vllm_model.generate(
+                [text],
+                sampling_params=sampling_params,
+            )
 
-        text = tokenizer.apply_chat_template(prompt, tokenize = False, add_generation_prompt = True)#, return_tensors = "pt",).to("cuda")
-        sentences = vllm_model.generate(
-            [text],
-            sampling_params=sampling_params,
-        )
+            """ sentences = []
+            inputs =  tokenizer.apply_chat_template(prompt, tokenize = True, add_generation_prompt = True, return_tensors = "pt",).to("cuda")
+            outputs = model.generate(
+                input_ids = inputs, max_new_tokens = 1024, temperature =0.85, min_p = 0.1,  do_sample=True,         # Enable sampling
+            )
+            sentences.append(tokenizer.batch_decode(outputs)[-1]) """
 
-        """ sentences = []
-        inputs =  tokenizer.apply_chat_template(prompt, tokenize = True, add_generation_prompt = True, return_tensors = "pt",).to("cuda")
-        outputs = model.generate(
-            input_ids = inputs, max_new_tokens = 1024, temperature =0.85, min_p = 0.1,  do_sample=True,         # Enable sampling
-        )
-        sentences.append(tokenizer.batch_decode(outputs)[-1]) """
+            for sentence in sentences[0].outputs:
+                sentence = sentence.text
+                different_match.append(correctness_reward_func(None, sentence, entry["answer"]))
+                different_responses.append(sentence)
+            current_sum += sum(different_match) / len(different_match)
+            list_of_reward.append(different_match)
+            list_of_responses.append(different_responses)
 
-        for sentence in sentences[0].outputs:
-            sentence = sentence.text
-            different_match.append(correctness_reward_func(None, sentence, entry["answer"]))
-            different_responses.append(sentence)
-        current_sum += sum(different_match) / len(different_match)
-        list_of_reward.append(different_match)
-        list_of_responses.append(different_responses)
-
-        collection_results = np.array(list_of_reward)
-        print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
+            collection_results = np.array(list_of_reward)
+            print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
 
     # from list_of_reward create a df
     df_reward = pd.DataFrame(list_of_reward, columns=["match_1", "match_2", "match_3", "match_4"])
     df_responses = pd.DataFrame(list_of_responses, columns=["gen_code_1", "gen_code_2", "gen_code_3", "gen_code_4"])
     df = pd.concat([df_reward, df_responses], axis=1)
-    df["question"] = dataset[0:len(df)]["question"]
+    df["question"] = questions
     df["sum"] = df["match_1"] + df["match_2"] + df["match_3"] + df["match_4"]
     df["mean"] = df["sum"] / 4
     df["match"] = df["sum"] > 0
