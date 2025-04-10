@@ -1,0 +1,704 @@
+id,task_name,task_description,code,test_input_1,test_input_2,ground_truth_1,ground_truth_2
+0,Fibonacci sequence,"The Fibonacci sequence is a sequence Fn of natural numbers defined recursively:
+    F0 = 0 
+    F1 = 1 
+    Fn = Fn-1 + Fn-2, if n>1 
+Task
+Write a function to generate the nth Fibonacci number.
+Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
+The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
+    Fn = Fn+2 - Fn+1, if n<0   
+support for negative n in the solution is optional.
+","
+fib(1, 1) :- !.
+fib(0, 0) :- !.
+fib(N, Value) :-
+  A is N - 1, fib(A, A1),
+  B is N - 2, fib(B, B1),
+  Value is A1 + B1.
+","fib(20, F).","fib(10, F).","6765","55"
+1,Sieve of Eratosthenes,"
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
+
+Task
+
+Implement the Sieve of Eratosthenes algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
+That means especially that you shouldn't optimize by using pre-computed wheels, i.e. don't assume you need only to cross out odd numbers (wheel based on 2), numbers equal to 1 or 5 modulo 6 (wheel based on 2 and 3), or similar wheels based on low primes.
+If there's an easy way to add such a wheel based optimization, implement it as an alternative version.
+Note
+It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.","primes(N, L) :- numlist(2, N, Xs),
+sieve(Xs, L).
+sieve([H|T], [H|X]) :- H2 is H + H, 
+filter(H, H2, T, R),
+sieve(R, X).
+sieve([], []).
+filter(_, _, [], []).
+filter(H, H2, [H1|T], R) :- 
+( H1 < H2 -> R = [H1|R1], filter(H, H2, T, R1);
+H3 is H2 + H,
+( H1 =:= H2  -> filter(H, H3, T, R);filter(H, H3, [H1|T], R) ) ).","primes(10, Primes).","primes(30, Primes).","[2, 3, 5, 7]","[2, 3, 5, 7, 11, 13, 17, 19, 23, 29]"
+2,Sorting algorithms/Quicksort,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+
+Task
+
+Sort an array (or list) elements using the quicksort algorithm.
+The elements must have a strict weak order and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.","qsort( [], [] ).
+qsort( [H|U], S ) :- splitBy(H, U, L, R), qsort(L, SL), qsort(R, SR), append(SL, [H|SR], S).
+% splitBy( H, U, LS, RS )
+% True if LS = { L in U | L <= H }; RS = { R in U | R > H }
+splitBy( _, [], [], []).
+splitBy( H, [U|T], [U|LS], RS ) :- U =< H, splitBy(H, T, LS, RS).
+splitBy( H, [U|T], LS, [U|RS] ) :- U  > H, splitBy(H, T, LS, RS).
+","qsort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).","qsort([9, 8, 7, 6, 5, 4, 3, 2, 1], Sorted).","[1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]","[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+3,Binary search,"A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+As an analogy, consider the children's game ""guess a number."" The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
+As the player, an optimal strategy for the general case is to start by choosing the range's midpoint as the guess, and then asking whether the guess was higher, lower, or equal to the secret number. If the guess was too high, one would select the point exactly between the range midpoint and the beginning of the range. If the original guess was too low, one would ask about the point exactly between the range midpoint and the end of the range. This process repeats until one has reached the secret number.
+
+Task
+
+Given the starting point of a range, the ending point of a range, and the ""secret value"", implement a binary search through a sorted integer array for a certain number. Implementations can be recursive or iterative (both if you can). Print out whether or not the number was in the array afterwards. If it was, print the index also.
+There are several binary search algorithms commonly seen. They differ by how they treat multiple values equal to the given value, and whether they indicate whether the element was found or not. For completeness we will present pseudocode for all of them.
+All of the following code examples use an ""inclusive"" upper bound (i.e. high = N-1 initially). Any of the examples can be converted into an equivalent example using ""exclusive"" upper bound (i.e. high = N initially) by making the following simple changes (which simply increase high by 1):
+change high = N-1 to high = N
+change high = mid-1 to high = mid
+(for recursive algorithm) change if (high < low) to if (high <= low)
+(for iterative algorithm) change while (low <= high) to while (low < high)","% Binary search with correct parameter order
+bin_search(List, Elt, Result):-
+  length(List, N), 
+  bin_search_inner(Elt, List, 1, N, Result).
+ 
+bin_search_inner(Elt, List, J, J, J):-
+  nth1(J, List, Elt).
+bin_search_inner(Elt, List, Begin, End, Mid):-
+  Begin < End,
+  Mid is (Begin+End) div 2,
+  nth1(Mid, List, Elt).
+bin_search_inner(Elt, List, Begin, End, Result):-
+  Begin < End,
+  Mid is (Begin+End) div 2,
+  nth1(Mid, List, MidElt),
+  MidElt < Elt,
+  NewBegin is Mid+1,
+  bin_search_inner(Elt, List, NewBegin, End, Result).
+bin_search_inner(Elt, List, Begin, End, Result):-
+  Begin < End,
+  Mid is (Begin+End) div 2,
+  nth1(Mid, List, MidElt),
+  MidElt > Elt,
+  NewEnd is Mid-1,
+  bin_search_inner(Elt, List, Begin, NewEnd, Result).","bin_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7, Position).","bin_search([10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 55, Position).",7,'false'
+4,Greatest common divisor,"Greatest common divisor
+You are encouraged to solve this task according to the task description, using any language you may know.
+
+Task
+
+Find the greatest common divisor (GCD) of two integers.Greatest common divisor is also known as greatest common factor (gcf) and greatest common measure.","gcd(X, 0, X):- !.
+gcd(0, X, X):- !.
+gcd(X, Y, D):- X > Y, !, Z is X mod Y, gcd(Y, Z, D).
+gcd(X, Y, D):- Z is Y mod X, gcd(X, Z, D).","gcd(1071, 462, GCD).","gcd(35, 49, GCD).","21","7"
+5,Factorial,"Definitions
+The factorial of 0 (zero) is defined as being 1 (unity).
+The Factorial Function of a positive integer, n, is defined as the product of the sequence: n, n-1, n-2, ... 1 
+
+Task
+
+Write a function to return the factorial of a number.
+Solutions can be iterative or recursive.
+Support for trapping negative n errors is optional.","fact(X, 1) :- X < 2.
+fact(X, F) :- X >= 2, Y is X-1, fact(Y, Z), F is Z*X.","fact(10, F).","fact(5, F).","3628800","120"
+6,Towers of Hanoi,"Task
+Solve the Towers of Hanoi problem with recursion.","hanoi(N) :- move(N,left,center,right).
+move(0,_,_,_) :- !.
+move(N,A,B,C) :-
+    M is N-1,
+    move(M,A,C,B),
+    inform(A,B),
+    move(M,C,B,A).
+inform(X,Y) :- write([move,a,disk,from,the,X,pole,to,Y,pole]), nl.","hanoi(4).","hanoi(3).","'true'","'true'"
+7,Palindrome detection,"A palindrome is a phrase which reads the same backward and forward.
+Task
+Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.","palindrome(Word) :- name(Word,List), reverse(List,List).","palindrome(""racecar"").","palindrome(""A man a plan a canal Panama"").","'true'","'false'"
+8,Prime decomposition,"The prime decomposition of a number is defined as a list of prime numbers
+which when all multiplied together, are equal to that number.
+Example
+12 = 2 × 2 × 3,  so its prime decomposition is  {2, 2, 3}
+
+Task
+
+Write a function which returns an array or collection which contains the prime decomposition of a given number n greater than 1.
+If your language does not have an isPrime-like function available, you may assume that you have a function which determines whether a number is prime (note its name before your code).
+","prime_decomp(N, L) :-
+    SN is sqrt(N),
+    prime_decomp_1(N, SN, 2, [], L).
+prime_decomp_1(1, _, _, L, L) :- !.
+% Special case for 2, increment 1
+prime_decomp_1(N, SN, D, L, LF) :-
+    (   0 is N mod D ->
+        Q is N / D,
+        SQ is sqrt(Q),
+        prime_decomp_1(Q, SQ, D, [D |L], LF)
+    ;
+        D1 is D+1,
+        (   D1 > SN ->
+            LF = [N |L]
+        ;
+            prime_decomp_2(N, SN, D1, L, LF)
+        )
+    ).
+% General case, increment 2
+prime_decomp_2(1, _, _, L, L) :- !.
+prime_decomp_2(N, SN, D, L, LF) :-
+    (   0 is N mod D ->
+        Q is N / D,
+        SQ is sqrt(Q),
+        prime_decomp_2(Q, SQ, D, [D |L], LF);
+        D1 is D+2,
+        (   D1 > SN ->
+            LF = [N |L]
+        ;
+            prime_decomp_2(N, SN, D1, L, LF)
+        )
+    ).","prime_decomp(60, Factors).","prime_decomp(123456, Factors).","[5, 3, 2, 2]","[643, 3, 2, 2, 2, 2, 2, 2]"
+9,Dijkstra's algorithm,"Dijkstra's algorithm, conceived by Dutch computer scientist Edsger Dijkstra in 1956 and published in 1959, is a graph search algorithm that solves the single-source shortest path problem for a graph with non-negative edge path costs, producing a shortest path tree.
+This algorithm is often used in routing and as a subroutine in other graph algorithms.
+For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+For instance
+If the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road, Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+Important note
+The inputs to Dijkstra's algorithm are a directed and weighted graph consisting of 2 or more nodes, generally represented by:
+an adjacency matrix or list and a start node. 
+A destination node is not specified.
+The output is a set of edges depicting the shortest path to each destination node.
+
+Task
+
+Implement a version of Dijkstra's algorithm that outputs a set of edges depicting the shortest path to each reachable node from an origin.
+Run your program with the following directed graph starting at node a.
+Write a program which interprets the output from the above and use it to output the shortest path from node a to nodes e and  f. 
+",":- dynamic
+    rpath/2.      % A reversed path
+
+edge(a,b,7).
+edge(a,c,9).
+edge(b,c,10).
+edge(b,d,15).
+edge(c,d,11).
+edge(d,e,6).
+edge(a,f,14).
+edge(c,f,2).
+edge(e,f,9).
+
+path(From,To,Dist) :- edge(To,From,Dist).
+path(From,To,Dist) :- edge(From,To,Dist).
+
+shorterPath([H|Path], Dist) :-
+    rpath([H|T], D), !, Dist < D,
+    retract(rpath([H|_],_)),
+    assert(rpath([H|Path], Dist)).
+
+shorterPath(Path, Dist) :-
+    assert(rpath(Path,Dist)).
+
+traverse(From, Path, Dist) :-
+    path(From, T, D),
+    not(memberchk(T, Path)),
+    shorterPath([T,From|Path], Dist+D),
+    traverse(T,[From|Path],Dist+D).
+
+traverse(From) :-
+    retractall(rpath(_,_)),
+    traverse(From,[],0).
+traverse(_).
+
+go(From, To) :-
+    traverse(From),
+    rpath([To|_], _).","go(a,e).","go(b,f).","'true'","'true'"
+10,Levenshtein distance,"
+In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+Example
+The Levenshtein distance between 'kitten' and 'sitting' is 3, since the following three edits change one into the other, and there isn't a way to do it with fewer than three edits:
+
+kitten sitten (substitution of 'k' with 's')
+sitten sittin (substitution of 'e' with 'i')
+sittin sitting (insert 'g' at the end).
+
+The Levenshtein distance between ""rosettacode"", ""raisethysword"" is 8.
+The distance between two strings is same as that when both strings are reversed.
+
+Task
+
+Implements a Levenshtein distance function, or uses a library function, to show the Levenshtein distance between 'kitten' and 'sitting'.
+","levenshtein(S, T, R) :-
+	length(S, M),
+	M1 is M+1,
+	length(T, N),
+	N1 is N+1,
+	length(Lev, N1),
+	maplist(init(M1), Lev),
+	numlist(0, N, LN),
+	maplist(init_n, LN, Lev),
+	nth0(0, Lev, Lev0),
+	numlist(0, M, Lev0),
+ 
+	% compute_levenshtein distance
+	numlist(1, N, LN1),
+	maplist(work_on_T(Lev, S), LN1, T),
+	last(Lev, LevLast),
+	last(LevLast, R).
+ 
+ 
+work_on_T(Lev, S, J, TJ) :-
+	length(S, M),
+	numlist(1, M, LM),
+	maplist(work_on_S(Lev, J, TJ), LM, S).
+ 
+work_on_S(Lev, J, C, I, C) :-
+	% same char
+	!,
+	I1 is I-1, J1 is J-1,
+	nth0(J1, Lev, LevJ1),
+	nth0(I1, LevJ1, V),
+	nth0(J, Lev, LevJ),
+	nth0(I, LevJ, V).
+ 
+ 
+work_on_S(Lev, J, _C1, I, _C2) :-
+	I1 is I-1, J1 is J - 1,
+	% compute the value for deletion
+	nth0(J, Lev, LevJ),
+	nth0(I1, LevJ, VD0),
+	VD is VD0 + 1,
+ 
+	% compute the value for insertion
+	nth0(J1, Lev, LevJ1),
+	nth0(I, LevJ1, VI0),
+	VI is VI0 + 1,
+ 
+	% compute the value for substitution
+	nth0(I1, LevJ1, VS0),
+	VS is VS0 + 1,
+ 
+	% set the minimum value to cell(I,J)
+	sort([VD, VI, VS], [V|_]),
+ 
+	nth0(I, LevJ, V).
+ 
+ 
+init(Len, C) :-
+	length(C, Len).
+ 
+init_n(N, L) :-
+	nth0(0, L, N).","levenshtein(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], Distance).","levenshtein(['b', 'o', 'o', 'k'], ['b', 'a', 'c', 'k'], Distance).","3","2"
+11,N-queens problem,"
+Solve the eight queens puzzle.
+You can extend the problem to solve the puzzle with a board of size NxN.
+","solution([]).
+solution([X/Y|Others]) :-
+ solution(Others),
+ member(Y, [1,2,3,4,5,6,7,8]),
+ noattack(X/Y, Others).
+noattack(_,[]).
+noattack(X/Y,[X1/Y1|Others]) :-
+ Y =\= Y1,
+ Y1 - Y =\= X1 - X,
+ Y1 - Y =\= X - X1,
+ noattack(X/Y,Others).
+member(Item,[Item|Rest]).
+member(Item,[First|Rest]) :-
+ member(Item,Rest).
+template([1/Y1,2/Y2,3/Y3,4/Y4,5/Y5,6/Y6,7/Y7,8/Y8]).","solution([1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4]).","solution([1/4, 2/2, 3/7, 4/3, 5/6, 6/8, 7/5, 8/1]).","'true'", "'true'"
+13,Ackermann function,"The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+
+Task
+
+Write a function which returns the value of A(m,n). Arbitrary precision is preferred (since the function grows so quickly), but not required.",":- table ack/3. 
+ack(0, N, Ans) :- Ans is N+1.
+ack(M, 0, Ans) :- M>0, X is M-1, ack(X, 1, Ans).
+ack(M, N, Ans) :- M>0, N>0, X is M-1, Y is N-1, ack(M, Y, Ans2), ack(X, Ans2, Ans).","ack(3, 1, Result).","ack(2, 3, Result).","13","9"
+14,Balanced brackets,"Task:
+
+Generate a string with N opening brackets [ and with N closing brackets ], in some arbitrary order. 
+Determine whether the generated string is balanced; that is, whether it consists entirely of pairs of opening/closing brackets (in that order), none of which mis-nest.
+
+Examples
+
+   (empty)      OK
+   []           OK   
+   [][]         OK   
+   [[][]]       OK 
+   ][         NOT OK
+   ][][       NOT OK
+   []][[]     NOT OK
+","rosetta_brackets :-
+	test_brackets([]),
+	test_brackets(['[',']']),
+	test_brackets(['[',']','[',']']),
+	test_brackets(['[','[',']','[',']',']']),
+	test_brackets([']','[']),
+	test_brackets([']','[',']','[']),
+	test_brackets(['[',']',']','[','[',']']).
+ 
+balanced_brackets :-
+	gen_bracket(2,  B1, []), test_brackets(B1),
+	gen_bracket(4,  B2, []), test_brackets(B2),
+	gen_bracket(4,  B3, []), test_brackets(B3),
+	gen_bracket(6,  B4, []), test_brackets(B4),
+	gen_bracket(6,  B5, []), test_brackets(B5),
+	gen_bracket(8,  B6, []), test_brackets(B6),
+	gen_bracket(8,  B7, []), test_brackets(B7),
+	gen_bracket(10, B8, []), test_brackets(B8),
+	gen_bracket(10, B9, []), test_brackets(B9).
+ 
+test_brackets(Goal) :-
+	(   Goal = [] -> write('(empty)'); maplist(write, Goal)),
+	(   balanced_brackets(Goal, []) ->
+	    writeln(' succeed')
+	;
+	    writeln(' failed')
+	).
+ 
+% grammar of balanced brackets
+balanced_brackets --> [].
+ 
+balanced_brackets -->
+	['['],
+	balanced_brackets,
+	[']'].
+ 
+balanced_brackets -->
+	['[',']'],
+	balanced_brackets.
+ 
+ 
+% generator of random brackets
+gen_bracket(0) --> [].
+ 
+gen_bracket(N) -->
+	{N1 is N - 1,
+	 R is random(2)},
+	bracket(R),
+	gen_bracket(N1).
+ 
+bracket(0) --> ['['].
+bracket(1) --> [']'].
+ ","test_brackets(""({[]})"").","test_brackets(""([)])"").","'false'","'false'"
+15,"Knight's tour","
+Task
+Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
+Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
+Input: starting square
+Output: move sequence","% N is the number of lines of the chessboard
+knight(N, Solution) :-
+	Max is N * N,
+	length(L, Max),
+	knight(N, 0, Max, 0, 0, L),
+	Solution = L.
+knight(_, Max, Max, _, _, _) :- !.
+knight(NbCol, N, MaxN, Lg, Cl, L) :-
+	% Is the move legal
+	Lg >= 0, Cl >= 0, Lg < NbCol, Cl < NbCol,
+	Pos is Lg * NbCol + Cl,
+	N1 is N+1,
+	% is the place free
+	nth0(Pos, L, N1),
+	LgM1 is Lg - 1, LgM2 is Lg - 2, LgP1 is Lg + 1, LgP2 is Lg + 2,
+	ClM1 is Cl - 1, ClM2 is Cl - 2, ClP1 is Cl + 1, ClP2 is Cl + 2,
+	maplist(best_move(NbCol, L),
+		[(LgP1, ClM2), (LgP2, ClM1), (LgP2, ClP1),(LgP1, ClP2),
+		 (LgM1, ClM2), (LgM2, ClM1), (LgM2, ClP1),(LgM1, ClP2)],
+		R),
+	sort(R, RS),
+	pairs_values(RS, Moves),
+	move(NbCol, N1, MaxN, Moves, L).
+
+move(NbCol, N1, MaxN, [(Lg, Cl) | R], L) :-
+	knight(NbCol, N1, MaxN, Lg, Cl, L);
+	move(NbCol, N1, MaxN, R, L).
+
+%% An illegal move is scored 1000
+best_move(NbCol, _L, (Lg, Cl), 1000-(Lg, Cl)) :-
+	(   Lg < 0 ; Cl < 0; Lg >= NbCol; Cl >= NbCol), !.
+best_move(NbCol, L, (Lg, Cl), 1000-(Lg, Cl)) :-
+	Pos is Lg*NbCol+Cl,
+	nth0(Pos, L, V),
+	\+var(V), !.
+
+%% a legal move is scored with the number of moves a knight can make
+best_move(NbCol, L, (Lg, Cl), R-(Lg, Cl)) :-
+	LgM1 is Lg - 1, LgM2 is Lg - 2, LgP1 is Lg + 1, LgP2 is Lg + 2,
+	ClM1 is Cl - 1, ClM2 is Cl - 2, ClP1 is Cl + 1, ClP2 is Cl + 2,
+	include(possible_move(NbCol, L),
+		[(LgP1, ClM2), (LgP2, ClM1), (LgP2, ClP1),(LgP1, ClP2),
+		 (LgM1, ClM2), (LgM2, ClM1), (LgM2, ClP1),(LgM1, ClP2)],
+		Res),
+	length(Res, Len),
+	(   Len = 0 -> R = 1000; R = Len).
+
+% test if a place is enabled
+possible_move(NbCol, L, (Lg, Cl)) :-
+	% move must be legal
+	Lg >= 0, Cl >= 0, Lg < NbCol, Cl < NbCol,
+	Pos is Lg * NbCol + Cl,
+	% place must be free
+	nth0(Pos, L, V),
+	var(V).
+
+% Helper predicate to format the solution as a grid (for when display is allowed)
+format_solution(N, L, Grid) :-
+    format_solution(N, 0, L, [], Grid).
+
+format_solution(_, _, [], Acc, Grid) :-
+    reverse(Acc, Grid).
+format_solution(N, N, L, Row, Grid) :-
+    format_solution(N, 0, L, [Row|[]], Grid).
+format_solution(N, M, [H|T], Acc, Grid) :-
+    M < N,
+    M1 is M + 1,
+    format_solution(N, M1, T, [H|Acc], Grid).","knight(3, Solution).","knight(4, Solution).","'false'","'false'"
+16,Sorting algorithms/Merge sort,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+The merge sort is a recursive sort of order n*log(n). 
+It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+
+Task
+
+Write a function to sort a collection of integers using the merge sort.
+The merge sort algorithm comes in two parts: a sort function and a merge function 
+Note: better performance can be expected if, rather than recursing until length(m) ≤ 1, an insertion sort is used for length(m) smaller than some threshold larger than 1.
+","% my_merge_sort( L, S )
+% True if S is a sorted copy of L, using merge sort
+my_merge_sort([], []).
+my_merge_sort([X], [X]).
+my_merge_sort(U, S) :-
+    split(U, L, R),
+    my_merge_sort(L, SL),
+    my_merge_sort(R, SR),
+    merge(SL, SR, S).
+
+% split( LIST, L, R )
+% Alternate elements of LIST in L and R
+split([], [], []).
+split([X], [X], []).
+split([L, R | T], [L | LT], [R | RT]) :- split(T, LT, RT).
+
+% merge( LS, RS, M )
+% Assuming LS and RS are sorted, True if M is the sorted merge of the two
+merge([], RS, RS).
+merge(LS, [], LS).
+merge([L | LS], [R | RS], [L | T]) :-
+    L =< R, 
+    merge(LS, [R | RS], T).
+merge([L | LS], [R | RS], [R | T]) :-
+    L > R,  
+    merge([L | LS], RS, T).","msort([3,1,4,2], Sorted).","merge([1,3], [2,4], Merged).","[1, 2, 3, 4]","[1, 2, 3, 4]"
+19,Roman numerals/Decode,"Task
+Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer.
+You don't need to validate the form of the Roman numeral.
+Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately,
+starting with the leftmost decimal digit and skipping any 0s (zeroes).
+1990 is rendered as MCMXC (1000 = M, 900 = CM, 90 = XC) and 2008 is rendered as MMVIII (2000 = MM, 8 = VIII).
+The Roman numeral for 1666, MDCLXVI, uses each letter in descending order.
+","decode_digit(i, 1).
+decode_digit(v, 5).
+decode_digit(x, 10).
+decode_digit(l, 50).
+decode_digit(c, 100).
+decode_digit(d, 500).
+decode_digit(m, 1000).
+ 
+decode_string(Sum, _, [], Sum).
+ 
+decode_string(LastSum, LastValue, [Digit|Rest], NextSum) :-
+   decode_digit(Digit, Value),
+   Value < LastValue,
+   Sum is LastSum - Value,
+   decode_string(Sum, Value, Rest, NextSum).
+ 
+decode_string(LastSum, LastValue, [Digit|Rest], NextSum) :-
+   decode_digit(Digit, Value),
+   Value >= LastValue,
+   Sum is LastSum + Value,
+   decode_string(Sum, Value, Rest, NextSum).
+ 
+decode_string(Atom, Value) :-
+   atom_chars(Atom, String),
+   reverse(String, [Last|Rest]),
+   decode_digit(Last, Start),
+   decode_string(Start, Start, Rest, Value).
+ 
+test :-
+   decode_string(mcmxc, 1990),
+   decode_string(mmviii, 2008),
+   decode_string(mdclxvi, 1666).","decode_string(mcmxc, 1990)","decode_string(mmviii, 2008)","'true'","'true'"
+20,Longest common subsequence,"
+Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
+The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
+Let A ≡ A[0]… A[m - 1] and B ≡ B[0]… B[n - 1], m < n be strings drawn from an alphabet Σ of size s, containing every distinct symbol in A + B.
+An ordered pair (i, j) will be referred to as a match if A[i] = B[j], where 0 < i ≤ m and 0 < j ≤ n.
+Define a non-strict product-order (≤) over ordered pairs, such that (i1, j1) ≤ (i2, j2) ⇔ i1 ≤ i2 and j1 ≤ j2. We define (≥) similarly.
+We say m1, m2 are comparable if either m1 ≤ m2 or m1 ≥ m2 holds. If i1 < i2 and j2 < j1 (or i2 < i1 and j1 < j2) then neither m1 ≤ m2 nor m1 ≥ m2 are possible; and we say m1, m2 are incomparable.
+We also define the strict product-order (<) over ordered pairs, such that (i1, j1) < (i2, j2) ⇔ i1 < i2 and j1 < j2. We define (>) similarly.
+Given a set of matches M, a chain C is a subset of M consisting of at least one element m; and where either m1 < m2 or m1 > m2 for every pair of distinct elements m1 and m2. An antichain D is any subset of M in which every pair of distinct elements m1 and m2 are incomparable.
+The set M represents a relation over match pairs: M[i, j] ⇔ (i, j) ∈ M. A chain C can be visualized as a curve which strictly increases as it passes through each match pair in the m*n coordinate space.
+Finding an LCS can be restated as the problem of finding a chain of maximum cardinality p over the set of matches M.
+
+Examples
+
+The sequences ""1234"" and ""1224533324"" have an LCS of ""1234"":
+
+1234
+1224533324
+
+For a string example, consider the sequences ""thisisatest"" and ""testing123testing"". An LCS would be ""tsitest"":
+
+thisisatest
+testing123testing
+
+In this puzzle, your code only needs to deal with strings. Write a function which returns an LCS of two strings (case-sensitive). You don't need to show multiple LCS's.
+","lcs([ H|L1],[ H|L2],[H|Lcs]) :- !,
+    lcs(L1,L2,Lcs).
+ 
+lcs([H1|L1],[H2|L2],Lcs):-
+    lcs(    L1 ,[H2|L2],Lcs1),
+    lcs([H1|L1],    L2 ,Lcs2),
+    longest(Lcs1,Lcs2,Lcs),!.
+ 
+lcs(_,_,[]).
+ 
+ 
+longest(L1,L2,Longest) :-
+    length(L1,Length1),
+    length(L2,Length2),
+    ((Length1 > Length2) -> Longest = L1; Longest = L2).","lcs([a,b,c,d,e], [a,c,e], LCS).","lcs([1,2,3,4,5,6,7,8], [2,3,5,7,9], LCS).","['a','c','e']","[2, 3, 5, 7]"
+24,Huffman coding,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
+For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
+Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
+If you were to assign a code 01 for 'e' and code 011 for 'x', then if the bits to decode started as 011... then you would not know if you should decode an 'e' or an 'x'.
+The Huffman coding scheme takes each symbol and its weight (or frequency of occurrence), and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding. (See the WP article for more information).
+A Huffman encoding can be computed by first creating a tree of nodes:
+
+Create a leaf node for each symbol and add it to the priority queue.
+While there is more than one node in the queue:
+Remove the node of highest priority (lowest probability) twice to get two nodes.
+Create a new internal node with these two nodes as children and with probability equal to the sum of the two nodes' probabilities.
+Add the new node to the queue.
+The remaining node is the root node and the tree is complete.
+
+Traverse the constructed binary tree from root to leaves assigning and accumulating a '0' for one branch and a '1' for the other at each node. The accumulated zeros and ones at each leaf constitute a Huffman encoding for those symbols and weights:
+
+Task
+
+Using the characters and their frequency from the string: this is an example for huffman encoding create a program to generate a Huffman encoding for each character as a table.
+","huffman :-
+	L = 'this is an example for huffman encoding',
+	atom_chars(L, LA),
+	msort(LA, LS),
+	packList(LS, PL),
+	sort(PL, PLS),
+	build_tree(PLS, A),
+	coding(A, [], C),
+	sort(C, SC),
+	format('Symbol~t   Weight~t~30|Code~n'),
+	maplist(print_code, SC).
+ 
+build_tree([[V1|R1], [V2|R2]|T], AF) :- 
+	V is V1 + V2, 
+	A = [V, [V1|R1], [V2|R2]],
+	(   T=[] -> AF=A ;  sort([A|T], NT), build_tree(NT, AF) ).
+ 
+coding([_A,FG,FD], Code, CF) :-
+	(   is_node(FG) ->  coding(FG, [0 | Code], C1)
+			 ;  leaf_coding(FG, [0 | Code], C1) ),
+	(   is_node(FD) ->  coding(FD, [1 | Code], C2)
+			 ;  leaf_coding(FD, [1 | Code], C2) ),
+	append(C1, C2, CF).
+ 
+leaf_coding([FG,FD], Code, CF) :-
+	reverse(Code, CodeR),
+	CF = [[FG, FD, CodeR]] .
+ 
+is_node([_V, _FG, _FD]).
+ 
+print_code([N, Car, Code]):-
+	format('~w :~t~w~t~30|', [Car, N]),
+	forall(member(V, Code), write(V)),
+	nl.
+ 
+packList([], []).
+packList([X], [[1,X]]) :- !.
+packList([X|Rest], [XRun|Packed]):-
+    run(X, Rest, XRun, RRest),
+    packList(RRest, Packed).
+ 
+run(V, [], [1,V], []).
+run(V, [V|LRest], [N1,V], RRest):-
+    run(V, LRest, [N, V], RRest),
+    N1 is N + 1.
+run(V, [Other|RRest], [1,V], [Other|RRest]):-
+    dif(V, Other).
+","packList([a,a,b,c,c,c], Result).","build_tree([[2,a],[1,b],[3,c]], Tree).","[[2, 'a'], [1, 'b'], [3, 'c']]","[6, [3, 'c'], [3, [2, 'a'], [1, 'b']]]"
+25,24 game,"The 24 Game tests one's mental arithmetic.
+Task
+Write a program that randomly chooses and displays four digits, each from 1 ──► 9 (inclusive) with repetitions allowed.
+
+The program should prompt for the player to enter an arithmetic expression using just those, and all of those four digits, used exactly once each. The program should check then evaluate the expression.
+
+The goal is for the player to enter an expression that (numerically) evaluates to 24.
+
+ Only the following operators/functions are allowed: multiplication, division, addition, subtraction
+ Division should use floating point or rational arithmetic, etc, to preserve remainders.
+ Brackets are allowed, if using an infix expression evaluator.
+ Forming multiple digit numbers from the supplied digits is disallowed. (So an answer of 12+12 when given 1, 2, 2, and 1 is wrong).
+ The order of the digits when given does not have to be preserved.
+
+Notes
+ The type of expression evaluator used is not mandated. An RPN evaluator is equally acceptable for example.
+ The task is not for the program to generate the expression, or test whether an expression is even possible.
+",":- initialization(main).
+answer(24).
+play :- round, play ; true.
+
+round :-
+    prompt(Ns), get_line(Input), Input \= ""stop""
+  , ( phrase(parse(Ns,[]), Input) -> Result = 'correct'
+                                   ; Result = 'wrong'
+    ), write(Result), nl, nl
+  . % where
+    prompt(Ns)  :- length(Ns,4), maplist(random(1,10), Ns)
+                 , write('Digits: '), write(Ns), nl
+                 .
+
+parse([],[X])     --> { answer(X) }.
+parse(Ns,[Y,X|S]) --> ""+"", { Z is X  +  Y }, parse(Ns,[Z|S]).
+parse(Ns,[Y,X|S]) --> ""-"", { Z is X  -  Y }, parse(Ns,[Z|S]).
+parse(Ns,[Y,X|S]) --> ""*"", { Z is X  *  Y }, parse(Ns,[Z|S]).
+parse(Ns,[Y,X|S]) --> ""/"", { Z is X div Y }, parse(Ns,[Z|S]).
+parse(Ns,Stack)   --> "" "", parse(Ns,Stack).
+parse(Ns,Stack)   --> { select(N,Ns,Ns1), number_codes(N,[Code]) }
+                    , [Code], parse(Ns1,[N|Stack])
+                    .
+
+get_line(Xs) :- get_code(X)
+              , ( X == 10 -> Xs = [] ; Xs = [X|Ys], get_line(Ys) )
+              .
+main :- randomize, play, halt.","answer(X), X is 8 * 3.","answer(X), X is 6 * 4.","24","24"
