@@ -466,9 +466,6 @@ def main(model_B, checkpoint, one_shot, length):
         print(f"Generating response for {model_dir}...")
     tokenizer = AutoTokenizer.from_pretrained(merged_model_dir)
     vllm_model = LLM(model=merged_model_dir, gpu_memory_utilization = 0.4)
-
-
-
     dataset = get_gsm8k_questions(SYSTEM_PROMPT, "test")
     list_of_reward = []
     list_of_responses = []
@@ -483,6 +480,41 @@ def main(model_B, checkpoint, one_shot, length):
     )
 
     current_sum = 0
+    
+    ### ----- TESTING ROSETTA CODE DATASET ----- ###
+    rosetta_dataset = pd.read_csv('data/prolog_tasks_ground_truth.csv')
+    print("pre dataset")
+    for index, entry in rosetta_dataset.iterrows():
+        different_match = []
+        different_responses = []
+
+        question_content = entry["task_description"] + "\nMake a test on:" + " " + entry["test_input_1"]
+        prompt = [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": question_content}
+        ]
+        print(question_content)
+        print(entry['ground_truth_1'])
+
+        text = tokenizer.apply_chat_template(prompt,
+                                             tokenize = False,
+                                             add_generation_prompt = True)
+        sentences = vllm_model.generate(
+            [text],
+            sampling_params=sampling_params,
+        )
+
+        for sentence in sentences[0].outputs:
+            sentence = sentence.text
+            different_match.append(correctness_reward_func(None, sentence, entry["ground_truth_1"]))
+            different_responses.append(sentence)
+        current_sum += sum(different_match) / len(different_match)
+        list_of_reward.append(different_match)
+        list_of_responses.append(different_responses)
+        collection_results = np.array(list_of_reward)
+        print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
+
+    ### ----- TESTING GSM8K DATASET ----- ###
     for idx, entry in tqdm(enumerate(dataset)):
         different_match = []
         different_responses = []
