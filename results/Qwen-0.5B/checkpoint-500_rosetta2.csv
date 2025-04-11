@@ -1,0 +1,2226 @@
+match,question,sum,mean,match_1,match_2,match_3,match_4,gen_code_1,gen_code_2,gen_code_3,gen_code_4
+False,"The Fibonacci sequence is a sequence Fn of natural numbers defined recursively:
+    F0 = 0 
+    F1 = 1 
+    Fn = Fn-1 + Fn-2, if n>1 
+Task
+Write a function to generate the nth Fibonacci number.
+Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
+The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
+    Fn = Fn+2 - Fn+1, if n<0   
+support for negative n in the solution is optional.
+
+Test the algorithm on input 20",0,0.0,0,0,0,0,"<reasoning>
+The Fibonacci sequence is defined recursively, and the function to generate the nth Fibonacci number is to use a recursive approach. The Fibonacci sequence is a sequence of natural numbers where each number is the sum of the two preceding ones, usually starting with F0 = 0 and F1 = 1.
+</reasoning>
+<code>
+fibonacci(20).
+</code>
+<query>
+fibonacci(20).
+</query>
+```","<reasoning>
+The Fibonacci sequence is defined recursively as F0 = 0, F1 = 1, and Fn = Fn-1 + Fn-2, if n > 1. To generate the nth Fibonacci number, we can use an iterative approach.
+</reasoning>
+<code>
+fibonacci(20).
+</code>
+<query>
+fibonacci(20).
+</query>
+```","<reasoning>
+The Fibonacci sequence is defined recursively as F0 = 0, F1 = 1, and Fn = Fn-1 + Fn-2, if n > 1. To generate the nth Fibonacci number, we can use an iterative approach.
+</reasoning>
+<code>
+fibonacci(20).
+</code>
+<query>
+fibonacci(20).
+</query>
+```","<reasoning>
+The Fibonacci sequence is defined recursively as F0 = 0, F1 = 1, and Fn = Fn-1 + Fn-2, if n > 1. To generate the nth Fibonacci number, we can use an iterative approach.
+</reasoning>
+<code>
+fibonacci(20).
+</code>
+<query>
+fibonacci(20).
+</query>
+```"
+False,"
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
+
+Task
+
+Implement the Sieve of Eratosthenes algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
+That means especially that you shouldn't optimize by using pre-computed wheels, i.e. don't assume you need only to cross out odd numbers (wheel based on 2), numbers equal to 1 or 5 modulo 6 (wheel based on 2 and 3), or similar wheels based on low primes.
+If there's an easy way to add such a wheel based optimization, implement it as an alternative version.
+Note
+It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.
+Test the algorithm on input 10",0,0.0,0,0,0,0,"<reasoning>
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer. The algorithm is based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7, etc. The algorithm is also based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers, i.e., 2 * 3, 3 * 5, 5 * 7","<reasoning>
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer. The algorithm is based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers. The algorithm is optimized by stopping at the square root of the limit, and the inner loop may start at the square of the prime just found.
+</reasoning>
+<code>
+sieve(10).
+</code>
+<query>
+find_primes(10).
+</query>
+```","<reasoning>
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer. The algorithm is designed to be efficient and easy to understand, but it has a time complexity of O(n log log n), which is not suitable for finding prime numbers up to a large number.
+</reasoning>
+<code>
+sieve(10).
+</code>
+<query>
+find_prime(10).
+</query>
+```","<reasoning>
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer. The algorithm is based on the observation that all prime numbers greater than 2 can be expressed as a product of two prime numbers. The outer loop can be optimized by stopping at the square root of the limit, and the inner loop may start at the square of the prime just found.
+</reasoning>
+<code>
+sieve(10).
+</code>
+<query>
+sieve(10).
+</query>
+```"
+False,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+
+Task
+
+Sort an array (or list) elements using the quicksort algorithm.
+The elements must have a strict weak order and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]",0,0.0,0,0,0,0,"<reasoning>
+The given instruction is to implement a sorting algorithm using the quicksort algorithm. The algorithm is designed to sort an array of elements in order, with a strict weak order and the index of the array being of any discrete type.
+The task is to sort an array of elements using the quicksort algorithm. The elements must have a strict weak order and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5].
+</reasoning>
+<code>
+quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]).
+</code>
+<query>
+Sort the array [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5] using the quicksort algorithm.
+</query>
+```","<reasoning>
+The given instruction is to implement a sorting algorithm using the quicksort algorithm. The algorithm is designed to sort an array of elements in order, with a strict weak order and the index of the array being of any discrete type.
+The task is to sort an array of integers or integers, depending on the language. For languages where this is not possible, the algorithm sorts an array of integers.
+Quicksort is a divide-and-conquer algorithm that uses a pivot to partition the array into two sub-arrays. The pivot is chosen randomly, and the array is divided into two parts: one containing elements less than the pivot and the other containing elements greater than the pivot.
+The algorithm then recursively sorts both parts and joins them to form the sorted array.
+The best pivot creates partitions of equal length (or lengths differing by 1). The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort is O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5] is a test case to verify the implementation of the quicksort algorithm.
+</reasoning>
+<code>
+quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], 0, length([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])).
+</code>
+<query>
+[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5] is the input array to be sorted.
+The pivot is chosen randomly, and the array is divided into two sub-arrays: one containing elements less than the pivot and the other containing elements greater than the pivot.
+The algorithm then recursively sorts both parts and joins them to form the sorted array.
+The best pivot creates partitions of equal length (or lengths differing by 1). The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort is O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5] is a test case to verify the implementation of the quicksort algorithm.
+</query>
+```","<reasoning>
+The given instruction is to implement a sorting algorithm in Prolog. The algorithm is called quicksort, which is a variation of the quicksort algorithm. The algorithm is designed to sort an array of elements in order to sort it.
+</reasoning>
+<code>
+quicksort([], []).
+quicksort([X], [X]).
+quicksort([X, Y], [Y, X]).
+quicksort([X, Y, Z], [Z, X, Y]).
+quicksort([X, Y, Z, W], [W, X, Y, Z]).
+quicksort([X, Y, Z, W, X], [X, Y, Z, W, X, Y]).
+quicksort([X, Y, Z, W, X, Y, Z, W], [X, Y, Z, W, X, Y, Z, W, X, Y, Z, W]).
+quicksort([X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X, Y, Z, W, X","<reasoning>
+The given instruction is to implement a sorting algorithm using the quicksort algorithm. The algorithm is designed to sort an array of elements in order, with a strict weak order and the index of the array being of any discrete type.
+The task is to sort an array of elements using the quicksort algorithm. The elements must have a strict weak order and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5].
+</reasoning>
+<code>
+quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]).
+</code>
+<query>
+Sort the array [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5] using the quicksort algorithm.
+</query>
+```"
+False,"A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+As an analogy, consider the children's game ""guess a number."" The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
+As the player, an optimal strategy for the general case is to start by choosing the range's midpoint as the guess, and then asking whether the guess was higher, lower, or equal to the secret number. If the guess was too high, one would select the point exactly between the range midpoint and the beginning of the range. If the original guess was too low, one would ask about the point exactly between the range midpoint and the end of the range. This process repeats until one has reached the secret number.
+
+Task
+
+Given the starting point of a range, the ending point of a range, and the ""secret value"", implement a binary search through a sorted integer array for a certain number. Implementations can be recursive or iterative (both if you can). Print out whether or not the number was in the array afterwards. If it was, print the index also.
+There are several binary search algorithms commonly seen. They differ by how they treat multiple values equal to the given value, and whether they indicate whether the element was found or not. For completeness we will present pseudocode for all of them.
+All of the following code examples use an ""inclusive"" upper bound (i.e. high = N-1 initially). Any of the examples can be converted into an equivalent example using ""exclusive"" upper bound (i.e. high = N initially) by making the following simple changes (which simply increase high by 1):
+change high = N-1 to high = N
+change high = mid-1 to high = mid
+(for recursive algorithm) change if (high < low) to if (high <= low)
+(for iterative algorithm) change while (low <= high) to while (low < high)
+Test the algorithm on input [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",0,0.0,0,0,0,0,"<reasoning>
+Binary search is a divide and conquer algorithm that divides the range of values into halves, continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+</reasoning>
+<code>
+binary_search([], _, _) :- !.
+binary_search([X], _, _) :- X = X.
+binary_search([X|T], Y, Z) :- binary_search(T, Y, Z).
+</code>
+<query>
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 6, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 6, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 9, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 9, 1) :- false.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, 1) :- false.
+</code>
+<query>
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10) :- true.
+binary_search([1, 2, 3, 4, 5, 6,","<reasoning>
+Binary search is a divide and conquer algorithm that divides the range of values into halves and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+</reasoning>
+<code>
+binary_search([], _, _) :- !.
+binary_search([X], _, _) :- X = X.
+binary_search([X|T], X, Y) :- binary_search(T, X, Y).
+binary_search([X|T], Y, X) :- binary_search(T, X, Y).
+</code>
+<query>
+binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10).
+</query>
+```","<reasoning>
+Binary search is a divide and conquer algorithm that divides the range of values into halves, continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+</reasoning>
+<code>
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 10) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 9) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 8) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 7) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 6) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 5) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 4) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 3) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 2) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 1) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 0) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -1) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -2) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -3) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -4) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -5) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -6) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -7) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -8) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, -9) ->
+    true.
+find_number([1, 2, 3, 4, 5, 6, 7, 8,","<reasoning>
+Binary search is a divide and conquer algorithm that divides the range of values into halves, continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+</reasoning>
+<code>
+binary_search([], _, _).
+binary_search([X], _, _).
+binary_search([X|T], X, [X|T]).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X|T]++).
+binary_search([X|T], Y, [X"
+False,"Greatest common divisor
+You are encouraged to solve this task according to the task description, using any language you may know.
+
+Task
+
+Find the greatest common divisor (GCD) of two integers.Greatest common divisor is also known as greatest common factor (gcf) and greatest common measure.
+Test the algorithm on input (1071, 462)",0,0.0,0,0,0,0,"<reasoning>
+The GCD of two integers is the largest positive integer that divides both of them without leaving a remainder.
+</reasoning>
+<code>
+gcd(1071, 462).
+</code>
+<query>
+Find the GCD of 1071 and 462.
+</query>
+```","<reasoning>
+The GCD of two integers is the largest positive integer that divides both of them without leaving a remainder.
+</reasoning>
+<code>
+gcd(1071, 462).
+</code>
+<query>
+Find the GCD of 1071 and 462.
+</query>
+```","<reasoning>
+The GCD of two integers is the largest positive integer that divides both of them without leaving a remainder.
+</reasoning>
+<code>
+gcd(1071, 462).
+</code>
+<query>
+Find the GCD of 1071 and 462.
+</query>
+```","<reasoning>
+The GCD of two integers is the largest positive integer that divides both of them without leaving a remainder.
+</reasoning>
+<code>
+gcd(1071, 462).
+</code>
+<query>
+Find the GCD of 1071 and 462.
+</query>
+```"
+False,"Definitions
+The factorial of 0 (zero) is defined as being 1 (unity).
+The Factorial Function of a positive integer, n, is defined as the product of the sequence: n, n-1, n-2, ... 1 
+
+Task
+
+Write a function to return the factorial of a number.
+Solutions can be iterative or recursive.
+Support for trapping negative n errors is optional.
+Test the algorithm on input 10",0,0.0,0,0,0,0,"<reasoning>
+The factorial of 0 is defined as being 1 (unity), and the factorial function is defined as the product of the sequence: n, n-1, n-2, ... 1. Therefore, the factorial of 0 is 1.
+</reasoning>
+<code>
+factorial(0) = 1
+</code>
+<query>
+factorial(10) = 3628800
+</query>
+```","<reasoning>
+The factorial of 0 is defined as 1 (unity), and the factorial function is defined as the product of the sequence: n, n-1, n-2, ... 1. Therefore, the factorial of 0 is 1.
+</reasoning>
+<code>
+factorial(0) = 1
+</code>
+<query>
+factorial(10) = 3628800
+</query>
+```","<reasoning>
+The factorial of 0 is defined as 1 (unity), and the factorial function is defined as the product of the sequence: n, n-1, n-2, ... 1. Therefore, the factorial of 0 is 1.
+</reasoning>
+<code>
+factorial(0) = 1
+</code>
+<query>
+factorial(10) = 3628800
+</query>
+```","<reasoning>
+The factorial function is defined as the product of all positive integers up to and including n. The factorial of 0 is defined as 1 (unity).
+</reasoning>
+<code>
+factorial(0) = 1
+factorial(n) = n * factorial(n-1)
+</code>
+<query>
+factorial(10)
+</query>
+```"
+False,"Task
+Solve the Towers of Hanoi problem with recursion.
+Test the algorithm on input 4",0,0.0,0,0,0,0,"<reasoning>
+The Towers of Hanoi problem is a classic problem that involves moving a stack of disks from one peg to another using only three pegs. The objective is to move all disks from the top peg to the bottom peg using only the three pegs.
+</reasoning>
+<code>
+hanoi(4, A, B, C).
+</code>
+<query>
+hanoi(4, A, B, C).
+</query>
+```","<reasoning>
+The Towers of Hanoi problem is a classic problem that involves moving a stack of disks from one peg to another using only three pegs. The algorithm involves moving the disks in a specific order: top disk to bottom, bottom disk to top, and top disk to bottom. The algorithm is recursive and involves a base case where the number of disks is 1.
+</reasoning>
+<code>
+hanoi(4, A, B, C).
+</code>
+<query>
+hanoi(4, A, B, C).
+</query>
+```","<reasoning>
+The Towers of Hanoi problem is a classic problem that involves moving a stack of disks from one peg to another using only three pegs. The algorithm uses recursion to solve this problem.
+</reasoning>
+<code>
+hanoi(4, A, B, C).
+</code>
+<query>
+hanoi(4, A, B, C).
+</query>
+```","<reasoning>
+The Towers of Hanoi problem is a classic problem that involves moving a stack of disks from one peg to another using only three pegs. The algorithm uses recursion to solve this problem.
+</reasoning>
+<code>
+hanoi(4, A, B, C).
+</code>
+<query>
+hanoi(4, A, B, C).
+</query>
+```"
+False,"A palindrome is a phrase which reads the same backward and forward.
+Task
+Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.
+Test the algorithm on input racecar",0,0.0,0,0,0,0,"<reasoning>
+The given sequence of characters ""racecar"" is a palindrome because it reads the same backward and forward.
+</reasoning>
+<code>
+palindrome(characters) :-
+    reverse(characters), !.
+</code>
+<query>
+racecar
+</query>
+```","<reasoning>
+The given task is to create a function or program that checks if a given sequence of characters is a palindrome. A palindrome is a sequence that reads the same backward and forward.
+</reasoning>
+<code>
+palindrome(characters) :-
+    reverse(characters, Reversed),
+    characters = Reversed.
+</code>
+<query>
+racecar
+</query>
+```","<reasoning>
+A palindrome is a sequence of characters that reads the same backward and forward.
+</reasoning>
+<code>
+palindrome(characters) :-
+    reverse(characters, Reversed),
+    characters = Reversed.
+</code>
+<query>
+racecar
+</query>
+```","<reasoning>
+A palindrome is a sequence of characters that reads the same backward and forward.
+</reasoning>
+<code>
+palindrome(characters) :-
+    reverse(characters, Reversed),
+    characters = Reversed.
+</code>
+<query>
+racecar
+</query>
+```"
+False,"The prime decomposition of a number is defined as a list of prime numbers
+which when all multiplied together, are equal to that number.
+Example
+12 = 2 × 2 × 3,  so its prime decomposition is  {2, 2, 3}
+
+Task
+
+Write a function which returns an array or collection which contains the prime decomposition of a given number n greater than 1.
+If your language does not have an isPrime-like function available, you may assume that you have a function which determines whether a number is prime (note its name before your code).
+
+Test the algorithm on input 60",0,0.0,0,0,0,0,"<reasoning>
+The task is to find the prime decomposition of a given number n greater than 1. The prime decomposition is defined as a list of prime numbers which when all multiplied together, are equal to that number.
+</reasoning>
+<code>
+isPrime(2).
+isPrime(3).
+isPrime(5).
+isPrime(7).
+isPrime(11).
+isPrime(13).
+isPrime(17).
+isPrime(19).
+isPrime(23).
+isPrime(29).
+isPrime(31).
+isPrime(37).
+isPrime(41).
+isPrime(43).
+isPrime(47).
+isPrime(53).
+isPrime(59).
+isPrime(61).
+isPrime(67).
+isPrime(71).
+isPrime(73).
+isPrime(79).
+isPrime(83).
+isPrime(89).
+isPrime(97).
+isPrime(101).
+isPrime(103).
+isPrime(107).
+isPrime(113).
+isPrime(127).
+isPrime(131).
+isPrime(137).
+isPrime(143).
+isPrime(147).
+isPrime(153).
+isPrime(157).
+isPrime(163).
+isPrime(167).
+isPrime(173).
+isPrime(179).
+isPrime(181).
+isPrime(183).
+isPrime(187).
+isPrime(191).
+isPrime(193).
+isPrime(197).
+isPrime(203).
+isPrime(207).
+isPrime(211).
+isPrime(213).
+isPrime(217).
+isPrime(223).
+isPrime(227).
+isPrime(231).
+isPrime(237).
+isPrime(241).
+isPrime(243).
+isPrime(247).
+isPrime(253).
+isPrime(257).
+isPrime(263).
+isPrime(269).
+isPrime(271).
+isPrime(273).
+isPrime(277).
+isPrime(283).
+isPrime(287).
+isPrime(291).
+isPrime(293).
+isPrime(301).
+isPrime(307).
+isPrime(313).
+isPrime(317).
+isPrime(323).
+isPrime(329).
+isPrime(331).
+isPrime(337).
+isPrime(341).
+isPrime(343).
+isPrime(347).
+isPrime(353).
+isPrime(357).
+isPrime(367).
+isPrime(373).
+isPrime(379).
+isPrime(383).
+isPrime(387).
+isPrime(391).
+isPrime(397).
+isPrime(401).
+isPrime(403).
+isPrime(407).
+isPrime(413).
+isPrime(417).
+isPrime(423).
+isPrime(427).
+isPrime(431).
+isPrime(433).
+isPrime(437).
+isPrime(441).
+isPrime(443).
+isPrime(447).
+isPrime(453).
+isPrime(457).
+isPrime(461).
+isPrime(463).
+isPrime(467).
+isPrime(471).
+isPrime(473).
+isPrime(479).
+isPrime(483).
+isPrime(487).
+isPrime(491).
+isPrime(493).
+isPrime(501).
+isPrime(503).
+isPrime(507).
+isPrime(513).
+isPrime(517).
+isPrime(523).
+isPrime(529).
+isPrime(531).
+isPrime(537).
+isPrime(541).
+isPrime(543).
+isPrime(547).
+isPrime(553).
+isPrime(557).
+isPrime(563).
+isPrime(567).
+isPrime(571).
+isPrime(573).
+isPrime(579).
+isPrime(583).
+isPrime(587).
+isPrime(591).
+isPrime(593).
+isPrime(601).
+isPrime(603).
+isPrime(607).
+isPrime(613).
+isPrime(617).
+isPrime(623).
+","<reasoning>
+The task is to find the prime decomposition of a given number n greater than 1. The prime decomposition is defined as a list of prime numbers which when all multiplied together, are equal to that number.
+</reasoning>
+<code>
+prime_decomposition(60) ->
+    [2, 2, 3, 5, 7].
+</code>
+<query>
+Given the input 60, the prime decomposition is [2, 2, 3, 5, 7].
+</query>
+```","<reasoning>
+The task is to find the prime decomposition of a given number n greater than 1. The prime decomposition is defined as a list of prime numbers which when all multiplied together, are equal to that number.
+</reasoning>
+<code>
+isPrime(2).
+isPrime(3).
+isPrime(5).
+isPrime(7).
+isPrime(11).
+isPrime(13).
+isPrime(17).
+isPrime(19).
+isPrime(23).
+isPrime(29).
+isPrime(31).
+isPrime(37).
+isPrime(41).
+isPrime(43).
+isPrime(47).
+isPrime(53).
+isPrime(59).
+isPrime(61).
+isPrime(67).
+isPrime(71).
+isPrime(73).
+isPrime(79).
+isPrime(83).
+isPrime(89).
+isPrime(97).
+isPrime(101).
+isPrime(103).
+isPrime(107).
+isPrime(109).
+isPrime(113).
+isPrime(117).
+isPrime(127).
+isPrime(131).
+isPrime(137).
+isPrime(143).
+isPrime(149).
+isPrime(151).
+isPrime(157).
+isPrime(163).
+isPrime(167).
+isPrime(173).
+isPrime(179).
+isPrime(181).
+isPrime(187).
+isPrime(191).
+isPrime(193).
+isPrime(197).
+isPrime(203).
+isPrime(207).
+isPrime(211).
+isPrime(213).
+isPrime(217).
+isPrime(223).
+isPrime(227).
+isPrime(231).
+isPrime(237).
+isPrime(241).
+isPrime(243).
+isPrime(247).
+isPrime(253).
+isPrime(259).
+isPrime(261).
+isPrime(263).
+isPrime(267).
+isPrime(271).
+isPrime(273).
+isPrime(277).
+isPrime(281).
+isPrime(283).
+isPrime(287).
+isPrime(291).
+isPrime(293).
+isPrime(301).
+isPrime(307).
+isPrime(313).
+isPrime(317).
+isPrime(323).
+isPrime(329).
+isPrime(331).
+isPrime(337).
+isPrime(341).
+isPrime(343).
+isPrime(347).
+isPrime(353).
+isPrime(359).
+isPrime(367).
+isPrime(373).
+isPrime(379).
+isPrime(383).
+isPrime(389).
+isPrime(397).
+isPrime(401).
+isPrime(403).
+isPrime(407).
+isPrime(413).
+isPrime(417).
+isPrime(423).
+isPrime(427).
+isPrime(431).
+isPrime(433).
+isPrime(437).
+isPrime(441).
+isPrime(443).
+isPrime(447).
+isPrime(453).
+isPrime(457).
+isPrime(461).
+isPrime(463).
+isPrime(467).
+isPrime(471).
+isPrime(473).
+isPrime(479).
+isPrime(483).
+isPrime(487).
+isPrime(491).
+isPrime(493).
+isPrime(501).
+isPrime(503).
+isPrime(507).
+isPrime(513).
+isPrime(517).
+isPrime(523).
+isPrime(529).
+isPrime(531).
+isPrime(537).
+isPrime(541).
+isPrime(543).
+isPrime(547).
+isPrime(553).
+isPrime(557).
+isPrime(563).
+isPrime(567).
+isPrime(571).
+isPrime(573).
+isPrime(579).
+isPrime(583).
+isPrime(587).
+isPrime(591).
+isPrime(593).
+isPrime(601).
+isPrime(603).
+isPrime(607).
+isPrime(613).
+","<reasoning>
+The task is to find the prime decomposition of a given number n greater than 1. The prime decomposition is defined as a list of prime numbers which when all multiplied together, are equal to that number.
+</reasoning>
+<code>
+prime_decomposition(60) ->
+    [2, 2, 3, 5, 7].
+</code>
+<query>
+Given the input 60, the prime decomposition is [2, 2, 3, 5, 7].
+</query>
+```"
+False,"Dijkstra's algorithm, conceived by Dutch computer scientist Edsger Dijkstra in 1956 and published in 1959, is a graph search algorithm that solves the single-source shortest path problem for a graph with non-negative edge path costs, producing a shortest path tree.
+This algorithm is often used in routing and as a subroutine in other graph algorithms.
+For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+For instance
+If the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road, Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+Important note
+The inputs to Dijkstra's algorithm are a directed and weighted graph consisting of 2 or more nodes, generally represented by:
+an adjacency matrix or list and a start node. 
+A destination node is not specified.
+The output is a set of edges depicting the shortest path to each destination node.
+
+Task
+
+Implement a version of Dijkstra's algorithm that outputs a set of edges depicting the shortest path to each reachable node from an origin.
+Run your program with the following directed graph starting at node a.
+Write a program which interprets the output from the above and use it to output the shortest path from node a to nodes e and  f. 
+
+Test the algorithm on input go(a,e).",0,0.0,0,0,0,0,"<reasoning>
+Dijkstra's algorithm is a graph search algorithm that finds the shortest path between a source vertex (node) and every other vertex in a graph. It is often used in routing and as a subroutine in other graph algorithms.
+For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+For instance, if the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road, Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+Important note
+The inputs to Dijkstra's algorithm are a directed and weighted graph consisting of 2 or more nodes, generally represented by:
+an adjacency matrix or list and a start node. 
+A destination node is not specified.
+The output is a set of edges depicting the shortest path to each reachable node from an origin.
+</reasoning>
+<code>
+graph([a,b,c,d,e,f],[[a,b,1],[a,c,2],[a,d,3],[a,e,4],[a,f,5]]).
+</code>
+<query>
+go(a,e).
+</query>
+```","<reasoning>
+Dijkstra's algorithm is a graph search algorithm that finds the shortest path between a source vertex (node) and every other vertex in a graph. It is often used in routing and as a subroutine in other graph algorithms.
+The algorithm works by maintaining a set of edges that represent the shortest path to each reachable node from the source node. The algorithm starts by adding the source node to the set of edges and then iteratively updates the set of edges by adding the edges to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added to the set of edges that have been added","<reasoning>
+Dijkstra's algorithm is a graph search algorithm that finds the shortest path between a source vertex (node) and every other vertex in a graph. It uses a priority queue to keep track of the nodes to be visited and their costs. The algorithm is based on the fact that the shortest path to a node is the shortest path to the node's neighbors.
+</reasoning>
+<code>
+graph([a,b,c,d,e,f], [[a,b,10],[b,c,5],[c,d,15],[d,e,20],[e,f,30]], a).
+</code>
+<query>
+go(a,e).
+</query>
+```","<reasoning>
+Dijkstra's algorithm is a graph search algorithm that finds the shortest path between a source vertex (node) and every other vertex in a graph. It is often used in routing and as a subroutine in other graph algorithms.
+The algorithm works by maintaining a set of edges that represent the shortest path to each reachable node from the source node. The algorithm starts by adding the source node to the set of edges and then iteratively adds the next node to the set of edges that have not been added to the set of edges yet.
+The algorithm continues to add the next node to the set of edges that have not been added to the set of edges yet, until it has added all the nodes in the graph to the set of edges.
+The algorithm also maintains a set of visited nodes, which is used to keep track of the nodes that have already been added to the set of edges.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited edges, which is used to keep track of the edges that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited edges, which is used to keep track of the edges that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which is used to keep track of the nodes that have not been added to the set of edges yet.
+The algorithm also maintains a set of unvisited nodes, which"
+False,"
+In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+Example
+The Levenshtein distance between 'kitten' and 'sitting' is 3, since the following three edits change one into the other, and there isn't a way to do it with fewer than three edits:
+
+kitten sitten (substitution of 'k' with 's')
+sitten sittin (substitution of 'e' with 'i')
+sittin sitting (insert 'g' at the end).
+
+The Levenshtein distance between ""rosettacode"", ""raisethysword"" is 8.
+The distance between two strings is same as that when both strings are reversed.
+
+Task
+
+Implements a Levenshtein distance function, or uses a library function, to show the Levenshtein distance between 'kitten' and 'sitting'.
+
+Test the algorithm on input ['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g']",0,0.0,0,0,0,0,"<reasoning>
+The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+</reasoning>
+<code>
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(Levenshtein, [Kitten, Sitting], [sitting, kitten], 3).
+distance(","<reasoning>
+The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+</reasoning>
+<code>
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    D is L1 + L2 - 2*min(L1, L2).
+</code>
+<query>
+distance(Levenshtein, ['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], D).
+</query>
+```","<reasoning>
+The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+</reasoning>
+<code>
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+    D = 0.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 > L2,
+    D = L1 - L2.
+distance(Levenshtein, S1, S2, D) :-
+    length(S1, L1),
+    length(S2, L2),
+    L1 = L2,
+   ","<reasoning>
+The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+</reasoning>
+<code>
+distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+            distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                            distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                            distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                            distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                            distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                    distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T, E, N], [S, I, T, T, I, N, G]) :-
+                                                                                        distance([K, I, T, T"
+False,"
+Solve the eight queens puzzle.
+You can extend the problem to solve the puzzle with a board of size NxN.
+
+Test the algorithm on input [1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4]",0,0.0,0,0,0,0,"<reasoning>
+The eight queens puzzle is a classic problem in computer science and mathematics. It involves placing eight queens on a chessboard such that no two queens threaten each other. The goal is to place queens in such a way that no two queens are in the same row, column, or diagonal.
+</reasoning>
+<code>
+puzzle([1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4]) :-
+    queens([1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4], [1, 2, 3, 4, 5, 6, 7, 8]).
+</code>
+<query>
+[1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4] is a solution to the eight queens puzzle.
+</query>
+```","<reasoning>
+The eight queens puzzle is a classic problem in computer science and mathematics. It can be extended to solve the puzzle with a board of size NxN. The algorithm to solve the problem is called the ""N-Queens Problem"" and it is known to be NP-complete, meaning that it is not possible to solve the problem in polynomial time.
+</reasoning>
+<code>
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N, [N | Queens]).
+queens(8, N,","<reasoning>
+The eight queens puzzle is a classic problem in computer science and mathematics. It involves placing eight queens on a chessboard such that no two queens threaten each other. The goal is to place queens in such a way that no two queens are in the same row, column, or diagonal.
+</reasoning>
+<code>
+queen(1, 1).
+queen(2, 2).
+queen(3, 3).
+queen(4, 4).
+queen(5, 5).
+queen(6, 6).
+queen(7, 7).
+queen(8, 8).
+queen(9, 9).
+queen(10, 10).
+queen(11, 11).
+queen(12, 12).
+queen(13, 13).
+queen(14, 14).
+queen(15, 15).
+queen(16, 16).
+queen(17, 17).
+queen(18, 18).
+queen(19, 19).
+queen(20, 20).
+queen(21, 21).
+queen(22, 22).
+queen(23, 23).
+queen(24, 24).
+queen(25, 25).
+queen(26, 26).
+queen(27, 27).
+queen(28, 28).
+queen(29, 29).
+queen(30, 30).
+queen(31, 31).
+queen(32, 32).
+queen(33, 33).
+queen(34, 34).
+queen(35, 35).
+queen(36, 36).
+queen(37, 37).
+queen(38, 38).
+queen(39, 39).
+queen(40, 40).
+queen(41, 41).
+queen(42, 42).
+queen(43, 43).
+queen(44, 44).
+queen(45, 45).
+queen(46, 46).
+queen(47, 47).
+queen(48, 48).
+queen(49, 49).
+queen(50, 50).
+queen(51, 51).
+queen(52, 52).
+queen(53, 53).
+queen(54, 54).
+queen(55, 55).
+queen(56, 56).
+queen(57, 57).
+queen(58, 58).
+queen(59, 59).
+queen(60, 60).
+queen(61, 61).
+queen(62, 62).
+queen(63, 63).
+queen(64, 64).
+queen(65, 65).
+queen(66, 66).
+queen(67, 67).
+queen(68, 68).
+queen(69, 69).
+queen(70, 70).
+queen(71, 71).
+queen(72, 72).
+queen(73, 73).
+queen(74, 74).
+queen(75, 75).
+queen(76, 76).
+queen(77, 77).
+queen(78, 78).
+queen(79, 79).
+queen(80, 80).
+queen(81, 81).
+queen(82, 82).
+queen(83, 83).
+queen(84, 84).
+queen(85, 85).
+queen(86, 86).
+queen(87, 87).
+queen(88, 88).
+queen(89, 89).
+queen(90, 90).
+queen(91, 91).
+queen(92, 92).
+queen(93, 93).
+queen(94, 94).
+queen(95, 95).
+queen(96, 96).
+queen(97, 97).
+queen(98, 98).
+queen(99, 99).
+queen(100, 100).
+queen(101, 101).
+queen(102, 102).
+queen(103, 103).
+queen(104, 104).
+queen(105, 105).
+queen(106, 106).
+queen(107,","<reasoning>
+The eight queens puzzle is a classic problem in computer science and mathematics. It involves placing eight queens on a chessboard such that no two queens threaten each other. The goal is to place queens in such a way that no two queens are in the same row, column, or diagonal.
+</reasoning>
+<code>
+p([1, 2, 3, 4, 5, 6, 7, 8], [1, 2, 3, 4, 5, 6, 7, 8]).
+</code>
+<query>
+[1, 2, 3, 4, 5, 6, 7, 8] = [1, 2, 3, 4, 5, 6, 7, 8]
+</query>
+```"
+False,"The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+
+Task
+
+Write a function which returns the value of A(m,n). Arbitrary precision is preferred (since the function grows so quickly), but not required.
+Test the algorithm on input (3, 1)",0,0.0,0,0,0,0,"<reasoning>
+The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+</reasoning>
+<code>
+A(3,1).
+</code>
+<query>
+3,1.
+</query>
+```","<reasoning>
+The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+</reasoning>
+<code>
+A(3,1).
+</code>
+<query>
+3,1.
+</query>
+```","<reasoning>
+The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+</reasoning>
+<code>
+A(3,1).
+</code>
+<query>
+3,1.
+</query>
+```","<reasoning>
+The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+</reasoning>
+<code>
+A(3,1).
+</code>
+<query>
+3,1.
+</query>
+```"
+False,"Task:
+
+Generate a string with N opening brackets [ and with N closing brackets ], in some arbitrary order. 
+Determine whether the generated string is balanced; that is, whether it consists entirely of pairs of opening/closing brackets (in that order), none of which mis-nest.
+
+Examples
+
+   (empty)      OK
+   []           OK   
+   [][]         OK   
+   [[][]]       OK 
+   ][         NOT OK
+   ][][       NOT OK
+   []][[]     NOT OK
+
+Test the algorithm on input ({[]})",0,0.0,0,0,0,0,"<reasoning>
+The given input is not a balanced string because there are two opening brackets ([]) and two closing brackets ([]) in the string.
+</reasoning>
+<code>
+[[]]
+</code>
+<query>
+{[]}
+</query>
+```","<reasoning>
+The given input is not a valid balanced string because there are two opening brackets ([]) and two closing brackets ([]) in the string.
+</reasoning>
+<code>
+[[]]
+</code>
+<query>
+{[]}
+</query>
+```","<reasoning>
+The given input is not a balanced string because there are two opening brackets ([]) in the string.
+</reasoning>
+<code>
+[[]]
+</code>
+<query>
+{[]}
+</query>
+```","<reasoning>
+The given input is a string that contains a nested structure of brackets. The nested structure is not balanced, as there are more closing brackets than opening brackets.
+</reasoning>
+<code>
+[[]]
+</code>
+<query>
+{[]}
+</query>
+```"
+False,"
+Task
+Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
+Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
+Input: starting square
+Output: move sequence
+Test the algorithm on input 3",0,0.0,0,0,0,0,"<reasoning>
+The knight's movement on an 8x8 chessboard is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in","<reasoning>
+The knight's movement on an 8x8 chessboard is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in","<reasoning>
+The knight's movement is a classic problem in combinatorics, and it can be solved using a recursive approach. The knight's moves are defined as a sequence of moves that can be represented as a list of coordinates. The knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list of coordinates, and the knight's moves are a series of moves that can be represented as a list","<reasoning>
+The knight's movement on an 8x8 chessboard is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in the knight visiting every square exactly once. The knight's movement is a series of moves that result in"
+False,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+The merge sort is a recursive sort of order n*log(n). 
+It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+
+Task
+
+Write a function to sort a collection of integers using the merge sort.
+The merge sort algorithm comes in two parts: a sort function and a merge function 
+Note: better performance can be expected if, rather than recursing until length(m) ≤ 1, an insertion sort is used for length(m) smaller than some threshold larger than 1.
+
+Test the algorithm on input [3,1,4,2]",0,0.0,0,0,0,0,"<reasoning>
+The merge sort algorithm is a recursive sort of order n*log(n). It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+</reasoning>
+<code>
+merge_sort([3,1,4,2], [], []).
+</code>
+<query>
+merge_sort([3,1,4,2], [], []).
+</query>
+```","<reasoning>
+The merge sort algorithm is a recursive sort of order n*log(n). It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+</reasoning>
+<code>
+merge_sort([3,1,4,2], [], []).
+</code>
+<query>
+merge_sort([3,1,4,2], [], []).
+</query>
+```","<reasoning>
+The merge sort algorithm is a recursive sort of order n*log(n). It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+</reasoning>
+<code>
+merge_sort([3,1,4,2], [], []).
+</code>
+<query>
+merge_sort([3,1,4,2], [], []).
+</query>
+```","<reasoning>
+The merge sort algorithm is a recursive sort of order n*log(n). It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+</reasoning>
+<code>
+merge_sort([3,1,4,2], [], []).
+</code>
+<query>
+merge_sort([3,1,4,2], [], []).
+</query>
+```"
+False,"Task
+Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer.
+You don't need to validate the form of the Roman numeral.
+Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately,
+starting with the leftmost decimal digit and skipping any 0s (zeroes).
+1990 is rendered as MCMXC (1000 = M, 900 = CM, 90 = XC) and 2008 is rendered as MMVIII (2000 = MM, 8 = VIII).
+The Roman numeral for 1666, MDCLXVI, uses each letter in descending order.
+
+Test the algorithm on input (mcmxc, 1990)",0,0.0,0,0,0,0,"<reasoning>
+The Roman numeral ""MCMXC"" is a 4000 Roman numeral, which is represented as 1000 * 1000 + 900 * 100 + 50 * 10 + 4 * 1 = 4000 + 900 + 50 + 4 = 494.
+The Roman numeral ""MMVIII"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 500 * 10 + 100 * 1 + 5 = 1000 + 500 + 10 + 5 = 155.
+The Roman numeral ""MDCLXVI"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 1000 + 900 + 50 + 4 = 155.
+The Roman numeral ""MCMXC"" is a 4000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 4000 + 900 + 50 + 4 = 494.
+The Roman numeral ""MMVIII"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 500 * 10 + 100 * 1 + 5 = 1000 + 500 + 10 + 5 = 155.
+The Roman numeral ""MDCLXVI"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 1000 + 900 + 50 + 4 = 155.
+The Roman numeral ""MCMXC"" is a 4000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 4000 + 900 + 50 + 4 = 494.
+The Roman numeral ""MMVIII"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 500 * 10 + 100 * 1 + 5 = 1000 + 500 + 10 + 5 = 155.
+The Roman numeral ""MDCLXVI"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 1000 + 900 + 50 + 4 = 155.
+The Roman numeral ""MCMXC"" is a 4000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 4000 + 900 + 50 + 4 = 494.
+The Roman numeral ""MMVIII"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 500 * 10 + 100 * 1 + 5 = 1000 + 500 + 10 + 5 = 155.
+The Roman numeral ""MDCLXVI"" is a 1000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 1000 + 900 + 50 + 4 = 155.
+The Roman numeral ""MCMXC"" is a 4000 Roman numeral, which is represented as 1000 * 100 + 900 * 10 + 50 * 1 + 4 = 4000 + 900 + 50 + 4 = 494.
+The Roman numeral ""MMVIII"" is a 1000 Roman numeral, which is represented as 1000 * 10","<reasoning>
+The Roman numeral ""MCMXC"" is a special case of the Roman numeral ""MCM"" with a 1000 in the middle.
+</reasoning>
+<code>
+mcmxc = 1000 + 900 + 500 + 400 + 100 + 90 + 50 + 40 + 10 + 9 + 5 + 4 + 1
+</code>
+<query>
+mcmxc(1990)
+</query>
+```","<reasoning>
+The Roman numeral ""MCMXC"" is a special case of the Roman numeral ""MCM"" where the value of ""M"" is 1000 and the value of ""C"" is 100.
+</reasoning>
+<code>
+mcmxc = 1000 + 100 = 1100
+</code>
+<query>
+mcmxc(1990) = 1100
+</query>
+```","<reasoning>
+The Roman numeral ""MCMXC"" is a special case of the Roman numeral ""MCM"" where the value of ""M"" is 1000 and the value of ""C"" is 100.
+</reasoning>
+<code>
+mcmxc = 1000 + 100 = 1100
+</code>
+<query>
+mcmxc(1990) = 1100
+</query>
+```"
+False,"
+Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
+The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
+Let A ≡ A[0]… A[m - 1] and B ≡ B[0]… B[n - 1], m < n be strings drawn from an alphabet Σ of size s, containing every distinct symbol in A + B.
+An ordered pair (i, j) will be referred to as a match if A[i] = B[j], where 0 < i ≤ m and 0 < j ≤ n.
+Define a non-strict product-order (≤) over ordered pairs, such that (i1, j1) ≤ (i2, j2) ⇔ i1 ≤ i2 and j1 ≤ j2. We define (≥) similarly.
+We say m1, m2 are comparable if either m1 ≤ m2 or m1 ≥ m2 holds. If i1 < i2 and j2 < j1 (or i2 < i1 and j1 < j2) then neither m1 ≤ m2 nor m1 ≥ m2 are possible; and we say m1, m2 are incomparable.
+We also define the strict product-order (<) over ordered pairs, such that (i1, j1) < (i2, j2) ⇔ i1 < i2 and j1 < j2. We define (>) similarly.
+Given a set of matches M, a chain C is a subset of M consisting of at least one element m; and where either m1 < m2 or m1 > m2 for every pair of distinct elements m1 and m2. An antichain D is any subset of M in which every pair of distinct elements m1 and m2 are incomparable.
+The set M represents a relation over match pairs: M[i, j] ⇔ (i, j) ∈ M. A chain C can be visualized as a curve which strictly increases as it passes through each match pair in the m*n coordinate space.
+Finding an LCS can be restated as the problem of finding a chain of maximum cardinality p over the set of matches M.
+
+Examples
+
+The sequences ""1234"" and ""1224533324"" have an LCS of ""1234"":
+
+1234
+1224533324
+
+For a string example, consider the sequences ""thisisatest"" and ""testing123testing"". An LCS would be ""tsitest"":
+
+thisisatest
+testing123testing
+
+In this puzzle, your code only needs to deal with strings. Write a function which returns an LCS of two strings (case-sensitive). You don't need to show multiple LCS's.
+
+Test the algorithm on input [a,b,c,d,e], [a,c,e]",0,0.0,0,0,0,0,"<reasoning>
+The problem requires finding the longest common subsequence (LCS) of two strings, considering case sensitivity. The LCS is defined as the longest sequence of characters that appear in both strings, and it is a subsequence of the longer string.
+</reasoning>
+<code>
+lcs([a,b,c,d,e], [a,c,e]) :-
+    length(A, m),
+    length(B, n),
+    m >= n,
+    lcs(A, B, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0, m, n, 0","<reasoning>
+The problem requires finding the longest common subsequence (LCS) of two strings, considering case-sensitive and non-strict product-order. The algorithm should return the longest common subsequence of the two strings.
+</reasoning>
+<code>
+lcs([a,b,c,d,e], [a,c,e]) :-
+    lcs_helper([a,b,c,d,e], [a,c,e], [], [], []).
+lcs_helper([], [], [], [], []).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e], [a,b,c,d,e]).
+lcs_helper([a,b,c,d,e], [a,c,e], [a,b,c,d,e], [a,b,c,d,e","<reasoning>
+The problem requires finding the longest common subsequence (LCS) of two strings, considering case sensitivity. The LCS is defined as the longest sequence of characters that appear in both strings, and it is a subsequence of the longer string.
+</reasoning>
+<code>
+lcs(A, B) :-
+    length(A, A_len),
+    length(B, B_len),
+    A_len > B_len,
+    A \= B,
+    A \= A1,
+    A \= A2,
+    A \= A3,
+    A \= A4,
+    A \= A5,
+    A \= A6,
+    A \= A7,
+    A \= A8,
+    A \= A9,
+    A \= A10,
+    A \= A11,
+    A \= A12,
+    A \= A13,
+    A \= A14,
+    A \= A15,
+    A \= A16,
+    A \= A17,
+    A \= A18,
+    A \= A19,
+    A \= A20,
+    A \= A21,
+    A \= A22,
+    A \= A23,
+    A \= A24,
+    A \= A25,
+    A \= A26,
+    A \= A27,
+    A \= A28,
+    A \= A29,
+    A \= A30,
+    A \= A31,
+    A \= A32,
+    A \= A33,
+    A \= A34,
+    A \= A35,
+    A \= A36,
+    A \= A37,
+    A \= A38,
+    A \= A39,
+    A \= A40,
+    A \= A41,
+    A \= A42,
+    A \= A43,
+    A \= A44,
+    A \= A45,
+    A \= A46,
+    A \= A47,
+    A \= A48,
+    A \= A49,
+    A \= A50,
+    A \= A51,
+    A \= A52,
+    A \= A53,
+    A \= A54,
+    A \= A55,
+    A \= A56,
+    A \= A57,
+    A \= A58,
+    A \= A59,
+    A \= A60,
+    A \= A61,
+    A \= A62,
+    A \= A63,
+    A \= A64,
+    A \= A65,
+    A \= A66,
+    A \= A67,
+    A \= A68,
+    A \= A69,
+    A \= A70,
+    A \= A71,
+    A \= A72,
+    A \= A73,
+    A \= A74,
+    A \= A75,
+    A \= A76,
+    A \= A77,
+    A \= A78,
+    A \= A79,
+    A \= A80,
+    A \= A81,
+    A \= A82,
+    A \= A83,
+    A \= A84,
+    A \= A85,
+    A \= A86,
+    A \= A87,
+    A \= A88,
+    A \= A89,
+    A \= A90,
+    A \= A91,
+    A \= A92,
+    A \= A93,
+    A \= A94,
+    A \= A95,
+    A \= A96,
+    A \= A97,
+    A \= A98,
+    A \= A99,
+    A \= A100,
+    A \= A101,
+    A \= A102,
+    A \= A103,
+    A \= A104,
+    A \= A105,
+    A \= A106,
+    A \= A107,
+    A \= A108,
+    A \= A109,
+    A \= A110,
+    A \= A111,
+    A \= A112,
+    A \= A113,
+    A \= A114,
+    A \= A115,
+    A \=","<reasoning>
+The problem requires finding the longest common subsequence (LCS) of two strings, considering case-sensitive and non-strict product-order. The goal is to generate all possible subsequences of the input strings and then find the longest one.
+</reasoning>
+<code>
+find_lcs(String1, String2) :-
+    find_lcs(String1, String2, [], []).
+find_lcs(String1, String2, Lcs, Lcs) :-
+    find_lcs(String1, String2, Lcs, Lcs1),
+    find_lcs(String1, String2, Lcs1, Lcs2),
+    find_lcs(String1, String2, Lcs2, Lcs3),
+    find_lcs(String1, String2, Lcs3, Lcs4),
+    find_lcs(String1, String2, Lcs4, Lcs5),
+    find_lcs(String1, String2, Lcs5, Lcs6),
+    find_lcs(String1, String2, Lcs6, Lcs7),
+    find_lcs(String1, String2, Lcs7, Lcs8),
+    find_lcs(String1, String2, Lcs8, Lcs9),
+    find_lcs(String1, String2, Lcs9, Lcs10),
+    find_lcs(String1, String2, Lcs10, Lcs11),
+    find_lcs(String1, String2, Lcs11, Lcs12),
+    find_lcs(String1, String2, Lcs12, Lcs13),
+    find_lcs(String1, String2, Lcs13, Lcs14),
+    find_lcs(String1, String2, Lcs14, Lcs15),
+    find_lcs(String1, String2, Lcs15, Lcs16),
+    find_lcs(String1, String2, Lcs16, Lcs17),
+    find_lcs(String1, String2, Lcs17, Lcs18),
+    find_lcs(String1, String2, Lcs18, Lcs19),
+    find_lcs(String1, String2, Lcs19, Lcs20),
+    find_lcs(String1, String2, Lcs20, Lcs21),
+    find_lcs(String1, String2, Lcs21, Lcs22),
+    find_lcs(String1, String2, Lcs22, Lcs23),
+    find_lcs(String1, String2, Lcs23, Lcs24),
+    find_lcs(String1, String2, Lcs24, Lcs25),
+    find_lcs(String1, String2, Lcs25, Lcs26),
+    find_lcs(String1, String2, Lcs26, Lcs27),
+    find_lcs(String1, String2, Lcs27, Lcs28),
+    find_lcs(String1, String2, Lcs28, Lcs29),
+    find_lcs(String1, String2, Lcs29, Lcs30),
+    find_lcs(String1, String2, Lcs30, Lcs31),
+    find_lcs(String1, String2, Lcs31, Lcs32),
+    find_lcs(String1, String2, Lcs32, Lcs33),
+    find_lcs(String1, String2, Lcs33, Lcs34),
+    find_lcs(String1, String2, Lcs34, Lcs35),
+    find_lcs(String1, String2, Lcs35, Lcs36),
+    find_lcs(String1, String2, Lcs36, Lcs37),
+    find_lcs(String1, String2, Lcs37, Lcs38),
+    find_lcs(String1, String2, Lcs38, Lcs39),
+    find_lcs(String1, String2, Lcs39, Lcs40),
+    find_lcs(String1, String2, Lcs40, Lcs41),
+    find_lcs(String1, String2, Lcs41, Lcs42),
+    find_lcs(String1, String2, Lcs42, Lcs43),
+    find_lcs(String1, String2, Lcs43, Lcs44),
+    find_lcs(String1, String2, Lcs44, Lcs45),
+    find_lcs(String1, String2, Lcs45, Lcs46),
+    find_lcs(String1, String2, Lcs46, Lcs47),
+    find_lcs(String1,"
+False,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
+For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
+Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
+If you were to assign a code 01 for 'e' and code 011 for 'x', then if the bits to decode started as 011... then you would not know if you should decode an 'e' or an 'x'.
+The Huffman coding scheme takes each symbol and its weight (or frequency of occurrence), and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding. (See the WP article for more information).
+A Huffman encoding can be computed by first creating a tree of nodes:
+
+Create a leaf node for each symbol and add it to the priority queue.
+While there is more than one node in the queue:
+Remove the node of highest priority (lowest probability) twice to get two nodes.
+Create a new internal node with these two nodes as children and with probability equal to the sum of the two nodes' probabilities.
+Add the new node to the queue.
+The remaining node is the root node and the tree is complete.
+
+Traverse the constructed binary tree from root to leaves assigning and accumulating a '0' for one branch and a '1' for the other at each node. The accumulated zeros and ones at each leaf constitute a Huffman encoding for those symbols and weights:
+
+Task
+
+Using the characters and their frequency from the string: this is an example for huffman encoding create a program to generate a Huffman encoding for each character as a table.
+
+Test the algorithm on input [a,a,b,c,c,c]",0,0.0,0,0,0,0,"<reasoning>
+The given instruction is to create a Huffman encoding for each character in a string and return a table of Huffman codes.
+</reasoning>
+<code>
+huffman_encoding([a,a,b,c,c,c]) -> {huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman_code(n), huffman_code(o), huffman_code(p), huffman_code(q), huffman_code(r), huffman_code(s), huffman_code(t), huffman_code(u), huffman_code(v), huffman_code(w), huffman_code(x), huffman_code(y), huffman_code(z), huffman_code(a), huffman_code(b), huffman_code(c), huffman_code(d), huffman_code(e), huffman_code(f), huffman_code(g), huffman_code(h), huffman_code(i), huffman_code(j), huffman_code(k), huffman_code(l), huffman_code(m), huffman","<reasoning>
+The given instruction is to create a program that generates a Huffman encoding for each character in a string. The Huffman encoding scheme takes each symbol and its frequency (or weight) and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding.
+</reasoning>
+<code>
+huffman_encoding :- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [huffman_encoding].
+huffman_encoding:- [","<reasoning>
+The given instruction is to create a Huffman encoding for each character in a string and return a table of Huffman codes.
+</reasoning>
+<code>
+huffman_encoding([a,a,b,c,c,c]) ->
+    huffman_encoding([a,b,c,c,c]) ->
+        huffman_encoding([a,b,c,c,c]) ->
+            huffman_encoding([a,b,c,c,c]) ->
+                huffman_encoding([a,b,c,c,c]) ->
+                    huffman_encoding([a,b,c,c,c]) ->
+                        huffman_encoding([a,b,c,c,c]) ->
+                            huffman_encoding([a,b,c,c,c]) ->
+                                huffman_encoding([a,b,c,c,c]) ->
+                                    huffman_encoding([a,b,c,c,c]) ->
+                                        huffman_encoding([a,b,c,c,c]) ->
+                                            huffman_encoding([a,b,c,c,c]) ->
+                                                huffman_encoding([a,b,c,c,c]) ->
+                                                    huffman_encoding([a,b,c,c,c]) ->
+                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                            huffman_encoding([a,b,c,c,c]) ->
+                                                                huffman_encoding([a,b,c,c,c]) ->
+                                                                    huffman_encoding([a,b,c,c,c]) ->
+                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                            huffman_encoding([a,b,c,c,c]) ->
+                                                                                huffman_encoding([a,b,c,c,c]) ->
+                                                                                    huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a,b,c,c,c]) ->
+                                                                                        huffman_encoding([a","<reasoning>
+The given instruction is to create a program that generates a Huffman encoding for each character in a string. The Huffman encoding scheme takes each symbol and its frequency (or weight) and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding. The program should be able to handle the input string [a,a,b,c,c,c] and output the Huffman encoding for each character.
+</reasoning>
+<code>
+huffman_encode :-
+    input_string(Input),
+    huffman_encode_string(Input, Output).
+huffman_encode_string(Input, Output) :-
+    huffman_encode_tree(Input, Output).
+huffman_encode_tree(Input, Output) :-
+    huffman_encode_tree(Input, Output, Tree),
+    huffman_encode_tree(Tree, Output, Left, Right),
+    huffman_encode_tree(Left, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Right, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Right_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_Huffman),
+    huffman_encode_tree(Left_Huffman, Output, Left_Huffman, Right_H"
+False,"The 24 Game tests one's mental arithmetic.
+Task
+Write a program that randomly chooses and displays four digits, each from 1 ──► 9 (inclusive) with repetitions allowed.
+
+The program should prompt for the player to enter an arithmetic expression using just those, and all of those four digits, used exactly once each. The program should check then evaluate the expression.
+
+The goal is for the player to enter an expression that (numerically) evaluates to 24.
+
+ Only the following operators/functions are allowed: multiplication, division, addition, subtraction
+ Division should use floating point or rational arithmetic, etc, to preserve remainders.
+ Brackets are allowed, if using an infix expression evaluator.
+ Forming multiple digit numbers from the supplied digits is disallowed. (So an answer of 12+12 when given 1, 2, 2, and 1 is wrong).
+ The order of the digits when given does not have to be preserved.
+
+Notes
+ The type of expression evaluator used is not mandated. An RPN evaluator is equally acceptable for example.
+ The task is not for the program to generate the expression, or test whether an expression is even possible.
+
+Test the algorithm on input 8 * 3",0,0.0,0,0,0,0,"<reasoning>
+The task requires the program to generate a random four-digit number from 1 to 9, with repetition allowed. The program should also check if the generated number evaluates to 24.
+</reasoning>
+<code>
+generate_random_number() :-
+    random(1, 9, Number),
+    repeat(1, 9, Number, Number2),
+    Number2 = Number.
+</code>
+<query>
+generate_random_number().
+</query>
+```","<reasoning>
+The task requires generating a random four-digit number using the digits 1 through 9, with repetition allowed. The goal is to check if the generated number evaluates to 24.
+</reasoning>
+<code>
+generate_random_number() :-
+    digits = [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3","<reasoning>
+The task requires generating a random four-digit expression using the digits 1 through 9, with repetition allowed. The goal is to evaluate the expression numerically to 24.
+</reasoning>
+<code>
+expression(1, 2, 3, 4).
+</code>
+<query>
+8 * 3.
+</query>
+```","<reasoning>
+The task requires generating a random four-digit number using the digits 1 through 9, with repetition allowed. The goal is to check if the generated number evaluates to 24.
+</reasoning>
+<code>
+generate_random_number() :-
+    digits = [1, 2, 3, 4, 5, 6, 7, 8, 9],
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3, 4, 5, 6, 7, 8, 9]),
+    random_digits(digits, [1, 2, 3"
