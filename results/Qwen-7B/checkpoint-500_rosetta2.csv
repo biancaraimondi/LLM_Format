@@ -1,0 +1,2303 @@
+match,question,sum,mean,match_1,match_2,match_3,match_4,gen_code_1,gen_code_2,gen_code_3,gen_code_4
+True,"The Fibonacci sequence is a sequence Fn of natural numbers defined recursively:
+    F0 = 0 
+    F1 = 1 
+    Fn = Fn-1 + Fn-2, if n>1 
+Task
+Write a function to generate the nth Fibonacci number.
+Solutions can be iterative or recursive (though recursive solutions are generally considered too slow and are mostly used as an exercise in recursion).
+The sequence is sometimes extended into negative numbers by using a straightforward inverse of the positive definition:
+    Fn = Fn+2 - Fn+1, if n<0   
+support for negative n in the solution is optional.
+
+Test the algorithm on input 20",4,1.0,1,1,1,1,"<reasoning>
+The task requires generating the nth Fibonacci number using recursion. The Fibonacci sequence is defined recursively with base cases F0 = 0 and F1 = 1. For negative n, the sequence can be extended by using the formula Fn = Fn+2 - Fn+1.
+</reasoning>
+<code>
+fib(0, 0).
+fib(1, 1).
+fib(N, F) :-
+    N > 1, 
+    N1 is N - 1, 
+    N2 is N - 2, 
+    fib(N1, F1), 
+    fib(N2, F2), 
+    F is F1 + F2.
+</code>
+<query>
+fib(20, Result).
+</query>","<reasoning>
+The task requires generating the nth Fibonacci number using recursion. The Fibonacci sequence is defined recursively with base cases for F0 and F1. For negative n, the sequence can be extended by using a straightforward inverse of the positive definition.
+</reasoning>
+<code>
+fib(0, 0).
+fib(1, 1).
+fib(N, F) :-
+    N > 1,
+    N1 is N - 1,
+    N2 is N - 2,
+    fib(N1, F1),
+    fib(N2, F2),
+    F is F1 + F2.
+</code>
+<query>
+fib(20, Result).
+</query>","<reasoning>
+The task requires generating the nth Fibonacci number using recursion. The Fibonacci sequence is defined recursively with base cases F0 = 0 and F1 = 1. For negative n, the sequence can be extended using the formula Fn = Fn+2 - Fn+1.
+</reasoning>
+<code>
+fib(0, 0).
+fib(1, 1).
+fib(N, F) :-
+    N > 1, 
+    N1 is N - 1,
+    N2 is N - 2,
+    fib(N1, F1),
+    fib(N2, F2),
+    F is F1 + F2.
+</code>
+<query>
+fib(20, Result).
+</query>","<reasoning>
+The task requires generating the nth Fibonacci number using recursion. The Fibonacci sequence is defined recursively with base cases F0 = 0 and F1 = 1. For negative n, the sequence can be extended by using the formula Fn = Fn+2 - Fn+1.
+</reasoning>
+<code>
+fib(0, 0).
+fib(1, 1).
+fib(N, F) :-
+    N > 1,
+    N1 is N - 1,
+    N2 is N - 2,
+    fib(N1, F1),
+    fib(N2, F2),
+    F is F1 + F2.
+</code>
+<query>
+fib(20, Result).
+</query>"
+False,"
+The Sieve of Eratosthenes is a simple algorithm that finds the prime numbers up to a given integer.
+
+Task
+
+Implement the Sieve of Eratosthenes algorithm, with the only allowed optimization that the outer loop can stop at the square root of the limit, and the inner loop may start at the square of the prime just found.
+That means especially that you shouldn't optimize by using pre-computed wheels, i.e. don't assume you need only to cross out odd numbers (wheel based on 2), numbers equal to 1 or 5 modulo 6 (wheel based on 2 and 3), or similar wheels based on low primes.
+If there's an easy way to add such a wheel based optimization, implement it as an alternative version.
+Note
+It is important that the sieve algorithm be the actual algorithm used to find prime numbers for the task.
+Test the algorithm on input 10",0,0.0,0,0,0,0,"<reasoning>
+The Sieve of Eratosthenes algorithm is a classic method for finding all prime numbers up to a given integer. The algorithm works by iteratively marking the multiples of each prime number starting from 2. The optimization mentioned in the task is to stop the outer loop at the square root of the limit and to start the inner loop at the square of the prime just found.
+</reasoning>
+<code>
+sieve(N, Primes) :-
+    length(L, N),
+    maplist(=(0), L), % Initialize list with 0s
+    sieve(L, 2, Primes).
+
+sieve(_, N, _) :-
+    N > sqrt(N), !.
+
+sieve(L, N, Primes) :-
+    nth0(N, L, 0), % Mark N as prime
+    sieve_mark(L, N, N, L1),
+    sieve(L1, N1, Primes).
+
+sieve_mark(_, _, N, L) :-
+    N > sqrt(length(L)), !.
+
+sieve_mark(L, P, N, L1) :-
+    M is P * N,
+    nth0(M, L, _, L2),
+    sieve_mark(L2, P, N1, L1).
+
+sieve_mark(L, P, N, L) :-
+    N > sqrt(length(L)), !.
+
+sieve_mark(L, P, N, L1) :-
+    M is P * N,
+    nth0(M, L, _, L2),
+    sieve_mark(L2, P, N1, L1).
+</code>
+<query>
+sieve(10, Primes).
+</query>","<reasoning>
+The Sieve of Eratosthenes algorithm iteratively marks the multiples of each prime number starting from 2. The optimization mentioned in the task is to stop the outer loop at the square root of the limit and start the inner loop from the square of the prime just found.
+</reasoning>
+<code>
+sieve(N, Primes) :-
+    length(L, N),
+    maplist(=(0), L),
+    sieve(L, 2, Primes).
+
+sieve(_, N, _) :-
+    N > sqrt(N),
+    !.
+
+sieve(L, N, Primes) :-
+    nth0(N, L, 0),
+    sieve(L, N1, Primes),
+    N1 is N + 1.
+
+sieve(L, N, Primes) :-
+    nth0(N, L, 1),
+    Next is N * N,
+    sieve_mark(L, Next, L1),
+    sieve(L1, N1, Primes),
+    N1 is N + 1.
+
+sieve_mark(_, _, L) :-
+    !,
+    L = [].
+
+sieve_mark(L, N, L1) :-
+    nth0(M, L, _),
+    M >= N,
+    nth0(M, L, 0, L2),
+    sieve_mark(L2, N, L1).
+</code>
+<query>
+sieve(10, Primes).
+</query>","<reasoning>
+The Sieve of Eratosthenes algorithm is a well-known method for finding all prime numbers up to a given integer. The algorithm works by iteratively marking the multiples of each prime number starting from 2. The optimization mentioned in the task is to stop the outer loop at the square root of the limit and to start the inner loop at the square of the prime just found.
+</reasoning>
+<code>
+sieve(N, Primes) :-
+    length(L, N),
+    maplist(=(0), L), % Initialize list with 0s
+    sieve(L, 2, Primes).
+
+sieve(_, N, _) :-
+    N > sqrt(N), !.
+
+sieve(L, N, Primes) :-
+    nth0(N, L, 0), % Mark N as prime
+    sieve_mark(L, N, N, L1),
+    sieve(L1, N1, Primes).
+
+sieve_mark(_, _, N, L) :-
+    N > sqrt(length(L)), !.
+
+sieve_mark(L, P, N, L1) :-
+    M is P * N,
+    nth0(M, L, _, L2),
+    sieve_mark(L2, P, N1, L1).
+
+sieve_mark(L, P, N, L) :-
+    N > sqrt(length(L)), !.
+
+sieve_mark(L, P, N, L1) :-
+    M is P * N,
+    nth0(M, L, _, L2),
+    sieve_mark(L2, P, N1, L1).
+</code>
+<query>
+sieve(10, Primes).
+</query>","<reasoning>
+The Sieve of Eratosthenes algorithm is a well-known method for finding all prime numbers up to a given integer. The algorithm works by iteratively marking the multiples of each prime number starting from 2. The optimization mentioned in the task is to stop the outer loop at the square root of the limit and to start the inner loop at the square of the prime just found.
+</reasoning>
+<code>
+sieve(N, Primes) :-
+    length(L, N),
+    maplist(=(0), L),
+    sieve(L, 2, Primes).
+
+sieve(_, N, _) :-
+    N > sqrt(N),
+    !.
+
+sieve(L, P, Primes) :-
+    nth0(P, L, _),
+    sieve(L, P1, Primes1),
+    P1 is P + 1,
+    sieve(L, P1, Primes1).
+
+sieve(L, P, Primes) :-
+    nth0(P, L, 0),
+    sieve(L1, P, Primes),
+    L1 is L,
+    P1 is P + 1,
+    sieve(L1, P1, Primes).
+
+sieve(L, P, [P|Primes]) :-
+    nth0(P, L, 0),
+    L1 is L,
+    P1 is P + 1,
+    sieve(L1, P1, Primes).
+</code>
+<query>
+sieve(10, Primes).
+</query>"
+True,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+
+Task
+
+Sort an array (or list) elements using the quicksort algorithm.
+The elements must have a strict weak order and the index of the array can be of any discrete type.
+For languages where this is not possible, sort an array of integers.
+Quicksort, also known as partition-exchange sort, uses these steps.
+- Choose any element of the array to be the pivot.
+- Divide all other elements (except the pivot) into two partitions.
+- All elements less than the pivot must be in the first partition.
+- All elements greater than the pivot must be in the second partition.
+- Use recursion to sort both partitions.
+- Join the first sorted partition, the pivot, and the second sorted partition.
+The best pivot creates partitions of equal length (or lengths differing by 1).
+The worst pivot creates an empty partition (for example, if the pivot is the first or last element of a sorted array).
+The run-time of Quicksort ranges from O(n log n) with the best pivots, to O(n2) with the worst pivots, where n is the number of elements in the array.
+Test the algorithm on input [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]",2,0.5,0,0,1,1,"<reasoning>
+Quicksort is a divide-and-conquer algorithm that sorts elements by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+</reasoning>
+
+<code>
+quicksort([]).
+quicksort([Pivot|Rest]) :-
+    partition(Pivot, Rest, Left, Right),
+    quicksort(Left),
+    quicksort(Right).
+
+partition(_, [], [], []).
+partition(Pivot, [H|T], [H|Left], Right) :-
+    H =< Pivot,
+    partition(Pivot, T, Left, Right).
+partition(Pivot, [H|T], Left, [H|Right]) :-
+    H > Pivot,
+    partition(Pivot, T, Left, Right).
+</code>
+
+<query>
+?- quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).
+</query>","<reasoning>
+Quicksort is a divide-and-conquer algorithm that sorts an array by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+</reasoning>
+<code>
+quicksort([]).
+quicksort([Pivot|Rest]) :-
+    partition(Pivot, Rest, Left, Right),
+    quicksort(Left),
+    quicksort(Right).
+
+partition(_, [], [], []).
+partition(Pivot, [H|T], [H|Left], Right) :-
+    H =< Pivot,
+    partition(Pivot, T, Left, Right).
+partition(Pivot, [H|T], Left, [H|Right]) :-
+    H > Pivot,
+    partition(Pivot, T, Left, Right).
+</code>
+<query>
+?- quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).
+</query>","<reasoning>
+Quicksort is a divide-and-conquer algorithm that sorts an array by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+</reasoning>
+
+<code>
+quicksort([], []).
+quicksort([Pivot|Rest], Sorted) :-
+    partition(Rest, Pivot, Left, Right),
+    quicksort(Left, SortedLeft),
+    quicksort(Right, SortedRight),
+    append(SortedLeft, [Pivot|SortedRight], Sorted).
+
+partition([], _, [], []).
+partition([H|T], Pivot, [H|Left], Right) :-
+    H =< Pivot,
+    partition(T, Pivot, Left, Right).
+partition([H|T], Pivot, Left, [H|Right]) :-
+    H > Pivot,
+    partition(T, Pivot, Left, Right).
+</code>
+
+<query>
+quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).
+</query>","<reasoning>
+Quicksort is a divide-and-conquer algorithm that sorts an array by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively.
+</reasoning>
+
+<code>
+quicksort([], []).
+quicksort([Pivot|Rest], Sorted) :-
+    partition(Rest, Pivot, Less, Greater),
+    quicksort(Less, SortedLess),
+    quicksort(Greater, SortedGreater),
+    append(SortedLess, [Pivot|SortedGreater], Sorted).
+
+partition([], _, [], []).
+partition([H|T], Pivot, [H|Less], Greater) :-
+    H =< Pivot,
+    partition(T, Pivot, Less, Greater).
+partition([H|T], Pivot, Less, [H|Greater]) :-
+    H > Pivot,
+    partition(T, Pivot, Less, Greater).
+</code>
+
+<query>
+quicksort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5], Sorted).
+</query>"
+False,"A binary search divides a range of values into halves, and continues to narrow down the field of search until the unknown value is found. It is the classic example of a ""divide and conquer"" algorithm.
+As an analogy, consider the children's game ""guess a number."" The scorer has a secret number, and will only tell the player if their guessed number is higher than, lower than, or equal to the secret number. The player then uses this information to guess a new number.
+As the player, an optimal strategy for the general case is to start by choosing the range's midpoint as the guess, and then asking whether the guess was higher, lower, or equal to the secret number. If the guess was too high, one would select the point exactly between the range midpoint and the beginning of the range. If the original guess was too low, one would ask about the point exactly between the range midpoint and the end of the range. This process repeats until one has reached the secret number.
+
+Task
+
+Given the starting point of a range, the ending point of a range, and the ""secret value"", implement a binary search through a sorted integer array for a certain number. Implementations can be recursive or iterative (both if you can). Print out whether or not the number was in the array afterwards. If it was, print the index also.
+There are several binary search algorithms commonly seen. They differ by how they treat multiple values equal to the given value, and whether they indicate whether the element was found or not. For completeness we will present pseudocode for all of them.
+All of the following code examples use an ""inclusive"" upper bound (i.e. high = N-1 initially). Any of the examples can be converted into an equivalent example using ""exclusive"" upper bound (i.e. high = N initially) by making the following simple changes (which simply increase high by 1):
+change high = N-1 to high = N
+change high = mid-1 to high = mid
+(for recursive algorithm) change if (high < low) to if (high <= low)
+(for iterative algorithm) change while (low <= high) to while (low < high)
+Test the algorithm on input [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",0,0.0,0,0,0,0,"<reasoning>
+Binary search algorithm to find a number in a sorted array. The algorithm divides the array into halves and narrows down the search range until the number is found or the range is exhausted.
+</reasoning>
+<code>
+binary_search(List, Low, High, X, Index) :-
+    Low =< High,
+    Mid is (Low + High) // 2,
+    nth0(Mid, List, MidValue),
+    (   MidValue =:= X
+    ->  Index = Mid
+    ;   MidValue < X
+    ->  binary_search(List, Mid + 1, High, X, Index)
+    ;   binary_search(List, Low, Mid - 1, X, Index)
+    ).
+</code>
+<query>
+?- binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0, 9, 5, Index).
+</query>","<reasoning>
+Binary search algorithm to find a number in a sorted array. The algorithm divides the array into halves and narrows down the search range until the target number is found or the range is exhausted.
+</reasoning>
+<code>
+binary_search(List, Low, High, Target, Index) :-
+    Low =< High,
+    Mid is (Low + High) // 2,
+    (   List[Mid] =:= Target
+    ->  Index = Mid
+    ;   List[Mid] < Target
+    ->  binary_search(List, Mid + 1, High, Target, Index)
+    ;   binary_search(List, Low, Mid - 1, Target, Index)
+    ).
+</code>
+<query>
+?- binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0, 9, 5, Index).
+</query>","<reasoning>
+Binary search algorithm to find a number in a sorted array. The algorithm divides the array into halves and narrows down the search range until the number is found or the range is exhausted.
+</reasoning>
+<code>
+binary_search(List, Low, High, X, Index) :-
+    Low =< High,
+    Mid is (Low + High) // 2,
+    nth0(Mid, List, MidValue),
+    (   MidValue =:= X
+    ->  Index = Mid
+    ;   MidValue < X
+    ->  binary_search(List, Mid + 1, High, X, Index)
+    ;   binary_search(List, Low, Mid - 1, X, Index)
+    ).
+</code>
+<query>
+?- binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0, 9, 5, Index).
+</query>","<reasoning>
+Binary search algorithm to find a number in a sorted array. The algorithm divides the array into halves and narrows down the search range until the number is found or the range is exhausted.
+</reasoning>
+<code>
+binary_search(List, Low, High, X, Index) :-
+    Low =< High,
+    Mid is (Low + High) // 2,
+    nth0(Mid, List, MidValue),
+    (   MidValue =:= X
+    ->  Index = Mid
+    ;   MidValue < X
+    ->  binary_search(List, Mid + 1, High, X, Index)
+    ;   binary_search(List, Low, Mid - 1, X, Index)
+    ).
+binary_search(_, _, _, _, _).
+</code>
+<query>
+?- binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0, 9, 5, Index).
+</query>"
+True,"Greatest common divisor
+You are encouraged to solve this task according to the task description, using any language you may know.
+
+Task
+
+Find the greatest common divisor (GCD) of two integers.Greatest common divisor is also known as greatest common factor (gcf) and greatest common measure.
+Test the algorithm on input (1071, 462)",4,1.0,1,1,1,1,"<reasoning>
+The greatest common divisor (GCD) of two integers is the largest positive integer that divides both of them without leaving a remainder. This can be efficiently computed using the Euclidean algorithm.
+</reasoning>
+<code>
+gcd(X, 0, X) :- X > 0.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y =:= 0,
+    GCD is Y.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y > 0,
+    gcd(Y, X mod Y, GCD).
+</code>
+<query>
+gcd(1071, 462, GCD).
+</query>","<reasoning>
+The greatest common divisor (GCD) of two integers is the largest positive integer that divides both of them without leaving a remainder. This can be efficiently computed using the Euclidean algorithm.
+</reasoning>
+<code>
+gcd(X, 0, X) :- X > 0.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y =:= 0,
+    GCD is Y.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y > 0,
+    gcd(Y, X mod Y, GCD).
+</code>
+<query>
+gcd(1071, 462, GCD).
+</query>","<reasoning>
+The greatest common divisor (GCD) of two integers is the largest positive integer that divides both of them without leaving a remainder. This can be efficiently computed using the Euclidean algorithm.
+</reasoning>
+<code>
+gcd(X, 0, X) :- X >= 0.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y =:= 0,
+    GCD is Y.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y > 0,
+    gcd(Y, X mod Y, GCD).
+</code>
+<query>
+gcd(1071, 462, GCD).
+</query>","<reasoning>
+The greatest common divisor (GCD) of two integers is the largest positive integer that divides both of them without leaving a remainder. This can be efficiently computed using the Euclidean algorithm.
+</reasoning>
+<code>
+gcd(X, 0, X) :- X > 0.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y =:= 0,
+    GCD is Y.
+gcd(X, Y, GCD) :-
+    Y > 0,
+    X mod Y > 0,
+    gcd(Y, X mod Y, GCD).
+</code>
+<query>
+gcd(1071, 462, GCD).
+</query>"
+True,"Definitions
+The factorial of 0 (zero) is defined as being 1 (unity).
+The Factorial Function of a positive integer, n, is defined as the product of the sequence: n, n-1, n-2, ... 1 
+
+Task
+
+Write a function to return the factorial of a number.
+Solutions can be iterative or recursive.
+Support for trapping negative n errors is optional.
+Test the algorithm on input 10",4,1.0,1,1,1,1,"<reasoning>
+The task requires implementing a factorial function in Prolog. The factorial of a number n is the product of all positive integers less than or equal to n. The factorial of 0 is defined as 1. The implementation can be either iterative or recursive. For this solution, a recursive approach will be used.
+</reasoning>
+<code>
+factorial(0, 1).
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.
+</code>
+<query>
+factorial(10, Result).
+</query>","<reasoning>
+The task requires implementing a factorial function in Prolog. The factorial of a number n is the product of all positive integers less than or equal to n. The factorial of 0 is defined as 1. The implementation can be either iterative or recursive.
+</reasoning>
+
+<code>
+factorial(0, 1).
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.
+</code>
+
+<query>
+factorial(10, Result).
+</query>","<reasoning>
+To calculate the factorial of a number, we can use a recursive approach. The factorial of a number n (denoted as n!) is the product of all positive integers less than or equal to n. The base case is that the factorial of 0 is 1.
+</reasoning>
+<code>
+factorial(0, 1).
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.
+</code>
+<query>
+factorial(10, Result).
+</query>","<reasoning>
+The task requires implementing a factorial function in Prolog. The factorial of a number n is the product of all positive integers less than or equal to n. The factorial of 0 is defined as 1. The solution can be either iterative or recursive. For simplicity, we will implement a recursive solution.
+</reasoning>
+<code>
+factorial(0, 1).
+factorial(N, Result) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, Result1),
+    Result is N * Result1.
+</code>
+<query>
+factorial(10, Result).
+</query>"
+False,"Task
+Solve the Towers of Hanoi problem with recursion.
+Test the algorithm on input 4",0,0.0,0,0,0,0,"<reasoning>
+The Towers of Hanoi problem is a classic problem that can be solved using recursion. The goal is to move all the disks from one rod to another rod, following the rules:
+1. Only one disk can be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
+3. No disk may be placed on top of a smaller disk.
+</reasoning>
+
+<code>
+hanoi(0, _, _, _) :- !.
+hanoi(N, A, B, C) :-
+    M is N - 1,
+    hanoi(M, A, C, B),
+    move(N, A, C),
+    hanoi(M, B, A, C).
+
+move(1, A, C) :-
+    write('Move disk 1 from '), write(A), write(' to '), write(C), nl.
+move(N, A, C) :-
+    B is 3 - A - C,
+    move(N-1, A, B, C),
+    write('Move disk '), write(N), write(' from '), write(A), write(' to '), write(C), nl,
+    move(N-1, B, C, A).
+</code>
+
+<query>
+hanoi(4, 1, 2, 3).
+</query>","<reasoning>
+The Towers of Hanoi problem is a classic problem that can be solved using recursion. The goal is to move a stack of disks from one peg to another, following the rules:
+1. Only one disk can be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty peg.
+3. No disk may be placed on top of a smaller disk.
+</reasoning>
+
+<code>
+hanoi(0, _, _, _) :- !.
+hanoi(N, A, B, C) :-
+    M is N - 1,
+    hanoi(M, A, C, B),
+    move(N, A, C),
+    hanoi(M, B, A, C).
+
+move(1, A, C) :-
+    write('Move disk 1 from '), write(A), write(' to '), write(C), nl.
+move(N, A, C) :-
+    B is 3 - A - C,
+    move(N-1, A, B, C),
+    write('Move disk '), write(N), write(' from '), write(A), write(' to '), write(C), nl,
+    move(N-1, B, C, A).
+</code>
+
+<query>
+hanoi(4, 1, 2, 3).
+</query>","<reasoning>
+The Towers of Hanoi problem is a classic problem that can be solved using recursion. The goal is to move a stack of disks from one peg to another, following the rules:
+1. Only one disk can be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty peg.
+3. No disk may be placed on top of a smaller disk.
+</reasoning>
+<code>
+hanoi(0, _, _, _) :- !.
+hanoi(N, A, B, C) :-
+    M is N - 1,
+    hanoi(M, A, C, B),
+    move(N, A, C),
+    hanoi(M, B, A, C).
+
+move(1, A, C) :-
+    write('Move disk 1 from '), write(A), write(' to '), write(C), nl.
+move(N, A, C) :-
+    B is 3 - A - C,
+    move(N-1, A, B, C),
+    write('Move disk '), write(N), write(' from '), write(A), write(' to '), write(C), nl,
+    move(N-1, B, C, A).
+</code>
+<query>
+hanoi(4, 1, 2, 3).
+</query>","<reasoning>
+The Towers of Hanoi problem is a classic problem that can be solved using recursion. The goal is to move all disks from one rod to another rod, following these rules:
+1. Only one disk can be moved at a time.
+2. Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack or on an empty rod.
+3. No disk may be placed on top of a smaller disk.
+</reasoning>
+
+<code>
+hanoi(0, _, _, _) :- !.
+hanoi(N, A, B, C) :-
+    M is N - 1,
+    hanoi(M, A, C, B),
+    move(N, A, C),
+    hanoi(M, B, A, C).
+
+move(1, A, C) :-
+    write('Move disk 1 from '), write(A), write(' to '), write(C), nl.
+move(N, A, C) :-
+    B is 3 - A - C,
+    move(N-1, A, B, C),
+    write('Move disk '), write(N), write(' from '), write(A), write(' to '), write(C), nl,
+    move(N-1, B, C, A).
+</code>
+
+<query>
+hanoi(4, 1, 2, 3).
+</query>"
+False,"A palindrome is a phrase which reads the same backward and forward.
+Task
+Write a function or program that checks whether a given sequence of characters (or, if you prefer, bytes) is a palindrome.
+Test the algorithm on input racecar",0,0.0,0,0,0,0,"<reasoning>
+The task is to create a Prolog predicate that checks if a given sequence of characters is a palindrome. A palindrome reads the same backward as forward.
+</reasoning>
+<code>
+is_palindrome(S) :-
+    name(S, L),
+    reverse(L, L).
+</code>
+<query>
+is_palindrome(racecar).
+</query>","<reasoning>
+The task requires a Prolog program to check if a given sequence of characters is a palindrome. A palindrome reads the same backward as forward. We will implement a recursive approach to compare characters from the start and end of the sequence, moving towards the center.
+</reasoning>
+<code>
+is_palindrome([]).
+is_palindrome([_]).
+is_palindrome([H|T]) :-
+    reverse(T, RevT),
+    H =:= T,
+    is_palindrome(RevT).
+</code>
+<query>
+is_palindrome(['r', 'a', 'c', 'e', 'c', 'a', 'r']).
+</query>","<reasoning>
+The task requires a Prolog program to check if a given sequence of characters is a palindrome. A palindrome reads the same backward as forward. We will implement a recursive approach to compare characters from the start and end of the sequence, moving towards the center.
+</reasoning>
+<code>
+is_palindrome([]).
+is_palindrome([_]).
+is_palindrome([H|T]) :-
+    reverse(T, RevT),
+    H =:= T,
+    is_palindrome(RevT).
+</code>
+<query>
+is_palindrome(['r', 'a', 'c', 'e', 'c', 'a', 'r']).
+</query>","<reasoning>
+The task is to create a Prolog predicate that checks if a given sequence of characters is a palindrome. A palindrome reads the same backward as forward.
+</reasoning>
+<code>
+is_palindrome([]).
+is_palindrome([H|T]) :-
+    reverse(T, RevT),
+    append([H], RevT, T).
+</code>
+<query>
+is_palindrome(['r', 'a', 'c', 'e', 'c', 'a', 'r']).
+</query>"
+False,"The prime decomposition of a number is defined as a list of prime numbers
+which when all multiplied together, are equal to that number.
+Example
+12 = 2 × 2 × 3,  so its prime decomposition is  {2, 2, 3}
+
+Task
+
+Write a function which returns an array or collection which contains the prime decomposition of a given number n greater than 1.
+If your language does not have an isPrime-like function available, you may assume that you have a function which determines whether a number is prime (note its name before your code).
+
+Test the algorithm on input 60",0,0.0,0,0,0,0,"<reasoning>
+To solve this problem, we need to create a Prolog predicate that decomposes a given number into its prime factors. The predicate will recursively divide the number by the smallest prime factor until the number is reduced to 1.
+</reasoning>
+
+<code>
+is_prime(2).
+is_prime(N) :-
+    N > 2,
+    N mod 2 =\= 0,
+    find_prime(N, 3).
+
+find_prime(N, P) :-
+    P * P > N, !.
+find_prime(N, P) :-
+    N mod P =\= 0,
+    Next is P + 2,
+    find_prime(N, Next).
+
+prime_decomposition(N, Factors) :-
+    prime_decomposition(N, Factors, []).
+
+prime_decomposition(1, [], Acc) :-
+    reverse(Acc, Factors).
+prime_decomposition(N, Factors, Acc) :-
+    is_prime(P),
+    N mod P =:= 0,
+    NewN is N // P,
+    prime_decomposition(NewN, Factors, [P | Acc]).
+prime_decomposition(N, Factors, Acc) :-
+    Next is P + 2,
+    prime_decomposition(N, Factors, Acc).
+</code>
+
+<query>
+prime_decomposition(60, Factors).
+</query>","<reasoning>
+To solve this problem, we need to implement a function that decomposes a given number into its prime factors. The function will repeatedly divide the number by the smallest prime factor until the number is reduced to 1. We will assume that a function `is_prime/1` is available to check if a number is prime.
+</reasoning>
+
+<code>
+prime_decomposition(N, Factors) :-
+    prime_decomposition(N, 2, Factors).
+
+prime_decomposition(1, _, []).
+
+prime_decomposition(N, Factor, [Factor | Factors]) :-
+    N mod Factor =:= 0,
+    NewN is N // Factor,
+    prime_decomposition(NewN, Factor, Factors).
+
+prime_decomposition(N, Factor, Factors) :-
+    Factor > N,
+    !,
+    Factors = [].
+
+prime_decomposition(N, NextFactor, Factors) :-
+    NextFactor is NextFactor + 1,
+    prime_decomposition(N, NextFactor, Factors).
+</code>
+
+<query>
+prime_decomposition(60, Factors).
+</query>","<reasoning>
+To solve this problem, we need to create a Prolog program that decomposes a given number into its prime factors. The program will repeatedly divide the number by the smallest prime factor until the number is reduced to 1. We will assume that a function `is_prime/1` is available to check if a number is prime.
+</reasoning>
+
+<code>
+prime_decomposition(N, Factors) :-
+    prime_decomposition(N, Factors, []).
+
+prime_decomposition(1, [], Acc) :-
+    reverse(Acc, Factors).
+prime_decomposition(N, Factors, Acc) :-
+    smallest_prime_factor(N, P),
+    NewN is N // P,
+    prime_decomposition(NewN, Factors, [P | Acc]).
+
+smallest_prime_factor(N, P) :-
+    smallest_prime_factor(N, 2, P).
+
+smallest_prime_factor(N, P, P) :-
+    is_prime(P),
+    N mod P =:= 0.
+smallest_prime_factor(N, P, Q) :-
+    P1 is P + 1,
+    smallest_prime_factor(N, P1, Q).
+</code>
+
+<query>
+prime_decomposition(60, Factors).
+</query>","<reasoning>
+To solve this problem, we need to create a Prolog program that decomposes a given number into its prime factors. The program should repeatedly divide the number by the smallest prime factor until the number is reduced to 1. We will assume that a function `is_prime/1` is available to check if a number is prime.
+</reasoning>
+
+<code>
+prime_decomposition(N, Factors) :-
+    prime_decomposition(N, 2, Factors).
+
+prime_decomposition(1, _, []).
+
+prime_decomposition(N, Factor, [Factor | Rest]) :-
+    N mod Factor =:= 0,
+    NewN is N // Factor,
+    prime_decomposition(NewN, Factor, Rest).
+
+prime_decomposition(N, Factor, Rest) :-
+    Factor > N,
+    !,
+    Rest = [].
+
+prime_decomposition(N, NextFactor, Rest) :-
+    NextFactor is NextFactor + 1,
+    prime_decomposition(N, NextFactor, Rest).
+</code>
+
+<query>
+prime_decomposition(60, Factors).
+</query>"
+False,"Dijkstra's algorithm, conceived by Dutch computer scientist Edsger Dijkstra in 1956 and published in 1959, is a graph search algorithm that solves the single-source shortest path problem for a graph with non-negative edge path costs, producing a shortest path tree.
+This algorithm is often used in routing and as a subroutine in other graph algorithms.
+For a given source vertex (node) in the graph, the algorithm finds the path with lowest cost (i.e. the shortest path) between that vertex and every other vertex.
+For instance
+If the vertices of the graph represent cities and edge path costs represent driving distances between pairs of cities connected by a direct road, Dijkstra's algorithm can be used to find the shortest route between one city and all other cities.
+Important note
+The inputs to Dijkstra's algorithm are a directed and weighted graph consisting of 2 or more nodes, generally represented by:
+an adjacency matrix or list and a start node. 
+A destination node is not specified.
+The output is a set of edges depicting the shortest path to each destination node.
+
+Task
+
+Implement a version of Dijkstra's algorithm that outputs a set of edges depicting the shortest path to each reachable node from an origin.
+Run your program with the following directed graph starting at node a.
+Write a program which interprets the output from the above and use it to output the shortest path from node a to nodes e and  f. 
+
+Test the algorithm on input go(a,e).",0,0.0,0,0,0,0,"<reasoning>
+Dijkstra's algorithm is a classic algorithm for finding the shortest path in a graph. It works by maintaining a priority queue of nodes to be explored, and for each node, it calculates the shortest path to all its neighbors. The algorithm continues until all nodes have been explored.
+</reasoning>
+
+<code>
+dijkstra(Graph, Start, Distances, Paths) :-
+    initialize(Graph, Start, Distances, Paths),
+    explore(Graph, Distances, Paths, Start).
+
+initialize(Graph, Start, Distances, Paths) :-
+    findall(Node, member(Node, Graph), Nodes),
+    maplist((lambda(Node, (Distances = [Node-0], Paths = [Node-[]]))), Nodes).
+
+explore(Graph, Distances, Paths, Current) :-
+    findall((Node, Distance), (member(Node-Distance, Distances), Node \= Current), Neighbors),
+    update_distances(Graph, Distances, Neighbors, NewDistances),
+    update_paths(Paths, Neighbors, NewPaths),
+    findall(Node, (member(Node-Distance, NewDistances), Distance \= 0), NodesToExplore),
+    (   NodesToExplore = []
+    ->  true
+    ;   select(Node, NodesToExplore, Remaining),
+        explore(Graph, NewDistances, NewPaths, Node),
+        explore(Graph, NewDistances, NewPaths, Remaining)).
+
+update_distances(Graph, Distances, Neighbors, NewDistances) :-
+    maplist((lambda((Node, Distance), (NewDistances = [Node-NewDistance]))),
+            Neighbors,
+            maplist((lambda((Node, Distance), (NewDistance is min(Distance, get_distance(Graph, Current, Node))))),
+                    Neighbors,
+                    Distances)).
+
+update_paths(Paths, Neighbors, NewPaths) :-
+    maplist((lambda((Node, Distance), (NewPaths = [Node-Path]))),
+            Neighbors,
+            maplist((lambda((Node, Distance), (Path is [Current|Path2]))),
+                    Neighbors,
+                    Paths)).
+
+get_distance(Graph, Node1, Node2) :-
+    member(Node1-Edges, Graph),
+    member(Node2-Distance, Edges),
+    !, Distance.
+get_distance(_, _, _).
+
+go(Start, End, Path) :-
+    dijkstra(Graph, Start, Distances, Paths),
+    member(End-Distance, Distances),
+    member(End-Path, Paths).
+</code>
+
+<query>
+go(a, e, Path).
+</query>","<reasoning>
+Dijkstra's algorithm is a classic algorithm for finding the shortest path in a graph. It works by maintaining a set of tentative distances from the source node to all other nodes, and iteratively updating these distances as it explores the graph.
+</reasoning>
+<code>
+dijkstra(Graph, Start, Distances) :-
+    findall(Node, member(_, Node), Nodes),
+    dijkstra_helper(Graph, Start, Nodes, Distances).
+
+dijkstra_helper(_, _, [], []).
+
+dijkstra_helper(Graph, Start, [Node|Nodes], [Distance|Distances]) :-
+    find_min_distance(Graph, Start, Node, Distance),
+    dijkstra_helper(Graph, Start, Nodes, Distances).
+
+find_min_distance(Graph, Start, Node, Distance) :-
+    findall((Next, Cost), member((Node, Next, Cost), Graph), Edges),
+    find_min_distance_helper(Edges, Start, Node, Distance).
+
+find_min_distance_helper([], _, _, inf).
+
+find_min_distance_helper([(Next, Cost)|Edges], Start, Node, Distance) :-
+    (   Next = Start, Cost = Distance
+    ;   find_min_distance_helper(Edges, Start, Node, NewDistance),
+        (   Cost < NewDistance -> Distance is Cost
+        ;   Distance is NewDistance
+        )
+    ).
+</code>
+<query>
+go(a,e).
+</query>","<reasoning>
+Dijkstra's algorithm is a classic algorithm for finding the shortest path in a graph. It works by maintaining a set of tentative distances from the source node to all other nodes, and iteratively updating these distances based on the edges of the graph. The algorithm ensures that the shortest path to each node is found by considering the shortest path to the current node and extending it to its neighbors.
+</reasoning>
+<code>
+dijkstra(Graph, Start, Distances) :-
+    findall(Node, member(_, Node), Nodes),
+    dijkstra_helper(Graph, Start, Nodes, Distances).
+
+dijkstra_helper(_, _, [], []).
+
+dijkstra_helper(Graph, Start, [Node|Nodes], [Distance|Distances]) :-
+    find_shortest_path(Graph, Start, Node, Distance),
+    dijkstra_helper(Graph, Start, Nodes, Distances).
+
+find_shortest_path(Graph, Start, Node, Distance) :-
+    findall(Path, path(Graph, Start, Node, Path), Paths),
+    min_list(Paths, Distance).
+
+path(_, _, _, []).
+
+path(Graph, Start, Node, [Edge|Path]) :-
+    edge(Graph, Start, Node, Edge),
+    path(Graph, Node, Edge, Path).
+
+edge(Graph, Start, Node, Edge) :-
+    member([Start, Node, Edge], Graph).
+</code>
+<query>
+go(a,e).
+</query>","<reasoning>
+Dijkstra's algorithm is a classic algorithm for finding the shortest path in a graph. It works by maintaining a priority queue of nodes to be processed, and iteratively selecting the node with the smallest distance, updating the distances of its neighbors, and adding them to the queue if they haven't been processed yet.
+</reasoning>
+<code>
+dijkstra(Graph, Start, Distances) :-
+    initialize(Graph, Start, Distances),
+    process_nodes(Graph, Distances).
+
+initialize(Graph, Start, Distances) :-
+    findall(Node, member(Node, Graph), Nodes),
+    maplist((lambda(Node, (Node, (Node = Start -> 0 ; infinity))))), Nodes, Distances).
+
+process_nodes(Graph, Distances) :-
+    select_node(Distances, Node, MinDist),
+    update_neighbors(Graph, Node, MinDist, Distances, NewDistances),
+    process_nodes(Graph, NewDistances).
+
+select_node(Distances, Node, MinDist) :-
+    select((Node, MinDist), Distances, _).
+
+update_neighbors(Graph, Node, MinDist, Distances, NewDistances) :-
+    findall((Neighbor, NewDist), (member((Node, Neighbor, Cost), Graph), NewDist is MinDist + Cost), Edges),
+    maplist((lambda((Neighbor, NewDist), (Neighbor, (NewDist < MinDist -> NewDist ; MinDist)))), Edges, UpdatedEdges),
+    append(UpdatedEdges, Distances, NewDistances).
+</code>
+<query>
+go(a,e).
+</query>"
+True,"
+In information theory and computer science, the Levenshtein distance is a metric for measuring the amount of difference between two sequences (i.e. an edit distance). The Levenshtein distance between two strings is defined as the minimum number of edits needed to transform one string into the other, with the allowable edit operations being insertion, deletion, or substitution of a single character.
+Example
+The Levenshtein distance between 'kitten' and 'sitting' is 3, since the following three edits change one into the other, and there isn't a way to do it with fewer than three edits:
+
+kitten sitten (substitution of 'k' with 's')
+sitten sittin (substitution of 'e' with 'i')
+sittin sitting (insert 'g' at the end).
+
+The Levenshtein distance between ""rosettacode"", ""raisethysword"" is 8.
+The distance between two strings is same as that when both strings are reversed.
+
+Task
+
+Implements a Levenshtein distance function, or uses a library function, to show the Levenshtein distance between 'kitten' and 'sitting'.
+
+Test the algorithm on input ['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g']",1,0.25,0,1,0,0,"<reasoning>
+The Levenshtein distance is a classic problem in computer science and information theory. It measures the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into the other. The provided example and test case illustrate how to calculate this distance.
+</reasoning>
+
+<code>
+levenshtein_distance([], [], 0).
+levenshtein_distance([_ | T1], [], N) :- levenshtein_distance(T1, [], N1), N is N1 + 1.
+levenshtein_distance([], [_ | T2], N) :- levenshtein_distance([], T2, N1), N is N1 + 1.
+levenshtein_distance([H1 | T1], [H2 | T2], N) :-
+    (   H1 = H2, levenshtein_distance(T1, T2, N1), N is N1
+    ;   levenshtein_distance(T1, [H2 | T2], N1), N is N1 + 1
+    ;   levenshtein_distance([H1 | T1], T2, N1), N is N1 + 1
+    ;   levenshtein_distance(T1, T2, N1), N is N1 + 1
+    ).
+</code>
+
+<query>
+levenshtein_distance(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], N).
+</query>","<reasoning>
+The Levenshtein distance is a well-known algorithm in computer science for measuring the difference between two sequences. It calculates the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one string into the other.
+</reasoning>
+
+<code>
+levenshtein_distance([], [], 0).
+levenshtein_distance([_ | T1], [], N) :- levenshtein_distance(T1, [], N1), N is N1 + 1.
+levenshtein_distance([], [_ | T2], N) :- levenshtein_distance([], T2, N1), N is N1 + 1.
+levenshtein_distance([H1 | T1], [H2 | T2], N) :-
+    (   H1 = H2, levenshtein_distance(T1, T2, N1), N is N1
+    ;   levenshtein_distance(T1, [H2 | T2], N1), N is N1 + 1
+    ;   levenshtein_distance([H1 | T1], T2, N1), N is N1 + 1
+    ;   levenshtein_distance(T1, T2, N1), N is N1 + 1
+    ).
+</code>
+
+<query>
+levenshtein_distance(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], Distance).
+</query>","<reasoning>
+The Levenshtein distance is a well-known problem in computer science and information theory. It measures the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into another. The problem can be solved using dynamic programming.
+</reasoning>
+<code>
+levenshtein_distance([], [], 0).
+levenshtein_distance([_ | T1], [], N) :- levenshtein_distance(T1, [], N1), N is N1 + 1.
+levenshtein_distance([], [_ | T2], N) :- levenshtein_distance([], T2, N1), N is N1 + 1.
+levenshtein_distance([H1 | T1], [H2 | T2], N) :-
+    levenshtein_distance(T1, T2, N1),
+    (H1 = H2 -> N is N1; N is N1 + 1).
+levenshtein_distance([H1 | T1], [H2 | T2], N) :-
+    levenshtein_distance(T1, [H2 | T2], N1),
+    levenshtein_distance([H1 | T1], T2, N2),
+    Min is min(N1, N2),
+    N is Min + 1.
+</code>
+<query>
+levenshtein_distance(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], N).
+</query>","<reasoning>
+The Levenshtein distance is a well-known problem in computer science and information theory. It measures the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into another. The provided example demonstrates how to calculate the Levenshtein distance between two strings, and the task is to implement this in Prolog.
+</reasoning>
+
+<code>
+levenshtein_distance([], [], 0).
+levenshtein_distance([_ | T1], [], N) :- levenshtein_distance(T1, [], N1), N is N1 + 1.
+levenshtein_distance([], [_ | T2], N) :- levenshtein_distance([], T2, N1), N is N1 + 1.
+levenshtein_distance([H1 | T1], [H2 | T2], N) :-
+    levenshtein_distance(T1, T2, N1),
+    (H1 = H2 -> N is N1; N is N1 + 1).
+
+levenshtein_distance(List1, List2, Distance) :-
+    reverse(List1, Reversed1),
+    reverse(List2, Reversed2),
+    levenshtein_distance(Reversed1, Reversed2, Distance).
+</code>
+
+<query>
+levenshtein_distance(['k', 'i', 't', 't', 'e', 'n'], ['s', 'i', 't', 't', 'i', 'n', 'g'], Distance).
+</query>"
+False,"
+Solve the eight queens puzzle.
+You can extend the problem to solve the puzzle with a board of size NxN.
+
+Test the algorithm on input [1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4]",0,0.0,0,0,0,0,"<reasoning>
+The eight queens puzzle is a classic problem where the goal is to place eight queens on an 8x8 chessboard such that no two queens threaten each other. This means no two queens can be in the same row, column, or diagonal.
+</reasoning>
+
+<code>
+queens(N, Board) :-
+    length(Board, N),
+    queens(Board, 1).
+
+queens(_, 9).
+queens([H|T], Row) :-
+    place_queen(H, Row, T),
+    queens(T, Row + 1).
+
+place_queen(Row, Row, _).
+place_queen(Row, Col, [H|T]) :-
+    not(attack(Row, Col, H)),
+    place_queen(Row, Col + 1, T).
+
+attack(Row1, Col1, Row2/Col2) :-
+    Row1 =:= Row2,
+    Col1 =:= Col2.
+attack(Row1, Col1, Row2/Col2) :-
+    Row1 - Col1 =:= Row2 - Col2.
+attack(Row1, Col1, Row2/Col2) :-
+    Row1 + Col1 =:= Row2 + Col2.
+</code>
+
+<query>
+queens(8, Board), Board = [1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4].
+</query>","<reasoning>
+The eight queens puzzle is a classic problem where the goal is to place eight queens on an 8x8 chessboard such that no two queens threaten each other. This means no two queens can be in the same row, column, or diagonal. The problem can be generalized to an NxN board.
+</reasoning>
+
+<code>
+% Define a predicate to check if a queen can be placed at a given position
+can_place(Queen, Board, Row, Col) :-
+    % Check if there is no queen in the same row
+    \+ member(Row, Board),
+    % Check if there is no queen in the same column
+    \+ member(Col, [X | _] :- member(X/Col, Board)),
+    % Check if there is no queen in the same diagonal
+    \+ member(Row-Col, [X-Y | _] :- member(X-Y, Board)),
+    \+ member(Row+Col, [X+Y | _] :- member(X+Y, Board)).
+
+% Define a predicate to solve the N-Queens problem
+solve_n_queens(N, Board) :-
+    length(Board, N),
+    % Place queens one by one
+    findall(Queen, (between(1, N, Row), can_place(Queen, Board, Row, Col), Queen = Row/Col), Queens),
+    % Check if all queens are placed
+    length(Queens, N).
+
+% Define a predicate to print the board
+print_board(Board) :-
+    maplist(print_row, Board),
+    nl.
+
+print_row(Row) :-
+    maplist(print_cell, Row),
+    nl.
+
+print_cell(Cell) :-
+    (Cell = 1 -> write('Q'); write('.')),
+    fail.
+</code>
+
+<query>
+solve_n_queens(8, Board), print_board(Board).
+</query>","<reasoning>
+The eight queens puzzle is a classic problem where the goal is to place eight queens on an 8x8 chessboard such that no two queens threaten each other. This means no two queens can be in the same row, column, or diagonal.
+</reasoning>
+
+<code>
+queens(N, Solution) :-
+    length(Solution, N),
+    queens(N, Solution, 1).
+
+queens(_, [], _).
+queens(N, [H|T], Row) :-
+    valid(N, H, Row, T),
+    queens(N, T, Row + 1).
+
+valid(_, _, _, []).
+valid(N, H, Row, [Q|T]) :-
+    H \= Q,
+    H \= Q - (Row - 1),
+    H \= Q + (Row - 1),
+    valid(N, H, Row, T).
+</code>
+
+<query>
+queens(8, Solution), Solution = [1, 5, 8, 6, 3, 7, 2, 4].
+</query>","<reasoning>
+The eight queens puzzle is a classic problem where the goal is to place eight queens on an 8x8 chessboard such that no two queens threaten each other. This means no two queens can be in the same row, column, or diagonal.
+</reasoning>
+
+<code>
+% Define a predicate to check if a queen can be placed at a given position
+can_place(Queen, Row, Col, Board) :-
+    % Check if there is no queen in the same row
+    \+ member(Queen, Board),
+    % Check if there is no queen in the same column
+    \+ member(Col, [Col | _]),
+    % Check if there is no queen in the same diagonal
+    \+ (member(Row-Col, [Row-Col | _]), member(Row+Col, [Row+Col | _])).
+</code>
+
+<query>
+% Test the algorithm on input [1/1, 2/5, 3/8, 4/6, 5/3, 6/7, 7/2, 8/4]
+can_place(1, 1, 1, [1, 5, 8, 6, 3, 7, 2, 4]).
+</query>"
+False,"The Ackermann function is a classic example of a recursive function, notable especially because it is not a primitive recursive function. It grows very quickly in value, as does the size of its call tree.
+The Ackermann function is usually defined as follows:
+{\displaystyle A(m,n)={\begin{cases}n+1&{\mbox{if }}m=0\\A(m-1,1)&{\mbox{if }}m>0{\mbox{ and }}n=0\\A(m-1,A(m,n-1))&{\mbox{if }}m>0{\mbox{ and }}n>0.\end{cases}}}
+Its arguments are never negative and it always terminates.
+
+Task
+
+Write a function which returns the value of A(m,n). Arbitrary precision is preferred (since the function grows so quickly), but not required.
+Test the algorithm on input (3, 1)",0,0.0,0,0,0,0,"<reasoning>
+The Ackermann function is defined recursively. We need to implement this recursion in Prolog.
+</reasoning>
+<code>
+ack(0, N, N).
+ack(M, 0, R) :- M > 0, M1 is M - 1, ack(M1, 1, R).
+ack(M, N, R) :- M > 0, N > 0, M1 is M - 1, N1 is N - 1, ack(M, N1, R1), ack(M1, R1, R).
+</code>
+<query>
+?- ack(3, 1, Result).
+</query>","<reasoning>
+The Ackermann function is a classic recursive function that grows very quickly. It is defined by three cases: when m is 0, when n is 0, and when both m and n are greater than 0.
+</reasoning>
+<code>
+ackermann(0, N, N1) :- N1 is N + 1.
+ackermann(M, 0, N1) :- M > 0, ackermann(M - 1, 1, N2), N1 is N2.
+ackermann(M, N, N1) :- M > 0, N > 0, ackermann(M - 1, A, N2), ackermann(A, N - 1, N3), N1 is N3.
+</code>
+<query>
+ackermann(3, 1, Result).
+</query>","<reasoning>
+The Ackermann function is defined recursively. We need to implement this recursion in Prolog.
+</reasoning>
+<code>
+ack(0, N, N).
+ack(M, 0, R) :- M > 0, ack(M-1, 1, R).
+ack(M, N, R) :- M > 0, N > 0, ack(M-1, A, R1), ack(A, N-1, R2), R is R2.
+</code>
+<query>
+ack(3, 1, Result).
+</query>","<reasoning>
+The Ackermann function is defined recursively. We need to implement this recursion in Prolog.
+</reasoning>
+<code>
+ack(0, N, N).
+ack(M, 0, R) :- M > 0, M1 is M - 1, ack(M1, 1, R).
+ack(M, N, R) :- M > 0, N > 0, M1 is M - 1, N1 is N - 1, ack(M, N1, R1), ack(M1, R1, R).
+</code>
+<query>
+?- ack(3, 1, Result).
+</query>"
+False,"Task:
+
+Generate a string with N opening brackets [ and with N closing brackets ], in some arbitrary order. 
+Determine whether the generated string is balanced; that is, whether it consists entirely of pairs of opening/closing brackets (in that order), none of which mis-nest.
+
+Examples
+
+   (empty)      OK
+   []           OK   
+   [][]         OK   
+   [[][]]       OK 
+   ][         NOT OK
+   ][][       NOT OK
+   []][[]     NOT OK
+
+Test the algorithm on input ({[]})",0,0.0,0,0,0,0,"<reasoning>
+The task is to generate a string with N opening and N closing brackets and check if the string is balanced. A string is balanced if every opening bracket has a corresponding closing bracket in the correct order.
+</reasoning>
+<code>
+is_balanced([]).
+is_balanced([H|T]) :-
+    H = '[',
+    count_brackets(T, 1, 0).
+
+count_brackets([], 0, 0).
+count_brackets([H|T], Open, Close) :-
+    (   H = '[',
+        NewOpen is Open + 1,
+        count_brackets(T, NewOpen, Close)
+    ;   H = ']',
+        NewClose is Close + 1,
+        count_brackets(T, Open, NewClose)
+    ),
+    Open =:= Close.
+</code>
+<query>
+is_balanced([[],[],[]]).
+</query>","<reasoning>
+The task is to generate a string with N opening and N closing brackets and check if the string is balanced. A string is balanced if every opening bracket has a corresponding closing bracket in the correct order.
+</reasoning>
+<code>
+is_balanced([]).
+is_balanced([H|T]) :-
+    H = '[',
+    count_brackets(T, 1, 0).
+
+count_brackets([], 0, 0).
+count_brackets([H|T], Open, Close) :-
+    (   H = '[',
+        NewOpen is Open + 1,
+        count_brackets(T, NewOpen, Close)
+    ;   H = ']',
+        NewClose is Close + 1,
+        count_brackets(T, Open, NewClose)
+    ),
+    Open =:= Close.
+</code>
+<query>
+is_balanced([[],[],[]]).
+</query>","<reasoning>
+The task is to generate a string with N opening and N closing brackets and check if the string is balanced. A string is balanced if every opening bracket has a corresponding closing bracket in the correct order.
+</reasoning>
+<code>
+is_balanced([]).
+is_balanced([H|T]) :-
+    H = '[',
+    count_brackets(T, 1, 0).
+
+count_brackets([], Open, Close) :-
+    Open = Close.
+count_brackets([H|T], Open, Close) :-
+    H = '[',
+    NewOpen is Open + 1,
+    count_brackets(T, NewOpen, Close).
+count_brackets([H|T], Open, Close) :-
+    H = ']',
+    NewClose is Close + 1,
+    count_brackets(T, Open, NewClose).
+</code>
+<query>
+is_balanced([[],[],[]]).
+</query>","<reasoning>
+The task is to generate a string with N opening and N closing brackets and determine if the string is balanced. A string is balanced if every opening bracket has a corresponding closing bracket in the correct order.
+</reasoning>
+<code>
+is_balanced([]).
+is_balanced([H|T]) :-
+    H = '[',
+    is_balanced(T).
+
+is_balanced([H|T]) :-
+    H = ']',
+    is_balanced(T).
+
+is_balanced([H|T]) :-
+    H = '[',
+    is_balanced(T1),
+    T = [']'|T1].
+</code>
+<query>
+is_balanced([[],[],[]]).
+</query>"
+False,"
+Task
+Problem: you have a standard 8x8 chessboard, empty but for a single knight on some square. Your task is to emit a series of legal knight moves that result in the knight visiting every square on the chessboard exactly once. Note that it is not a requirement that the tour be ""closed""; that is, the knight need not end within a single move of its start position.
+Input and output may be textual or graphical, according to the conventions of the programming environment. If textual, squares should be indicated in algebraic notation. The output should indicate the order in which the knight visits the squares, starting with the initial position. The form of the output may be a diagram of the board with the squares numbered according to visitation sequence, or a textual list of algebraic coordinates in order, or even an actual animation of the knight moving around the chessboard.
+Input: starting square
+Output: move sequence
+Test the algorithm on input 3",0,0.0,0,0,0,0,"<reasoning>
+The task requires generating a knight's tour on an 8x8 chessboard starting from a given square. A knight's tour is a sequence of moves of a knight on a chessboard such that the knight visits every square exactly once. The solution will use backtracking to explore all possible moves and find a valid tour.
+</reasoning>
+
+<code>
+% Define the chessboard size
+board_size(8).
+
+% Define the knight's possible moves
+knight_moves(X, Y, DX, DY) :-
+    member([DX, DY], [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]]),
+    X1 is X + DX,
+    Y1 is Y + DY,
+    between(1, 8, X1),
+    between(1, 8, Y1).
+
+% Check if a move is valid
+valid_move(X, Y, Visited) :-
+    knight_moves(X, Y, DX, DY),
+    not(member([X1, Y1], Visited)),
+    X1 is X + DX,
+    Y1 is Y + DY,
+    between(1, 8, X1),
+    between(1, 8, Y1).
+
+% Find a knight's tour
+knight_tour(X, Y, Visited, [X, Y | Visited]) :-
+    board_size(N),
+    length(Visited, N*N),
+    !.
+knight_tour(X, Y, Visited, Tour) :-
+    knight_moves(X, Y, DX, DY),
+    valid_move(X1, Y1, Visited),
+    knight_tour(X1, Y1, [X1, Y1 | Visited], Tour).
+
+% Start the knight's tour from a given square
+start_tour(Square, Tour) :-
+    parse_square(Square, X, Y),
+    knight_tour(X, Y, [], Tour).
+
+% Parse algebraic notation to coordinates
+parse_square(Square, X, Y) :-
+    atom_chars(Square, [Letter, Digit]),
+    char_code(Letter, Code),
+    X is Code - 96,
+    Y is Digit - 48.
+</code>
+
+<query>
+start_tour('3', Tour).
+</query>","<reasoning>
+The task requires generating a knight's tour on an 8x8 chessboard starting from a given square. A knight's tour is a sequence of moves of a knight on a chessboard such that the knight visits every square exactly once. The solution will use backtracking to explore all possible moves and find a valid tour.
+</reasoning>
+
+<code>
+% Define the chessboard size
+board_size(8).
+
+% Define the knight's possible moves
+knight_moves(X, Y, NewX, NewY) :-
+    member([DX, DY], [[2, 1], [2, -1], [-2, 1], [-2, -1], [1, 2], [1, -2], [-1, 2], [-1, -2]]),
+    NewX is X + DX,
+    NewY is Y + DY.
+
+% Check if a move is within the board
+valid_move(X, Y) :-
+    board_size(N),
+    X >= 1, X =< N,
+    Y >= 1, Y =< N.
+
+% Check if a square is already visited
+is_visited(X, Y, Visited) :-
+    member([X, Y], Visited).
+
+% Recursive function to find the knight's tour
+knight_tour(X, Y, Visited, MoveCount, Moves) :-
+    board_size(N),
+    MoveCount < N*N,
+    knight_moves(X, Y, NewX, NewY),
+    valid_move(NewX, NewY),
+    \+ is_visited(NewX, NewY, Visited),
+    NewVisited = [[NewX, NewY] | Visited],
+    NewMoveCount is MoveCount + 1,
+    knight_tour(NewX, NewY, NewVisited, NewMoveCount, Moves).
+
+% Start the knight's tour from a given square
+start_knight_tour(X, Y, Moves) :-
+    knight_tour(X, Y, [[X, Y]], 1, Moves).
+
+% Convert the move sequence to algebraic notation
+move_to_algebraic(X, Y, Algebraic) :-
+    char_code('A', A),
+    char_code('1', One),
+    NewX is X - 1,
+    NewY is Y - 1,
+    char_code(AlgebraicX, A + NewX),
+    char_code(AlgebraicY, One + NewY),
+    atom_concat(AlgebraicX, AlgebraicY, Algebraic).
+
+% Print the knight's tour in algebraic notation
+print_tour(Moves) :-
+    maplist(move_to_algebraic, Moves, AlgebraicMoves),
+    write(AlgebraicMoves).
+
+% Main predicate to find and print the knight's tour
+knight_tour_main(X, Y) :-
+    start_knight_tour(X, Y, Moves),
+    print_tour(Moves).
+</code>
+
+<query>
+knight_tour_main(3, 3).
+</query>","<reasoning>
+The task requires finding a knight's tour on an 8x8 chessboard starting from a given square. A knight's tour is a sequence of moves of a knight on a chessboard such that the knight visits every square exactly once. The solution will generate a sequence of moves in algebraic notation.
+</reasoning>
+
+<code>
+knight_moves(X, Y, NewX, NewY) :-
+    member((DX, DY), [(2, 1), (2, -1), (-2, 1), (-2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2)]),
+    NewX is X + DX,
+    NewY is Y + DY.
+
+is_valid_move(X, Y) :-
+    X >= 1, X =< 8, Y >= 1, Y =< 8.
+
+knight_tour(X, Y, Visited, Moves) :-
+    is_valid_move(X, Y),
+    not(member((X, Y), Visited)),
+    knight_moves(X, Y, NewX, NewY),
+    knight_tour(NewX, NewY, [(X, Y) | Visited], [((X, Y), (NewX, NewY)) | Moves]).
+
+knight_tour(X, Y) :-
+    knight_tour(X, Y, [], []).
+
+knight_tour(X, Y, Visited, Moves) :-
+    knight_moves(X, Y, NewX, NewY),
+    knight_tour(NewX, NewY, [(X, Y) | Visited], [((X, Y), (NewX, NewY)) | Moves]).
+</code>
+
+<query>
+knight_tour(3, 3).
+</query>","<reasoning>
+The task requires finding a knight's tour on an 8x8 chessboard starting from a given square. A knight's tour is a sequence of moves of a knight on a chessboard such that the knight visits every square exactly once. The solution will generate a sequence of moves in algebraic notation.
+</reasoning>
+
+<code>
+knight_moves(X, Y, NewX, NewY) :-
+    member((DX, DY), [(2, 1), (2, -1), (-2, 1), (-2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2)]),
+    NewX is X + DX,
+    NewY is Y + DY.
+
+is_valid_move(X, Y) :-
+    X >= 1, X =< 8, Y >= 1, Y =< 8.
+
+knight_tour(X, Y, Visited, Moves) :-
+    is_valid_move(X, Y),
+    not(member((X, Y), Visited)),
+    knight_moves(X, Y, NewX, NewY),
+    knight_tour(NewX, NewY, [(X, Y) | Visited], [((X, Y), (NewX, NewY)) | Moves]).
+
+knight_tour(X, Y) :-
+    knight_tour(X, Y, [], []).
+
+start_tour(X, Y) :-
+    knight_tour(X, Y),
+    reverse(Moves, ReversedMoves),
+    print_moves(ReversedMoves).
+
+print_moves([]).
+print_moves([(From, To) | Rest]) :-
+    format('~w -> ~w~n', [From, To]),
+    print_moves(Rest).
+</code>
+
+<query>
+start_tour(3, 3).
+</query>"
+False,"
+Sorting Algorithm
+This is a sorting algorithm. It may be applied to a set of data in order to sort it.
+The merge sort is a recursive sort of order n*log(n). 
+It is notable for having a worst case and average complexity of O(n*log(n)), and a best case complexity of O(n) (for pre-sorted input).
+The basic idea is to split the collection into smaller groups by halving it until the groups only have one element or no elements (which are both entirely sorted groups).
+Then merge the groups back together so that their elements are in order.
+This is how the algorithm gets its divide and conquer description.
+
+Task
+
+Write a function to sort a collection of integers using the merge sort.
+The merge sort algorithm comes in two parts: a sort function and a merge function 
+Note: better performance can be expected if, rather than recursing until length(m) ≤ 1, an insertion sort is used for length(m) smaller than some threshold larger than 1.
+
+Test the algorithm on input [3,1,4,2]",0,0.0,0,0,0,0,"<reasoning>
+The merge sort algorithm involves recursively splitting the list into halves until the base case is reached (a list of length 0 or 1), and then merging the sorted halves back together.
+</reasoning>
+<code>
+merge_sort([]) --> [].
+merge_sort([X]) --> [X].
+merge_sort(List) -->
+    { split(List, Left, Right) },
+    merge_sort(Left, SortedLeft),
+    merge_sort(Right, SortedRight),
+    merge(SortedLeft, SortedRight, List).
+
+split([], [], []).
+split([H], [H], []).
+split([H1, H2 | T], [H1 | Left], [H2 | Right]) :-
+    split(T, Left, Right).
+
+merge([], Right, Right).
+merge(Left, [], Left).
+merge([H1 | T1], [H2 | T2], [H1 | Merged]) :-
+    H1 =< H2,
+    merge(T1, [H2 | T2], Merged).
+merge([H1 | T1], [H2 | T2], [H2 | Merged]) :-
+    H1 > H2,
+    merge([H1 | T1], T2, Merged).
+</code>
+<query>
+?- merge_sort([3,1,4,2], Sorted).
+</query>","<reasoning>
+The merge sort algorithm is a classic divide-and-conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves. The merge() function is used for merging two halves. The merge(arr, l, m, r) is a key process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one.
+</reasoning>
+
+<code>
+merge_sort([], []).
+merge_sort([X], [X]).
+merge_sort(List, Sorted) :-
+    split(List, Left, Right),
+    merge_sort(Left, SortedLeft),
+    merge_sort(Right, SortedRight),
+    merge(SortedLeft, SortedRight, Sorted).
+
+split([], [], []).
+split([X], [X], []).
+split([X, Y | T], [X | Left], [Y | Right]) :-
+    split(T, Left, Right).
+
+merge([], Right, Right).
+merge(Left, [], Left).
+merge([H1 | T1], [H2 | T2], [H1 | Merged]) :-
+    H1 =< H2,
+    merge(T1, [H2 | T2], Merged).
+merge([H1 | T1], [H2 | T2], [H2 | Merged]) :-
+    H1 > H2,
+    merge([H1 | T1], T2, Merged).
+</code>
+
+<query>
+merge_sort([3,1,4,2], Sorted).
+</query>","<reasoning>
+Merge sort is a divide-and-conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves. The merge() function is used for merging two halves. The merge(arr, l, m, r) is a key process that assumes that arr[l..m] and arr[m+1..r] are sorted and merges the two sorted sub-arrays into one.
+</reasoning>
+
+<code>
+merge_sort([], []).
+merge_sort([X], [X]).
+merge_sort(List, Sorted) :-
+    split(List, Left, Right),
+    merge_sort(Left, SortedLeft),
+    merge_sort(Right, SortedRight),
+    merge(SortedLeft, SortedRight, Sorted).
+
+split([], [], []).
+split([X], [X], []).
+split([X, Y | T], [X | Left], [Y | Right]) :-
+    split(T, Left, Right).
+
+merge([], Right, Right).
+merge(Left, [], Left).
+merge([H1 | T1], [H2 | T2], [H1 | M]) :-
+    H1 =< H2,
+    merge(T1, [H2 | T2], M).
+merge([H1 | T1], [H2 | T2], [H2 | M]) :-
+    H1 > H2,
+    merge([H1 | T1], T2, M).
+</code>
+
+<query>
+merge_sort([3,1,4,2], Sorted).
+</query>","<reasoning>
+Merge sort is a divide and conquer algorithm that divides the input array into two halves, calls itself for the two halves, and then merges the two sorted halves.
+</reasoning>
+<code>
+merge_sort([]) --> [].
+merge_sort([X]) --> [X].
+merge_sort(List) -->
+    { split(List, Left, Right) },
+    merge_sort(Left, SortedLeft),
+    merge_sort(Right, SortedRight),
+    merge(SortedLeft, SortedRight, List).
+
+split([H|T], [H|Left], Right) :- split(T, Left, Right).
+split([], [], []).
+
+merge([], Right, Right).
+merge(Left, [], Left).
+merge([H1|T1], [H2|T2], [H1|Result]) :- H1 =< H2, merge(T1, [H2|T2], Result).
+merge([H1|T1], [H2|T2], [H2|Result]) :- H1 > H2, merge([H1|T1], T2, Result).
+</code>
+<query>
+?- merge_sort([3,1,4,2], Sorted).
+</query>"
+False,"Task
+Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer.
+You don't need to validate the form of the Roman numeral.
+Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately,
+starting with the leftmost decimal digit and skipping any 0s (zeroes).
+1990 is rendered as MCMXC (1000 = M, 900 = CM, 90 = XC) and 2008 is rendered as MMVIII (2000 = MM, 8 = VIII).
+The Roman numeral for 1666, MDCLXVI, uses each letter in descending order.
+
+Test the algorithm on input (mcmxc, 1990)",0,0.0,0,0,0,0,"<reasoning>
+The task is to convert a Roman numeral string to its decimal integer value. We need to map each Roman numeral character to its corresponding integer value and then sum these values, taking into account the subtraction rule for numerals like IV (4) and IX (9).
+</reasoning>
+<code>
+roman_numeral_to_int('I', 1).
+roman_numeral_to_int('V', 5).
+roman_numeral_to_int('X', 10).
+roman_numeral_to_int('L', 50).
+roman_numeral_to_int('C', 100).
+roman_numeral_to_int('D', 500).
+roman_numeral_to_int('M', 1000).
+
+roman_to_int(Roman, Int) :-
+    string_to_list(Roman, List),
+    reverse(List, Reversed),
+    roman_to_int_acc(Reversed, 0, Int).
+
+roman_to_int_acc([], Acc, Acc).
+roman_to_int_acc([H|T], Acc, Int) :-
+    roman_numeral_to_int(H, Value),
+    (   T = [Next|_] ->
+        roman_numeral_to_int(Next, NextValue),
+        (   Value < NextValue ->
+            NewAcc is Acc - Value
+        ;   NewAcc is Acc + Value
+        )
+    ;   NewAcc is Acc + Value
+    ),
+    roman_to_int_acc(T, NewAcc, Int).
+</code>
+<query>
+roman_to_int('mcmxc', Int).
+</query>","<reasoning>
+The task requires converting a Roman numeral to its decimal equivalent. We need to map each Roman numeral character to its corresponding value and then sum these values, taking into account the subtraction rule for numerals like IV (4) and IX (9).
+</reasoning>
+<code>
+roman_numeral_to_decimal(Roman, Decimal) :-
+    string_chars(Roman, Chars),
+    maplist(roman_char_to_value, Chars, Values),
+    sum_list(Values, Decimal).
+
+roman_char_to_value(C, V) :-
+    (   C = 'I', V is 1
+    ;   C = 'V', V is 5
+    ;   C = 'X', V is 10
+    ;   C = 'L', V is 50
+    ;   C = 'C', V is 100
+    ;   C = 'D', V is 500
+    ;   C = 'M', V is 1000
+    ).
+</code>
+<query>
+roman_numeral_to_decimal('mcmxc', Decimal).
+</query>","<reasoning>
+The task is to convert a Roman numeral string to its decimal integer value. We need to map each Roman numeral character to its corresponding integer value and then process the string according to the rules of Roman numerals.
+</reasoning>
+<code>
+roman_numeral_to_int('I', 1).
+roman_numeral_to_int('V', 5).
+roman_numeral_to_int('X', 10).
+roman_numeral_to_int('L', 50).
+roman_numeral_to_int('C', 100).
+roman_numeral_to_int('D', 500).
+roman_numeral_to_int('M', 1000).
+
+roman_to_int(Roman, Int) :-
+    string_to_list(Roman, List),
+    reverse(List, Reversed),
+    process_reversed_list(Reversed, 0, Int).
+
+process_reversed_list([], Acc, Acc).
+process_reversed_list([H|T], Acc, Int) :-
+    roman_numeral_to_int(H, Value),
+    (   T = [Next|_] ->
+        roman_numeral_to_int(Next, NextValue),
+        (   Value < NextValue ->
+            NewAcc is Acc - Value
+        ;   NewAcc is Acc + Value
+        )
+    ;   NewAcc is Acc + Value
+    ),
+    process_reversed_list(T, NewAcc, Int).
+</code>
+<query>
+roman_to_int('mcmxc', Int).
+</query>","<reasoning>
+The task is to convert a Roman numeral to its decimal equivalent. We need to map each Roman numeral character to its corresponding value and then sum these values, taking into account the subtraction rule for numerals like IV (4) and IX (9).
+</reasoning>
+<code>
+roman_numeral_to_decimal(Roman, Decimal) :-
+    string_chars(Roman, Chars),
+    maplist(roman_char_to_value, Chars, Values),
+    sum_list(Values, Decimal).
+
+roman_char_to_value(C, V) :-
+    (   C = 'I', V is 1;
+        C = 'V', V is 5;
+        C = 'X', V is 10;
+        C = 'L', V is 50;
+        C = 'C', V is 100;
+        C = 'D', V is 500;
+        C = 'M', V is 1000
+    ).
+</code>
+<query>
+roman_numeral_to_decimal('mcmxc', Decimal).
+</query>"
+False,"
+Define a subsequence to be any output string obtained by deleting zero or more symbols from an input string.
+The Longest Common Subsequence (LCS) is a subsequence of maximum length common to two or more strings.
+Let A ≡ A[0]… A[m - 1] and B ≡ B[0]… B[n - 1], m < n be strings drawn from an alphabet Σ of size s, containing every distinct symbol in A + B.
+An ordered pair (i, j) will be referred to as a match if A[i] = B[j], where 0 < i ≤ m and 0 < j ≤ n.
+Define a non-strict product-order (≤) over ordered pairs, such that (i1, j1) ≤ (i2, j2) ⇔ i1 ≤ i2 and j1 ≤ j2. We define (≥) similarly.
+We say m1, m2 are comparable if either m1 ≤ m2 or m1 ≥ m2 holds. If i1 < i2 and j2 < j1 (or i2 < i1 and j1 < j2) then neither m1 ≤ m2 nor m1 ≥ m2 are possible; and we say m1, m2 are incomparable.
+We also define the strict product-order (<) over ordered pairs, such that (i1, j1) < (i2, j2) ⇔ i1 < i2 and j1 < j2. We define (>) similarly.
+Given a set of matches M, a chain C is a subset of M consisting of at least one element m; and where either m1 < m2 or m1 > m2 for every pair of distinct elements m1 and m2. An antichain D is any subset of M in which every pair of distinct elements m1 and m2 are incomparable.
+The set M represents a relation over match pairs: M[i, j] ⇔ (i, j) ∈ M. A chain C can be visualized as a curve which strictly increases as it passes through each match pair in the m*n coordinate space.
+Finding an LCS can be restated as the problem of finding a chain of maximum cardinality p over the set of matches M.
+
+Examples
+
+The sequences ""1234"" and ""1224533324"" have an LCS of ""1234"":
+
+1234
+1224533324
+
+For a string example, consider the sequences ""thisisatest"" and ""testing123testing"". An LCS would be ""tsitest"":
+
+thisisatest
+testing123testing
+
+In this puzzle, your code only needs to deal with strings. Write a function which returns an LCS of two strings (case-sensitive). You don't need to show multiple LCS's.
+
+Test the algorithm on input [a,b,c,d,e], [a,c,e]",0,0.0,0,0,0,0,"<reasoning>
+The problem requires finding the Longest Common Subsequence (LCS) of two strings. The LCS is the longest sequence that appears in both strings in the same order, but not necessarily consecutively.
+</reasoning>
+<code>
+lcs(X, Y, Z) :-
+    lcs(X, Y, 0, 0, Z).
+
+lcs([], _, _, _, []).
+lcs(_, [], _, _, []).
+lcs([H1|T1], [H2|T2], I, J, [H1|T]) :-
+    H1 = H2,
+    I1 is I + 1,
+    J1 is J + 1,
+    lcs(T1, T2, I1, J1, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    I1 is I + 1,
+    lcs(T1, [H2|T2], I1, J, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    J1 is J + 1,
+    lcs([H1|T1], T2, I, J1, T).
+</code>
+<query>
+lcs([a,b,c,d,e], [a,c,e], LCS).
+</query>","<reasoning>
+The problem requires finding the Longest Common Subsequence (LCS) of two strings. The LCS is the longest sequence that appears in both strings in the same order, but not necessarily consecutively.
+</reasoning>
+
+<code>
+lcs(X, Y, Z) :-
+    lcs(X, Y, 0, 0, Z).
+
+lcs([], _, _, _, []).
+lcs(_, [], _, _, []).
+lcs([H1|T1], [H2|T2], I, J, [H1|T]) :-
+    H1 = H2,
+    I1 is I + 1,
+    J1 is J + 1,
+    lcs(T1, T2, I1, J1, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    I1 is I + 1,
+    lcs(T1, [H2|T2], I1, J, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    J1 is J + 1,
+    lcs([H1|T1], T2, I, J1, T).
+</code>
+
+<query>
+lcs([a,b,c,d,e], [a,c,e], LCS).
+</query>","<reasoning>
+The problem requires finding the Longest Common Subsequence (LCS) of two strings. The LCS is the longest sequence that appears in both strings in the same order, but not necessarily consecutively.
+</reasoning>
+<code>
+lcs(X, Y, Z) :-
+    lcs(X, Y, 0, 0, Z).
+
+lcs([], _, _, _, []).
+lcs(_, [], _, _, []).
+lcs([H1|T1], [H2|T2], I, J, [H1|T]) :-
+    H1 = H2,
+    I1 is I + 1,
+    J1 is J + 1,
+    lcs(T1, T2, I1, J1, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    I1 is I + 1,
+    lcs(T1, [H2|T2], I1, J, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    J1 is J + 1,
+    lcs([H1|T1], T2, I, J1, T).
+</code>
+<query>
+lcs([a,b,c,d,e], [a,c,e], LCS).
+</query>","<reasoning>
+The problem requires finding the Longest Common Subsequence (LCS) of two strings. The LCS is the longest sequence that appears in both strings in the same order, but not necessarily consecutively.
+</reasoning>
+<code>
+lcs(X, Y, Z) :-
+    lcs(X, Y, 0, 0, Z).
+
+lcs([], _, _, _, []).
+lcs(_, [], _, _, []).
+lcs([H1|T1], [H2|T2], I, J, [H1|T]) :-
+    H1 = H2,
+    I1 is I + 1,
+    J1 is J + 1,
+    lcs(T1, T2, I1, J1, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    I1 is I + 1,
+    lcs(T1, [H2|T2], I1, J, T).
+lcs([H1|T1], [H2|T2], I, J, [H2|T]) :-
+    H1 \= H2,
+    J1 is J + 1,
+    lcs([H1|T1], T2, I, J1, T).
+</code>
+<query>
+lcs([a,b,c,d,e], [a,c,e], LCS).
+</query>"
+False,"Huffman encoding is a way to assign binary codes to symbols that reduces the overall number of bits used to encode a typical string of those symbols.
+For example, if you use letters as symbols and have details of the frequency of occurrence of those letters in typical strings, then you could just encode each letter with a fixed number of bits, such as in ASCII codes. You can do better than this by encoding more frequently occurring letters such as e and a, with smaller bit strings; and less frequently occurring letters such as q and x with longer bit strings.
+Any string of letters will be encoded as a string of bits that are no-longer of the same length per letter. To successfully decode such as string, the smaller codes assigned to letters such as 'e' cannot occur as a prefix in the larger codes such as that for 'x'.
+If you were to assign a code 01 for 'e' and code 011 for 'x', then if the bits to decode started as 011... then you would not know if you should decode an 'e' or an 'x'.
+The Huffman coding scheme takes each symbol and its weight (or frequency of occurrence), and generates proper encodings for each symbol taking account of the weights of each symbol, so that higher weighted symbols have fewer bits in their encoding. (See the WP article for more information).
+A Huffman encoding can be computed by first creating a tree of nodes:
+
+Create a leaf node for each symbol and add it to the priority queue.
+While there is more than one node in the queue:
+Remove the node of highest priority (lowest probability) twice to get two nodes.
+Create a new internal node with these two nodes as children and with probability equal to the sum of the two nodes' probabilities.
+Add the new node to the queue.
+The remaining node is the root node and the tree is complete.
+
+Traverse the constructed binary tree from root to leaves assigning and accumulating a '0' for one branch and a '1' for the other at each node. The accumulated zeros and ones at each leaf constitute a Huffman encoding for those symbols and weights:
+
+Task
+
+Using the characters and their frequency from the string: this is an example for huffman encoding create a program to generate a Huffman encoding for each character as a table.
+
+Test the algorithm on input [a,a,b,c,c,c]",0,0.0,0,0,0,0,"<reasoning>
+The task is to implement a Huffman encoding algorithm in Prolog. The algorithm involves creating a priority queue of nodes, where each node represents a character and its frequency. Nodes are combined to form a binary tree, with the tree's leaves representing the Huffman codes for each character.
+</reasoning>
+
+<code>
+% Define a node structure
+node(Freq, Char, Left, Right) :-
+    atom(Char),
+    integer(Freq),
+    (var(Left) -> true ; node(_, _, _, _)),
+    (var(Right) -> true ; node(_, _, _, _)).
+
+% Create a priority queue from a list of nodes
+create_priority_queue(Nodes, Queue) :-
+    sort(Nodes, Queue).
+
+% Combine two nodes to form a new node
+combine_nodes(Node1, Node2, NewNode) :-
+    node(Freq1, _, _, _) = Node1,
+    node(Freq2, _, _, _) = Node2,
+    NewFreq is Freq1 + Freq2,
+    NewNode = node(NewFreq, _, Node1, Node2).
+
+% Build the Huffman tree
+build_huffman_tree(Queue, Tree) :-
+    (length(Queue, 1) -> Tree = Queue[0] ; 
+     Queue = [Node1, Node2 | Rest],
+     combine_nodes(Node1, Node2, NewNode),
+     create_priority_queue([NewNode | Rest], NewQueue),
+     build_huffman_tree(NewQueue, Tree)).
+
+% Traverse the tree to generate Huffman codes
+traverse_tree(node(_, Char, Left, Right), Path, Codes) :-
+    (var(Left), var(Right) -> Codes = [node(Char, Path)] ;
+     traverse_tree(Left, [0 | Path], Codes1),
+     traverse_tree(Right, [1 | Path], Codes2),
+     append(Codes1, Codes2, Codes)).
+
+% Generate Huffman codes for a list of nodes
+generate_huffman_codes(Nodes, Codes) :-
+    create_priority_queue(Nodes, Queue),
+    build_huffman_tree(Queue, Tree),
+    traverse_tree(Tree, [], Codes).
+
+% Example usage
+example_huffman_codes(Codes) :-
+    Nodes = [node(2, a, nil, nil), node(3, b, nil, nil), node(5, c, nil, nil)],
+    generate_huffman_codes(Nodes, Codes).
+</code>
+
+<query>
+example_huffman_codes(Codes).
+</query>","<reasoning>
+To generate a Huffman encoding for a given set of characters and their frequencies, we need to follow the steps of creating a priority queue, building the Huffman tree, and then traversing the tree to assign binary codes to each character.
+</reasoning>
+
+<code>
+% Define a structure for nodes in the Huffman tree
+node(P, L, R) :- integer(P), node(L), node(R).
+
+% Define a structure for leaf nodes
+node(leaf(_, _)).
+
+% Define a structure for internal nodes
+node(internal(_, _, _)).
+
+% Function to create a Huffman tree
+huffman_tree(Frequencies, Tree) :-
+    priority_queue:make(PQ),
+    maplist(create_node, Frequencies, Nodes),
+    maplist(priority_queue:add, Nodes, PQ),
+    huffman_tree(PQ, Tree).
+
+% Helper function to create nodes from frequencies
+create_node(Frequency, node(leaf(Char, Frequency))) :-
+    atom_chars(Char, [Code]),
+    integer(Code).
+
+% Recursive function to build the Huffman tree
+huffman_tree(PQ, Tree) :-
+    priority_queue:size(PQ, 1),
+    priority_queue:pop(PQ, node(leaf(_, P1), _)),
+    priority_queue:pop(PQ, node(leaf(_, P2), _)),
+    P is P1 + P2,
+    huffman_tree(PQ, node(internal(P, Tree1, Tree2))),
+    huffman_tree(PQ, Tree1),
+    huffman_tree(PQ, Tree2).
+
+% Function to traverse the Huffman tree and assign binary codes
+traverse_tree(node(leaf(Char, _)), Code, Codes) :-
+    append(Code, [0], NewCode),
+    Codes = [(Char, NewCode)].
+traverse_tree(node(leaf(Char, _)), Code, Codes) :-
+    append(Code, [1], NewCode),
+    Codes = [(Char, NewCode)].
+traverse_tree(node(internal(_, L, R)), Code, Codes) :-
+    traverse_tree(L, [0|Code], Codes1),
+    traverse_tree(R, [1|Code], Codes2),
+    append(Codes1, Codes2, Codes).
+</code>
+
+<query>
+huffman_tree([a, a, b, c, c, c], Tree),
+traverse_tree(Tree, [], Codes),
+print(Codes).
+</query>","<reasoning>
+To generate a Huffman encoding for a given set of characters and their frequencies, we need to follow the steps of creating a priority queue, building the Huffman tree, and then traversing the tree to assign binary codes to each character.
+</reasoning>
+<code>
+huffman_encoding([], _).
+huffman_encoding([Node], Codes) :-
+    leaf(Node, _, Code),
+    Codes = [Code].
+huffman_encoding(Tree, Codes) :-
+    tree(Tree, Left, Right),
+    huffman_encoding(Left, LeftCodes),
+    huffman_encoding(Right, RightCodes),
+    append(LeftCodes, RightCodes, Codes).
+
+leaf(leaf(_, Char, Code), Char, Code).
+tree(tree(_, Left, Right), Left, Right).
+
+build_tree([Node], Node).
+build_tree(Nodes, Tree) :-
+    select_min(Nodes, Min1, Rest1),
+    select_min(Rest1, Min2, Rest2),
+    NewNode = tree(Min1 + Min2, Min1, Min2),
+    append([NewNode], Rest2, NewNodes),
+    build_tree(NewNodes, Tree).
+
+select_min([Node], Node, []).
+select_min([Node1, Node2 | Rest], Node, [Node1 | Rest]) :-
+    Node1 = tree(_, _, _),
+    Node2 = tree(_, _, _),
+    Node1 =< Node2.
+select_min([Node1, Node2 | Rest], Node, [Node2 | Rest]) :-
+    Node1 = tree(_, _, _),
+    Node2 = tree(_, _, _),
+    Node1 > Node2.
+</code>
+<query>
+?- huffman_encoding([a, a, b, c, c, c], Codes).
+</query>","<reasoning>
+To generate a Huffman encoding for a given set of characters and their frequencies, we need to follow the steps of creating a priority queue, building the Huffman tree, and then traversing the tree to assign binary codes to each character.
+</reasoning>
+<code>
+huffman_encoding([], _).
+huffman_encoding([Node], Codes) :-
+    leaf(Node, _, Code),
+    Codes = [Code].
+huffman_encoding(Tree, Codes) :-
+    Tree =.. [_, Left, Right],
+    huffman_encoding(Left, LeftCodes),
+    huffman_encoding(Right, RightCodes),
+    append(LeftCodes, RightCodes, Codes).
+
+leaf(leaf(_, _, Code), _, Code).
+leaf(_, _, _).
+
+priority_queue([], []).
+priority_queue([Node|Nodes], Queue) :-
+    priority_queue(Nodes, NewQueue),
+    insert(Node, NewQueue, Queue).
+
+insert(Node, [], [Node]).
+insert(Node, [Node1|Nodes], [Node|Nodes1]) :-
+    compare(P1, Node, Node1),
+    P1 =< 0,
+    insert(Node, Nodes, Nodes1).
+insert(Node, [Node1|Nodes], [Node1|Nodes1]) :-
+    insert(Node, Nodes, Nodes1).
+
+build_tree([Node], Node).
+build_tree(Nodes, Tree) :-
+    priority_queue(Nodes, [Node1, Node2|Rest]),
+    NewNode =.. [node, Node1, Node2],
+    build_tree([NewNode|Rest], Tree).
+
+huffman_codes(Tree, Codes) :-
+    huffman_encoding(Tree, Codes).
+
+huffman_codes(String, Codes) :-
+    frequencies(String, Freqs),
+    priority_queue(Freqs, Queue),
+    build_tree(Queue, Tree),
+    huffman_codes(Tree, Codes).
+
+frequencies([], []).
+frequencies([H|T], Freqs) :-
+    findall(H, member(H, [H|T]), List),
+    length(List, Count),
+    frequencies(T, Rest),
+    Freqs = [leaf(H, Count, [])|Rest].
+</code>
+<query>
+?- huffman_codes([a,a,b,c,c,c], Codes).
+</query>"
+False,"The 24 Game tests one's mental arithmetic.
+Task
+Write a program that randomly chooses and displays four digits, each from 1 ──► 9 (inclusive) with repetitions allowed.
+
+The program should prompt for the player to enter an arithmetic expression using just those, and all of those four digits, used exactly once each. The program should check then evaluate the expression.
+
+The goal is for the player to enter an expression that (numerically) evaluates to 24.
+
+ Only the following operators/functions are allowed: multiplication, division, addition, subtraction
+ Division should use floating point or rational arithmetic, etc, to preserve remainders.
+ Brackets are allowed, if using an infix expression evaluator.
+ Forming multiple digit numbers from the supplied digits is disallowed. (So an answer of 12+12 when given 1, 2, 2, and 1 is wrong).
+ The order of the digits when given does not have to be preserved.
+
+Notes
+ The type of expression evaluator used is not mandated. An RPN evaluator is equally acceptable for example.
+ The task is not for the program to generate the expression, or test whether an expression is even possible.
+
+Test the algorithm on input 8 * 3",0,0.0,0,0,0,0,"<reasoning>
+The task requires a Prolog program that generates four random digits, prompts the user to enter an arithmetic expression using these digits exactly once, and checks if the expression evaluates to 24.
+</reasoning>
+
+<code>
+% Generate four random digits between 1 and 9
+random_digits(D1, D2, D3, D4) :-
+    random_between(1, 9, D1),
+    random_between(1, 9, D2),
+    random_between(1, 9, D3),
+    random_between(1, 9, D4).
+
+% Check if the expression evaluates to 24
+is_24(Expression) :-
+    atom_codes(Expression, Codes),
+    expression_to_number(Codes, Number),
+    Number =:= 24.
+
+% Convert expression to number
+expression_to_number(Codes, Number) :-
+    expression_to_number(Codes, 0, Number).
+
+expression_to_number([], Acc, Acc).
+expression_to_number([H|T], Acc, Number) :-
+    digit(H, D),
+    expression_to_number(T, Acc * 10 + D, Number).
+
+digit(C, D) :-
+    C >= 48, C =< 57,
+    D is C - 48.
+</code>
+
+<query>
+random_digits(D1, D2, D3, D4),
+writef('Digits: %d %d %d %d\n', [D1, D2, D3, D4]),
+read(Expression),
+is_24(Expression).
+</query>","<reasoning>
+The task requires a Prolog program that generates four random digits, prompts the user to enter an arithmetic expression using these digits exactly once, and checks if the expression evaluates to 24.
+</reasoning>
+
+<code>
+% Generate four random digits between 1 and 9
+random_digits([D1, D2, D3, D4]) :-
+    random_between(1, 9, D1),
+    random_between(1, 9, D2),
+    random_between(1, 9, D3),
+    random_between(1, 9, D4).
+
+% Check if the expression evaluates to 24
+is_24(Expression) :-
+    atom_codes(Expression, Codes),
+    expression_to_number(Codes, Number),
+    Number =:= 24.
+
+% Convert expression to number
+expression_to_number(Codes, Number) :-
+    expression_to_number(Codes, 0, Number).
+
+expression_to_number([], Acc, Acc).
+expression_to_number([H|T], Acc, Number) :-
+    digit(H, D),
+    expression_to_number(T, Acc * 10 + D, Number).
+
+digit(C, D) :-
+    C >= 48, C =< 57,
+    D is C - 48.
+</code>
+
+<query>
+random_digits(Digits), writef('Digits: %w\n', [Digits]), read(Expression), is_24(Expression).
+</query>","<reasoning>
+The task requires a Prolog program that generates four random digits, prompts the user to enter an arithmetic expression using these digits exactly once, and checks if the expression evaluates to 24.
+</reasoning>
+
+<code>
+:- use_module(library(random)).
+:- use_module(library(readutil)).
+
+random_digits(Digits) :-
+    random_list(4, [1, 9], Digits).
+
+random_list(0, _, _).
+random_list(N, Range, [H|T]) :-
+    random_member(H, Range),
+    N1 is N - 1,
+    random_list(N1, Range, T).
+
+evaluate_expression(Expression, Result) :-
+    atom_codes(Expression, Codes),
+    read_term_from_atom(Codes, Term, []),
+    Result is Term.
+
+is_24(Expression) :-
+    evaluate_expression(Expression, Result),
+    Result =:= 24.
+
+play_24_game :-
+    random_digits(Digits),
+    format('Digits: ~w~n', [Digits]),
+    format('Enter an expression using these digits exactly once: ~n', []),
+    read_line_to_string(user_input, Expression),
+    is_24(Expression),
+    format('Congratulations! The expression evaluates to 24.~n').
+</code>
+
+<query>
+play_24_game.
+</query>","<reasoning>
+The task requires a Prolog program that generates four random digits, prompts the user to enter an arithmetic expression using these digits, and checks if the expression evaluates to 24.
+</reasoning>
+
+<code>
+% Generate four random digits between 1 and 9
+generate_digits(D1, D2, D3, D4) :-
+    random_between(1, 9, D1),
+    random_between(1, 9, D2),
+    random_between(1, 9, D3),
+    random_between(1, 9, D4).
+
+% Check if the expression evaluates to 24
+is_24(Expression) :-
+    atom_codes(Expression, Codes),
+    read_expression(Codes, Tree),
+    evaluate_expression(Tree, Result),
+    Result =:= 24.
+
+% Read expression from atom codes
+read_expression([], []).
+read_expression([40|T], [op('(')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([41|T], [op(')')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([43|T], [op('+')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([45|T], [op('-')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([42|T], [op('*')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([47|T], [op('/')|Tree]) :-
+    read_expression(T, Tree).
+read_expression([C|T], [num(N)|Tree]) :-
+    number_codes(N, [C|T]).
+
+% Evaluate expression tree
+evaluate_expression([], 0).
+evaluate_expression([num(N)], N).
+evaluate_expression([op(Op)|T], Result) :-
+    evaluate_expression(T, Args),
+    evaluate_args(Args, Op, Result).
+
+evaluate_args([A, B], op('+'), A + B).
+evaluate_args([A, B], op('-'), A - B).
+evaluate_args([A, B], op('*'), A * B).
+evaluate_args([A, B], op('/'), A / B).
+</code>
+
+<query>
+generate_digits(D1, D2, D3, D4),
+writef('Digits: %d %d %d %d\n', [D1, D2, D3, D4]),
+read(Expression),
+is_24(Expression).
+</query>"

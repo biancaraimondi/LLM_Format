@@ -461,8 +461,8 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         results_dir = results_dir + "/" + model_dir.split("/")[-1] + ".csv"
     else:
         results_dir = results_dir + "/" + model_B + ".csv"
-    if dataset == "rosetta":
-        results_dir = results_dir.replace(".csv", "_rosetta.csv")
+    if dataset == "rosetta2":
+        results_dir = results_dir.replace(".csv", "_rosetta2.csv")
 
     if os.path.exists(results_dir):
         print(f"Results for {model_dir} already exists.")
@@ -488,13 +488,13 @@ def main(model_B, checkpoint, one_shot, length, dataset):
     
     ### ----- TESTING ROSETTA CODE DATASET ----- ###
     questions = []
-    if dataset == "rosetta":
+    if dataset == "rosetta2":
         rosetta_dataset = pd.read_csv('data/prolog_tasks_ground_truth.csv')
         for index, entry in rosetta_dataset.iterrows():
             different_match = []
             different_responses = []
 
-            question_content = entry["task_description"] + "\nMake a test on:" + " " + entry["test_input_1"]
+            question_content = entry["task_description"] + "\nTest the algorithm on input " + entry["input_1"]
             questions.append(question_content)
             prompt = [
                 {"role": "system", "content": SYSTEM_PROMPT},
