@@ -41,8 +41,8 @@ import concurrent
 import os
 import multiprocessing
 
-os.environ["WANDB_PROJECT"] = "prolog-3b"
-os.environ["WANDB_LOG_MODEL"] = "checkpoint"
+# os.environ["WANDB_PROJECT"] = "prolog-3b"
+# os.environ["WANDB_LOG_MODEL"] = "checkpoint"
 
 
 def get_structured_output(output, idx):
@@ -122,9 +122,9 @@ def parse_kb(prolog_code, query, answer):
         print("Ground truth: ", answer)
         for inference in result:
           for _, result_inference in inference.items():
-            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, str(result_inference) == str(answer)))
+            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
             try:
-              if str(result_inference) == str(answer):
+              if float(result_inference) == float(answer):
                 return 1
             except:
               print("Matching error!")
