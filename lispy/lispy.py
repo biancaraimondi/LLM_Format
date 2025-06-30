@@ -114,9 +114,25 @@ def standard_env():
 
 def tokenize(s):
     """Convert a string into a list of tokens."""
+    # Remove comments (everything after semicolon until end of line)
+    lines = s.split('\n')
+    cleaned_lines = []
+    for line in lines:
+        # Find semicolon that's not inside a string
+        in_string = False
+        for i, char in enumerate(line):
+            if char == '"' and (i == 0 or line[i-1] != '\\'):
+                in_string = not in_string
+            elif char == ';' and not in_string:
+                line = line[:i]
+                break
+        cleaned_lines.append(line)
+    
+    s = '\n'.join(cleaned_lines)
+    
     # Add spaces around parentheses and split
     s = s.replace('(', ' ( ').replace(')', ' ) ')
-    return s.split()
+    return [token for token in s.split() if token]
 
 def parse(tokens):
     """Parse a list of tokens into an expression."""
@@ -208,9 +224,46 @@ def lisp_eval(s, env=None):
     """Evaluate a Lisp expression from a string."""
     if env is None:
         env = standard_env()
-    tokens = tokenize(s)
-    exp = parse(tokens)
-    return eval_exp(exp, env)
+    
+    # Handle multi-line expressions
+    lines = s.strip().split('\n')
+    results = []
+    current_expr = ""
+    paren_count = 0
+    
+    for line in lines:
+        # Skip empty lines and comment-only lines
+        stripped = line.strip()
+        if not stripped or stripped.startswith(';'):
+            continue
+            
+        current_expr += line + "\n"
+        
+        # Count parentheses to determine if expression is complete
+        for char in line:
+            if char == '(':
+                paren_count += 1
+            elif char == ')':
+                paren_count -= 1
+        
+        # If parentheses are balanced, evaluate the expression
+        if paren_count == 0 and current_expr.strip():
+            try:
+                tokens = tokenize(current_expr)
+                if tokens:  # Only parse if there are tokens
+                    exp = parse(tokens)
+                    result = eval_exp(exp, env)
+                    results.append(result)
+            except Exception:
+                # If multi-line parsing fails, try single expression
+                tokens = tokenize(s)
+                exp = parse(tokens)
+                return eval_exp(exp, env)
+            current_expr = ""
+    
+    # If we have a single result, return it directly
+    # If multiple results, return the last one (like most Lisp interpreters)
+    return results[-1] if results else None
 
 def repl():
     """Run a Read-Eval-Print Loop."""
@@ -235,25 +288,31 @@ def repl():
 if __name__ == "__main__":
     # Run some example expressions
     examples = [
-        "(+ 1 2 3)",
-        "(* 2 3 4)",
-        "(- 10 3)",
-        "(/ 15 3)",
-        "(define x 10)",
-        "(+ x 5)",
+        "(+ 1 2 3)  ; Simple addition",
+        "(* 2 3 4)  ; Multiplication",
+        "(- 10 3)   ; Subtraction", 
+        "(/ 15 3)   ; Division",
+        "(define x 10)  ; Define a variable",
+        "(+ x 5)    ; Use the variable",
+        "; Define a function using lambda",
         "(define square (lambda (x) (* x x)))",
         "(square 5)",
+        "; Define a function using defun - more convenient!",
         "(defun cube (x) (* x x x))",
         "(cube 3)",
-        "(defun add-two (x y) (+ x y))",
+        "(defun add-two (x y) (+ x y))  ; Function with two parameters",
         "(add-two 10 20)",
-        "(if (> 5 3) 'yes 'no)",
-        "(defun factorial (n) (if (= n 0) 1 (* n (factorial (- n 1)))))",
-        "(factorial 5)",
-        "(list 1 2 3 4)",
-        "(car (list 1 2 3))",
-        "(cdr (list 1 2 3))",
-        "(cons 0 (list 1 2 3))",
+        "(if (> 5 3) 'yes 'no)  ; Conditional expression",
+        "; Recursive function definition",
+        "(defun factorial (n)",
+        "  (if (= n 0)      ; Base case",
+        "      1            ; Return 1 if n is 0", 
+        "      (* n (factorial (- n 1)))))  ; Recursive case",
+        "(factorial 5)  ; Calculate 5!",
+        "(list 1 2 3 4)     ; Create a list",
+        "(car (list 1 2 3)) ; Get first element",
+        "(cdr (list 1 2 3)) ; Get rest of list",
+        "(cons 0 (list 1 2 3))  ; Add element to front",
     ]
     
     print("Running example expressions:")
