@@ -25,11 +25,11 @@ def main(model_B, one_shot):
         <code>
         ...
         </code>
-        <query>
+        <funcall>
         ...
-        </query>
+        </funcall>
 
-        Write the query just inside <query></query> not in <code></code>. Implement the logic in lisp.
+        Write the function call just inside <funcall></funcall> not in <code></code>. Implement the logic in lisp.
         """
     elif one_shot == 1:
         SYSTEM_PROMPT = """
@@ -47,12 +47,12 @@ def main(model_B, one_shot):
         </code>
         ...
         </code>
-        <query>
+        <funcall>
         ...
-        </query>
+        </funcall>
 
-        Write the query just inside <query></query> not in <code></code>.
-        
+        Write the function call just inside <funcall></funcall> not in <code></code>.
+
         ## Example
         
         Question:
@@ -71,9 +71,9 @@ def main(model_B, one_shot):
             X is TotalCost.
         </code>
         
-        <query>
+        <funcall>
         cost_to_fill_tub(X).
-        </query>
+        </funcall>
         """
 
     import os
@@ -127,8 +127,8 @@ def main(model_B, one_shot):
         return answer.strip()
 
     def extract_xml_query(text: str) -> str:
-        answer = text.split("<query>")[-1]
-        answer = answer.split("</query>")[0]
+        answer = text.split("<funcall>")[-1]
+        answer = answer.split("</funcall>")[0]
         return answer.strip()
     
     def extract_xml_reasoning(text: str) -> str:
@@ -304,7 +304,7 @@ def main(model_B, one_shot):
 
     def soft_format_reward_func(completions, **kwargs) -> list[float]:
         """Reward function that checks if the completion has a specific format."""
-        pattern = r"<reasoning>\s*([\s\S]*?)\s*</reasoning>\s*<code>\s*([\s\S]*?)\s*</code>\s*<query>\s*([\s\S]*?)\s*</query>"
+        pattern = r"<reasoning>\s*([\s\S]*?)\s*</reasoning>\s*<code>\s*([\s\S]*?)\s*</code>\s*<funcall>\s*([\s\S]*?)\s*</funcall>"
         responses = [completion[0]["content"] for completion in completions]
         matches = [re.match(pattern, r) for r in responses]
         return [0.5 if match else 0.0 for match in matches]
@@ -321,17 +321,17 @@ def main(model_B, one_shot):
             # if "?-" in text between <code> and </code> then reward -0.5
             code_text = text.split("<code>\n")[-1]
             code_text = code_text.split("\n</code>")[0]
-            query_text = text.split("<query>\n")[-1]
-            query_text = query_text.split("\n</query>")[0]
+            query_text = text.split("<funcall>\n")[-1]
+            query_text = query_text.split("\n</funcall>")[0]
             if "?-" in code_text or query_text.replace("\n", "") in code_text:
                 print("\nFOUND QUERY IN CODE: ", query_text.replace("\n", ""))
                 count -= 0.5
         if text.count("\n</code>\n") == 1:
             count += 0.125
-        if text.count("\n<query>\n") == 1:
+        if text.count("\n<funcall>\n") == 1:
             count += 0.125
             #count -= len(text.split("\n</query>\n")[-1])*0.001
-        if text.count("\n</query>") == 1:
+        if text.count("\n</funcall>\n") == 1:
             count += 0.125
             #count -= (len(text.split("\n</query>")[-1]) - 1)*0.001
         return count
