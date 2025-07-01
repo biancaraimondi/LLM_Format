@@ -63,16 +63,21 @@ def main(model_B, one_shot):
         </reasoning>
         
         <code>
-        cost_to_fill_tub(X) :-
-            TotalWater is 6 * 7.5,  % Total volume in gallons
-            TotalWeight is TotalWater * 8, % Total weight in pounds
-            TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
-            TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
-            X is TotalCost.
+        (defun jello-cost ()
+            (let* ((cubic-feet 6)
+                (gallons-per-cubic-foot 7.5)
+                (pounds-per-gallon 8)
+                (tablespoons-per-pound 1.5)
+                (cost-per-tablespoon 0.50)
+                (gallons (* cubic-feet gallons-per-cubic-foot))
+                (pounds (* gallons pounds-per-gallon))
+                (tablespoons (* pounds tablespoons-per-pound))
+                (cost (* tablespoons cost-per-tablespoon)))
+        cost))
         </code>
         
         <funcall>
-        cost_to_fill_tub(X).
+        (jello-cost)
         </funcall>
         """
 
