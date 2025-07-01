@@ -2,6 +2,7 @@
 """
 A simple Lisp interpreter in Python
 Supports basic arithmetic, conditionals, variables, functions, and lists
+Enhanced with setq and let* special forms
 """
 
 import re
@@ -188,6 +189,47 @@ def eval_exp(exp, env):
         (_, var, val) = exp
         env.find(var).data[var] = eval_exp(val, env)
         return var
+    elif op == 'setq':
+        # setq is like set! but doesn't require the variable to exist first
+        # In many Lisp dialects, setq can create new variables in the current scope
+        if len(exp) < 3:
+            raise LispError("setq requires at least 2 arguments")
+        
+        # Handle multiple variable assignments: (setq x 1 y 2 z 3)
+        if len(exp) % 2 == 0:
+            raise LispError("setq requires an even number of arguments (var val pairs)")
+        
+        result = None
+        for i in range(1, len(exp), 2):
+            var = exp[i]
+            val = eval_exp(exp[i + 1], env)
+            env.set(var, val)  # setq creates in current environment
+            result = val
+        return result
+    elif op == 'let*':
+        # let* binds variables sequentially, so later bindings can use earlier ones
+        if len(exp) < 3:
+            raise LispError("let* requires at least 2 arguments")
+        
+        bindings = exp[1]
+        body = exp[2:]
+        
+        # Create new environment extending the current one
+        new_env = Environment(outer=env)
+        
+        # Process bindings sequentially
+        for binding in bindings:
+            if not isinstance(binding, list) or len(binding) != 2:
+                raise LispError("let* binding must be a list of [var val]")
+            var, val_exp = binding
+            val = eval_exp(val_exp, new_env)  # Use new_env so we can reference previous bindings
+            new_env.set(var, val)
+        
+        # Evaluate body in the new environment
+        result = None
+        for expr in body:
+            result = eval_exp(expr, new_env)
+        return result
     elif op == 'lambda':
         (_, params, body) = exp
         return Procedure(params, body, env)
@@ -294,6 +336,16 @@ if __name__ == "__main__":
         "(/ 15 3)   ; Division",
         "(define x 10)  ; Define a variable",
         "(+ x 5)    ; Use the variable",
+        "; Testing setq - can set multiple variables at once",
+        "(setq a 5 b 10 c 15)",
+        "(+ a b c)  ; Should be 30",
+        "; setq can also set single variables",
+        "(setq result (* a b))",
+        "result      ; Should be 50",
+        "; Testing let* - sequential binding",
+        "(let* ((x 5) (y (* x 2)) (z (+ x y))) z)",  # Should be 15
+        "; Another let* example",
+        "(let* ((a 3) (b (+ a 2)) (c (* a b))) (list a b c))",  # Should be (3 5 15)",
         "; Define a function using lambda",
         "(define square (lambda (x) (* x x)))",
         "(square 5)",
@@ -303,6 +355,10 @@ if __name__ == "__main__":
         "(defun add-two (x y) (+ x y))  ; Function with two parameters",
         "(add-two 10 20)",
         "(if (> 5 3) 'yes 'no)  ; Conditional expression",
+        "; Using let* in a function",
+        "(defun quadratic (x)",
+        "  (let* ((x2 (* x x)) (x3 (* x x2))) (+ x x2 x3)))",
+        "(quadratic 3)  ; 3 + 9 + 27 = 39",
         "; Recursive function definition",
         "(defun factorial (n)",
         "  (if (= n 0)      ; Base case",
