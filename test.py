@@ -8,7 +8,6 @@ from unsloth import FastLanguageModel, is_bfloat16_supported
 import vllm
 import numpy as np
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -84,57 +83,30 @@ def get_gsm8k_questions(SYSTEM_PROMPT, split = "train") -> Dataset:
     }) # type: ignore
     return data # type: ignore
 
-
-def split_prolog_rules(code):
-    """
-    Splits a string of multiple Prolog facts and rules by matching
-    periods that are not part of a floating-point number. It removes
-    any surrounding whitespace from each rule.
-    """
-    # This regex splits on a period that is NOT immediately followed by a digit.
-    # \s* optionally matches any whitespace before and after the period.
-    rules = re.split(r'\s*\.(?!\d)\s*', code)
-    # Filter out any empty strings that may occur.
-    return [rule for rule in rules if rule]
-
-def parse_kb(prolog_code, query, answer):
-    reward = 0
-    from pyswip import Prolog
+def parse_kb(func_def, query, answer):
+    from lispy.lispy import standard_env, lisp_eval 
     try:
-        prolog_interpreter = Prolog()
-        # Filter out any empty rule
-        #rules = [rule.strip() for rule in prolog_code.split(").") if rule.strip()]
-        #rules = [rule + ")" for rule in rules]
-        rules = split_prolog_rules(prolog_code)
-        # print("-"*20)
-        # print(rules)
-        # print("-"*20)
-        for rule in rules:
-            if "?-" in rule:
-              continue
-            prolog_interpreter.assertz(rule)
+        env = standard_env()
+        print("-"*20)
+        print(func_def)
+        print("-"*20)
+        lisp_eval(func_def, env)
         # Use the instance's query method
-        result = list(prolog_interpreter.query(query))
-        # print("-"*20)
-        # print(result)
-        # print("-"*20)
-        print("Infered: ", result)
-        print("Ground truth: ", answer)
-        for inference in result:
-          for _, result_inference in inference.items():
-            print("\nInfered: {}, Response: {}, Match: {}".format(result_inference, answer, float(result_inference) == float(answer)))
-            try:
-              if float(result_inference) == float(answer):
-                return 1
-            except:
-              print("Matching error!")
-              return 0
+        result = lisp_eval(query, env)
+        print("Infered: {}, Response: {}, Match: {}".format(result, answer, float(result) == float(answer)))
+        try:
+            if float(result) == float(answer):
+                return 2
+        except:
+            print("Matching error!")
+            return -1
+        #print(result)
         # Ensure that the comparison makes sense:
         # This assumes you expect a non-empty result when the answer is correct.
-        return 0
+        return -1
     except Exception as e:
-        #print(f"Error encountered: {e}")
-        return 0
+        print(f"Error encountered: {e}")
+        return -1
 
 
 def worker(q, prolog_code, query, answer):
@@ -148,8 +120,6 @@ def worker(q, prolog_code, query, answer):
     q.put(result)
 
 def run_with_timeout(prolog_code, query, answer, timeout=5):
-    print("\n\nPROLOG CODE", prolog_code)
-    print("\nQUERY", query)
     # Create a queue to share data between processes
     q = multiprocessing.Queue()
     proc = multiprocessing.Process(target=worker, args=(q, prolog_code, query, answer))
@@ -158,7 +128,7 @@ def run_with_timeout(prolog_code, query, answer, timeout=5):
     proc.join(timeout)
 
     if proc.is_alive():
-        #print("Timeout reached, terminating process.")
+        print("Timeout reached, terminating process.")
         proc.terminate()
         proc.join()
         return 0
@@ -174,35 +144,30 @@ def run_with_timeout(prolog_code, query, answer, timeout=5):
 
     return result
 
-
-def remove_prolog_comments_and_whitespace(code):
-    # Remove block comments (/* ... */)
-    code_no_block = re.sub(r'/\*[\s\S]*?\*/', '', code)
-    # Remove single-line comments (% ...) from each line
-    code_no_comments = re.sub(r'(?m)%.*$', '', code_no_block)
+def remove_lisp_comments_and_whitespace(code):
+    # Remove semicolon comments (from ; to end of line)
+    code_no_semicolon = re.sub(r";.*$", "", code, flags=re.MULTILINE)
+    # Remove #| ... |# block comments (Lisp block comments)
+    code_no_block = re.sub(r"#\|[\s\S]*?\|#", "", code_no_semicolon)
     # Remove newline and tab characters, but keep spaces
-    cleaned_code = re.sub(r'[\n\t]', '', code_no_comments)
+    cleaned_code = re.sub(r"[\n\t]", "", code_no_block)
     return cleaned_code
 
 # Reward functions
-def correctness_reward_func(prompts, response, answer, **kwargs) -> list[float]:
-    knowledge_base = extract_xml_knowledge(response)
-    knowledge_base = knowledge_base.replace("```prolog", "")
+def correctness_reward_func(prompts, completions, answer, **kwargs) -> list[float]:
+    knowledge_base = extract_xml_knowledge(r)
+    knowledge_base = knowledge_base.replace("```lisp", "")
     knowledge_base = knowledge_base.replace("```", "")
-    query = extract_xml_query(response)
-    query = query.replace("```prolog", "")
+    knowledge_base = remove_lisp_comments_and_whitespace(knowledge_base)
+    query = extract_xml_query(r)
+    query = query.replace("```lisp", "")
     query = query.replace("```", "")
     query = query.replace("?-", "")
     query = query.strip()
-    knowledge_base = remove_prolog_comments_and_whitespace(knowledge_base)
-    query = remove_prolog_comments_and_whitespace(query)
+    knowledge_base = remove_lisp_comments_and_whitespace(knowledge_base)
+    query = remove_lisp_comments_and_whitespace(query)
+
     return run_with_timeout(knowledge_base, query, answer)
-
-
-
-
-
-
 
 from tqdm import tqdm
 from vllm import LLM, SamplingParams
@@ -213,11 +178,11 @@ def main(model_B, checkpoint, one_shot, length, dataset):
     SYSTEM_PROMPT = ""
     if one_shot == 0:
         SYSTEM_PROMPT = """
-        Generate a prolog solution for the asked question.
+        Generate a lisp solution for the asked question.
         Follow these steps to craft your response:
         1. reason about the given instruction
-        2. provide a high-quality prolog solution
-        3. write a query to verify the solution.
+        2. provide a high-quality lisp solution
+        3. write a function call to verify the solution.
         Output in the following format:
         <reasoning>
         ...
@@ -225,19 +190,19 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         <code>
         ...
         </code>
-        <query>
+        <funcall>
         ...
-        </query>
+        </funcall>
 
-        Write the query just inside <query></query> not in <code></code>. Implement the logic in prolog.
+        Write the function call just inside <funcall></funcall> not in <code></code>. Implement the logic in lisp.
         """
     elif one_shot == 1:
         SYSTEM_PROMPT = """
-        Generate a prolog solution for the asked question.
+        Generate a lisp solution for the asked question.
         Follow these steps to craft your response:
         1. reason about the given instruction
-        2. provide a high-quality prolog solution
-        3. write a query to verify the solution.
+        2. provide a high-quality lisp solution
+        3. write a function call to verify the solution.
         Output in the following format:
         <reasoning>
         ...
@@ -245,12 +210,14 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         <code>
         ...
         </code>
-        <query>
         ...
-        </query>
+        </code>
+        <funcall>
+        ...
+        </funcall>
 
-        Write the query just inside <query></query> not in <code></code>.
-        
+        Write the function call just inside <funcall></funcall> not in <code></code>.
+
         ## Example
         
         Question:
@@ -261,168 +228,24 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         </reasoning>
         
         <code>
-        cost_to_fill_tub(X) :-
-            TotalWater is 6 * 7.5,  % Total volume in gallons
-            TotalWeight is TotalWater * 8, % Total weight in pounds
-            TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
-            TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
-            X is TotalCost.
+        (defun jello-cost ()
+            (let* ((cubic-feet 6)
+                (gallons-per-cubic-foot 7.5)
+                (pounds-per-gallon 8)
+                (tablespoons-per-pound 1.5)
+                (cost-per-tablespoon 0.50)
+                (gallons (* cubic-feet gallons-per-cubic-foot))
+                (pounds (* gallons pounds-per-gallon))
+                (tablespoons (* pounds tablespoons-per-pound))
+                (cost (* tablespoons cost-per-tablespoon)))
+        cost))
         </code>
         
-        <query>
-        cost_to_fill_tub(X).
-        </query>
+        <funcall>
+        (jello-cost)
+        </funcall>
         """
-    elif one_shot == 5:
-        SYSTEM_PROMPT = """
-        Generate a prolog solution for the asked question.
-        Follow these steps to craft your response:
-        1. reason about the given instruction
-        2. provide a high-quality prolog solution
-        3. write a query to verify the solution.
-        Output in the following format:
-        <reasoning>
-        ...
-        </reasoning>
-        <code>
-        ...
-        </code>
-        <query>
-        ...
-        </query>
-
-        Write the query just inside <query></query> not in <code></code>.
-        
-        ## Example 1
-        
-        Question:
-        James decides to make a bathtub full of jello.  For every pound of water, you need 1.5 tablespoons of jello mix.  The bathtub can hold 6 cubic feet of water.  Each cubic foot of water is 7.5 gallons.  A gallon of water weighs 8 pounds.  A tablespoon of jello mix costs $0.50.  How much did he spend to fill his tub?
-        
-        <reasoning>
-        Here you are reasoning
-        </reasoning>
-        
-        <code>
-        cost_to_fill_tub(X) :-
-            TotalWater is 6 * 7.5,  % Total volume in gallons
-            TotalWeight is TotalWater * 8, % Total weight in pounds
-            TotalJelloMix is TotalWeight * 1.5,  % Total jello mix needed in tablespoons
-            TotalCost is TotalJelloMix * 0.5, % Total cost in dollars
-            X is TotalCost.
-        </code>
-        
-        <query>
-        cost_to_fill_tub(X).
-        </query>
-
-
-        ## Example 2
-
-        Question:
-        Alexis is applying for a new job and bought a new set of business clothes to wear to the interview. She went to a department store with a budget of $200 and spent $30 on a button-up shirt, $46 on suit pants, $38 on a suit coat, $11 on socks, and $18 on a belt. She also purchased a pair of shoes, but lost the receipt for them. She has $16 left from her budget. How much did Alexis pay for the shoes?
-
-        <reasoning>
-        Here you are reasoning
-        </reasoning>
-
-        <code>
-        budget(alexis, 200).
-        shirt_price(30).
-        suit_pants_price(46).
-        suit_coat_price(38).
-        socks_price(11).
-        belt_price(18).
-        left(16).
-        solve(Shoes_price) :-
-            budget(alexis, Budget),
-            shirt_price(Shirt_price),
-            suit_pants_price(Suit_pants_price),
-            suit_coat_price(Suit_coat_price),
-            socks_price(Socks_price),
-            belt_price(Belt_price),
-            left(Left),
-            {Budget = Shirt_price + Suit_pants_price + Suit_coat_price + Socks_price + Belt_price + Shoes_price + Left}.
-        </code>
-
-        <query>
-        solve(Shoes_price).
-        </query>
-
-
-        ## Example 3
-
-        Question:
-        Randy has 60 mango trees on his farm. He also has 5 less than half as many coconut trees as mango trees. How many trees does Randy have in all on his farm?
-
-        <reasoning>
-        Here you are reasoning
-        </reasoning>
-
-        <code>
-        trees(randy, mango, 60).
-        solve(Total_trees) :-
-            trees(randy, mango, Mango_trees),
-            {Half_mango_trees = Mango_trees / 2},
-            {Coconut_trees = Half_mango_trees - 5},
-            {Total_trees = Mango_trees + Coconut_trees}.
-        </code>
-
-        <query>
-        solve(Total_trees).
-        </query>
-
-
-        ## Example 4
-
-        Question:
-        A car is driving through a tunnel with many turns. After a while, the car must travel through a ring that requires a total of 4 right-hand turns. After the 1st turn, it travels 5 meters. After the 2nd turn, it travels 8 meters. After the 3rd turn, it travels a little further and at the 4th turn, it immediately exits the tunnel. If the car has driven a total of 23 meters around the ring, how far did it have to travel after the 3rd turn?
-
-        <reasoning>
-        Here you are reasoning
-        </reasoning>
-
-        <code>
-        right_turns(car, 4).
-        turn(car, 1, 5).
-        turn(car, 2, 8).
-        turn(car, 4, 0).
-        total_distance(car, 23).
-        solve(Distance_after_3rd_turn) :-
-            turn(car, 1, Distance_at_1st_turn),
-            turn(car, 2, Distance_at_2nd_turn),
-            turn(car, 4, Distance_at_4th_turn),
-            total_distance(car, Total_distance),
-            {Total_distance = Distance_at_1st_turn + Distance_at_2nd_turn + Distance_after_3rd_turn + Distance_at_4th_turn}.
-        </code>
-
-        <query>
-        solve(Distance_after_3rd_turn).
-        </query>
-
-
-        ## Example 5
-
-        Question:
-        Leo's assignment was divided into three parts. He finished the first part of his assignment in 25 minutes. It took him twice as long to finish the second part. If he was able to finish his assignment in 2 hours, how many minutes did Leo finish the third part of the assignment?
-
-        <reasoning>
-        Here you are reasoning
-        </reasoning>
-
-        <code>
-        assignment_part_time(leo, part1, 25).
-        assignment_total_time(leo, 120).
-        solve(Part3_time) :-
-            assignment_part_time(leo, part1, Part1_time),
-            assignment_total_time(leo, Total_time),
-            {Part1_time + Part2_time + Part3_time = Total_time},
-            {Part2_time = 2 * Part1_time}.
-        </code>
-
-        <query>
-        solve(Part3_time).
-        </query>
-        """
+    
     model_B = str(model_B)
     checkpoint = str(checkpoint)
     dataset = str(dataset).strip()
@@ -434,8 +257,6 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         one_shot = ""
     elif one_shot == 1:
         one_shot = "_one_shot"
-    elif one_shot == 5:
-        one_shot = "_five_shot"
     if checkpoint != "":
         model_dir = "Qwen-" + model_B + "B" + one_shot + length + "/checkpoint-" + checkpoint
         merged_model_dir = "merged_models/" + model_dir
