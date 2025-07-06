@@ -4,5 +4,5 @@ captum
 accelerate
 pyswip
 unsloth
-vllm
+vllm=0.7.3
 wandb

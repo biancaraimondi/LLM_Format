@@ -8,7 +8,7 @@ from unsloth import FastLanguageModel, is_bfloat16_supported
 import vllm
 import numpy as np
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "5"
+# os.environ["CUDA_VISIBLE_DEVICES"] = "5"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -21,7 +21,7 @@ def get_model(lora_path):
         model_name = lora_path,
         max_seq_length = max_seq_length,
         load_in_4bit = True, # False for LoRA 16bit
-        fast_inference = True, # Enable vLLM fast inference
+        fast_inference = False, # Enable vLLM fast inference
         max_lora_rank = lora_rank,
         gpu_memory_utilization = 0.2, # Reduce if out of memory
     )
@@ -83,6 +83,19 @@ def get_gsm8k_questions(SYSTEM_PROMPT, split = "train") -> Dataset:
         'answer': extract_hash_answer(x['answer'])
     }) # type: ignore
     return data # type: ignore
+
+def get_gsm_symbolic_questions(SYSTEM_PROMPT, p, split = "test") -> Dataset:
+    data = load_dataset('apple/GSM-Symbolic', p)[split]
+    # Limit to 1300 samples
+    data = data.select(range(min(1300, len(data))))
+    data = data.map(lambda x: {
+        'prompt': [
+            {'role': 'system', 'content': SYSTEM_PROMPT},
+            {'role': 'user', 'content': x['question']}
+        ],
+        'answer': extract_hash_answer(x['answer'])
+    })
+    return data
 
 
 def split_prolog_rules(code):
@@ -209,7 +222,7 @@ from vllm import LLM, SamplingParams
 import pandas as pd
 
 
-def main(model_B, checkpoint, one_shot, length, dataset):
+def main(model_B, checkpoint, one_shot, length, dataset, p="p1"):
     SYSTEM_PROMPT = ""
     if one_shot == 0:
         SYSTEM_PROMPT = """
@@ -463,6 +476,8 @@ def main(model_B, checkpoint, one_shot, length, dataset):
         results_dir = results_dir + "/" + model_B + ".csv"
     if dataset == "rosetta2":
         results_dir = results_dir.replace(".csv", "_rosetta2.csv")
+    elif dataset == "GSM-Symbolic":
+        results_dir = results_dir.replace(".csv", "_gsm_symbolic_"+p+".csv")
 
     if os.path.exists(results_dir):
         print(f"Results for {model_dir} already exists.")
@@ -517,7 +532,37 @@ def main(model_B, checkpoint, one_shot, length, dataset):
             list_of_reward.append(different_match)
             list_of_responses.append(different_responses)
             collection_results = np.array(list_of_reward)
+            print("results_dir: ", results_dir)
             print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
+    elif dataset == "GSM-Symbolic":
+        gsm_symbolic_dataset = get_gsm_symbolic_questions(SYSTEM_PROMPT, p, "test")
+        for idx, entry in tqdm(enumerate(gsm_symbolic_dataset)):
+            different_match = []
+            different_responses = []
+            prompt = [
+                {"role" : "system", "content" : SYSTEM_PROMPT},
+                {"role" : "user", "content" : entry["question"]},
+            ]
+            questions.append(entry["question"])
+
+            text = tokenizer.apply_chat_template(prompt, tokenize = False, add_generation_prompt = True)#, return_tensors = "pt",).to("cuda")
+            sentences = vllm_model.generate(
+                [text],
+                sampling_params=sampling_params,
+            )
+
+            for sentence in sentences[0].outputs:
+                sentence = sentence.text
+                different_match.append(correctness_reward_func(None, sentence, entry["answer"]))
+                different_responses.append(sentence)
+            current_sum += sum(different_match) / len(different_match)
+            list_of_reward.append(different_match)
+            list_of_responses.append(different_responses)
+
+            collection_results = np.array(list_of_reward)
+            print("results_dir: ", results_dir)
+            print("iter: ", idx, "/", len(gsm_symbolic_dataset))
+            print("CURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
     else:
         ### ----- TESTING GSM8K DATASET ----- ###
         dataset = get_gsm8k_questions(SYSTEM_PROMPT, "test")
@@ -552,6 +597,7 @@ def main(model_B, checkpoint, one_shot, length, dataset):
             list_of_responses.append(different_responses)
 
             collection_results = np.array(list_of_reward)
+            print("results_dir: ", results_dir)
             print("\nCURRENT ACCURACY: ", (collection_results.sum(1) > 0).sum() / len(collection_results))
 
     # from list_of_reward create a df
