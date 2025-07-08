@@ -1,13 +1,14 @@
 #models_B=('7' '3' '1.5' '0.5')
 # one_shots=(0 1 5)
+# checkpoints=('500' '1000' '1500')
 # lengths=('_' '_length' '_length_plus')
 # datasets=('rosetta' '' 'GSM-Symbolic')
 models_B=('7')
-checkpoints=('500' '1000' '1500')
-one_shots=(0 1)
-lengths=('_' '_length' '_length_plus')
+checkpoints=('1000' '1500')
+one_shots=(1)
+lengths=('_')
 datasets=('GSM-Symbolic')
-ps=('p1' 'p2')
+ps=('p1')
 
 for model_B in "${models_B[@]}"
 do
