@@ -1,13 +1,11 @@
 # LLM_Format
 
-run with the following command:
+run with the following command to train the models:
 ```
-python src/main.py
-```
-
-or run using script with the following command:
-```
-./main.sh
+./train.sh
 ```
 
-or use the Jupyter Notebook `src/main.ipynb`.
+then, run with the following command to test the models:
+```
+./test.sh
+```
