@@ -8,7 +8,7 @@ Underrepresented Languages </h1>
   <strong>Maurizio Gabbrielli</strong><sup>1</sup>
 </p>
 <p align="center">
-  <sup>1</sup>University of Bologna, Bologna, Italy<br>
+  <sup>1</sup>Department of Computer Science and Engineering, Alma Mater Studiorum — Università di Bologna,  Bologna, Italy<br>
 </p>
 <p align="center">
    <a href="https://arxiv.org/abs/2506.11027"><img src="https://img.shields.io/badge/arXiv-2506.11027-b31b1b.svg?style=flat-square" alt="Paper"></a>
