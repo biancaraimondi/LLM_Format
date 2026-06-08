@@ -266,7 +266,8 @@ def main(model_B, one_shot):
 
     os.environ["WANDB_PROJECT"] = "prolog_length"
     os.environ["WANDB_LOG_MODEL"] = "checkpoint"
-    os.environ["WANDB_ENTITY"] = "halykoss"
+    
+    os.environ["WANDB_ENTITY"] = "halykoss" # modify with your wandb username
 
 
     def extract_xml_knowledge(text: str) -> str:
