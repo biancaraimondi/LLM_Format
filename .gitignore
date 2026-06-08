@@ -8,3 +8,10 @@ grpo_saved_lora_model
 /Qwen-*
 merged_models
 ff.txt
+
+data/dataset_task.txt
+data/dataset.csv
+data/task_names.txt
+data/task_names_preprocessed.txt
+data/train-00000-of-00001-8b4da49264116bbf.parquet
+data/train.jsonl
